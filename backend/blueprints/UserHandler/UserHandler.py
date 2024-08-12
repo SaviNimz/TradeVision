@@ -9,3 +9,5 @@ def login():
 @User_handler.route('/api/logout')
 def logout():
     return 'Logout'
+
+
