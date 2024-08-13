@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, memo } from 'react';
+import React, { useEffect, useRef} from 'react';
 import styled from 'styled-components';
 
 const WidgetContainer = styled.div`
@@ -55,4 +55,4 @@ const CompanyProfile = () => {
   );
 };
 
-export default memo(CompanyProfile);
+export default CompanyProfile;
