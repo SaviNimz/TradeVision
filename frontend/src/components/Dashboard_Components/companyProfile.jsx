@@ -16,33 +16,24 @@ const WidgetContainer = styled.div`
   }
 `;
 
-function MainChart() {
-  const container = useRef();
+const CompanyProfile = () => {
+  const container = useRef(null);
 
   useEffect(() => {
     const containerElement = container.current;
 
     // Create the script element
-    const script = document.createElement("script");
-    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
-    script.type = "text/javascript";
+    const script = document.createElement('script');
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js';
+    script.type = 'text/javascript';
     script.async = true;
     script.innerHTML = JSON.stringify({
-      "width": "980",
-      "height": "600",
-      "autosize": true,
-      "symbol": "COINBASE:SOLUSD",
-      "interval": "D",
-      "timezone": "Etc/UTC",
-      "theme": "dark",
-      "style": "1",
-      "locale": "en",
-      "allow_symbol_change": true,
-      "calendar": false,
-      "support_host": "https://www.tradingview.com",
-      "hide_top_toolbar": false,
-      "hide_legend": false,
-      "show_interval_buttons": true
+      width: '900',
+      height: '400',
+      isTransparent: false,
+      colorTheme: 'light',
+      symbol: 'NASDAQ:AAPL',
+      locale: 'en',
     });
 
     containerElement.appendChild(script);
@@ -58,8 +49,10 @@ function MainChart() {
   return (
     <WidgetContainer>
       <div className="tradingview-widget-container" ref={container} />
+      <div className="tradingview-widget-copyright">
+      </div>
     </WidgetContainer>
   );
-}
+};
 
-export default memo(MainChart);
+export default memo(CompanyProfile);
