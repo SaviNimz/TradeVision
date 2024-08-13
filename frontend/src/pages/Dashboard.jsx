@@ -1,9 +1,12 @@
 import React from 'react'
+import MainChart from '../components/Dashboard_Components/MainChart'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <MainChart />
   )
 }
 
 export default Dashboard
+
+
