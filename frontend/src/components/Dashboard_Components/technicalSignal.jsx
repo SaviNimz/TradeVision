@@ -1,21 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-const WidgetContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-
-  .tradingview-widget-container {
-    width: 100%;
-    height: 100%;
-    max-width: 1200px;
-    max-height: 800px;
-  }
-`;
-
 function TechnicalSignal() {
   const container = useRef(null);
 
@@ -59,3 +44,19 @@ function TechnicalSignal() {
 }
 
 export default TechnicalSignal;
+
+
+const WidgetContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+
+  .tradingview-widget-container {
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    max-height: 800px;
+  }
+`;

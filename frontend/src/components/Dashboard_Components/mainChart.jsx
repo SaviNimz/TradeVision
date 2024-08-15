@@ -1,21 +1,6 @@
 import React, { useEffect, useRef, memo } from 'react';
 import styled from 'styled-components';
 
-const WidgetContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-
-  .tradingview-widget-container {
-    width: 100%;
-    height: 100%;
-    max-width: 1200px;
-    max-height: 800px;
-  }
-`;
-
 function MainChart() {
   const container = useRef();
 
@@ -63,3 +48,18 @@ function MainChart() {
 }
 
 export default memo(MainChart);
+
+const WidgetContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+
+  .tradingview-widget-container {
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    max-height: 800px;
+  }
+`;
