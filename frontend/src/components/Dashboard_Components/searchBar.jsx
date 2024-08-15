@@ -2,25 +2,44 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Data } from '../../utils/data';
 import debounce from 'lodash/debounce';
+import { FaSearch } from 'react-icons/fa';
 
 const SearchContainer = styled.div`
   position: relative;
   width: 100%;
+  max-width: 500px; /* Constrain width */
+  margin: 0 auto; /* Center horizontally */
+  padding: 0 15px; /* Padding for small screens */
 `;
 
-const Input = styled.input`
-  width: 100%;
-  padding: 12px 15px;
+const InputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: #fff;
   border-radius: 8px;
   border: 1px solid #ddd;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 16px;
-  outline: none;
+  padding: 0 10px;
   transition: border-color 0.3s ease;
 
-  &:focus {
+  &:focus-within {
     border-color: #007bff;
   }
+`;
+
+const Input = styled.input`
+  flex: 1;
+  padding: 12px 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  border-radius: 8px;
+`;
+
+const SearchIcon = styled(FaSearch)`
+  color: #888;
+  font-size: 18px;
+  margin-right: 8px;
 `;
 
 const Dropdown = styled.ul`
@@ -89,13 +108,16 @@ const SearchBar = () => {
 
   return (
     <SearchContainer>
-      <Input
-        ref={inputRef}
-        type="text"
-        value={query}
-        onChange={handleChange}
-        placeholder="Search stocks and crypto..."
-      />
+      <InputWrapper>
+        <SearchIcon />
+        <Input
+          ref={inputRef}
+          type="text"
+          value={query}
+          onChange={handleChange}
+          placeholder="Search stocks and crypto..."
+        />
+      </InputWrapper>
       {results.length > 0 && (
         <Dropdown>
           {results.map((item) => (
