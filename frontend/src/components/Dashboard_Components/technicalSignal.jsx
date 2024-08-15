@@ -45,18 +45,29 @@ function TechnicalSignal() {
 
 export default TechnicalSignal;
 
-
 const WidgetContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  width:  70vw;
+  height: 50vh;
+  padding: 1rem;  // Padding to ensure it doesn’t touch the viewport edges
 
   .tradingview-widget-container {
     width: 100%;
     height: 100%;
-    max-width: 1200px;
-    max-height: 800px;
+    max-width: 100%; // Ensures the widget does not exceed the container’s width
+    max-height: 100%; // Ensures the widget does not exceed the container’s height
+  }
+
+  // Media query to handle smaller screens
+  @media (max-width: 768px) {
+    padding: 0.5rem;  // Reduce padding on smaller screens
+  }
+
+  @media (max-width: 480px) {
+    .tradingview-widget-container {
+      height: 300px;  // Adjust height for very small screens
+    }
   }
 `;
