@@ -2,7 +2,7 @@ import React, { useEffect, useRef, memo } from 'react';
 import styled from 'styled-components';
 
 function MainChart() {
-  const container = useRef();
+  const container = useRef(null);
 
   useEffect(() => {
     const containerElement = container.current;
@@ -13,8 +13,8 @@ function MainChart() {
     script.type = "text/javascript";
     script.async = true;
     script.innerHTML = JSON.stringify({
-      "width": "980",
-      "height": "600",
+      "width": "100%",
+      "height": "100%",
       "autosize": true,
       "symbol": "COINBASE:SOLUSD",
       "interval": "D",
@@ -53,13 +53,19 @@ const WidgetContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  width: 90vw;
+  height: 80vh;
+  padding: 1rem;  // Padding to prevent content from touching the edges
 
   .tradingview-widget-container {
     width: 100%;
     height: 100%;
-    max-width: 1200px;
-    max-height: 800px;
+    max-width: 100%;  // Ensures the widget does not exceed the container’s width
+    max-height: 100%; // Ensures the widget does not exceed the container’s height
+  }
+
+  // Media query to handle smaller screens
+  @media (max-width: 600px) {
+    padding: 0.5rem;  // Adjust padding for smaller screens
   }
 `;
