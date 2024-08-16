@@ -53,8 +53,8 @@ const WidgetContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90vw;
-  height: 80vh;
+  width: 100%;   // Ensure full width
+  height: 100vh;  // Adjust this value as needed
   padding: 1rem;  // Padding to prevent content from touching the edges
 
   .tradingview-widget-container {
@@ -67,5 +67,6 @@ const WidgetContainer = styled.div`
   // Media query to handle smaller screens
   @media (max-width: 600px) {
     padding: 0.5rem;  // Adjust padding for smaller screens
+    height: 50vh;    // Adjust height for smaller screens if needed
   }
 `;

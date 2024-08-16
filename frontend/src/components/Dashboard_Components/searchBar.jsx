@@ -72,13 +72,17 @@ const DropdownItem = styled.li`
   }
 `;
 
-const SearchBar = () => {
+const SearchBar = ({ onSelect }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const inputRef = useRef(null);
 
   useEffect(() => {
+    console.log('Query changed:', query); // Log the query value
+
     const debouncedSearch = debounce((searchQuery) => {
+      console.log('Debounced query:', searchQuery); // Log the debounced query value
+
       if (searchQuery.length > 2) {
         const filteredResults = Data.filter(item =>
           item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -99,11 +103,15 @@ const SearchBar = () => {
 
   const handleChange = (e) => {
     setQuery(e.target.value);
+    console.log('Input changed:', e.target.value); // Log the input change
   };
 
   const handleSelect = (item) => {
     setQuery(item.name); // Update the input with the selected item
     setResults([]); // Clear the dropdown
+    if (onSelect) {
+      onSelect(item); // Pass selected item to parent
+    }
   };
 
   return (
