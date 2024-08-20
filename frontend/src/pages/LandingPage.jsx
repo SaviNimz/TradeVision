@@ -105,24 +105,24 @@ const CheckOutBox = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: rgba(255, 0, 110, 0.8); /* Futuristic pink with transparency */
+  background-color: rgba(0, 150, 255, 0.8); /* Futuristic blue with transparency */
   padding: 20px 40px;
   border-radius: 30px;
   cursor: pointer;
-  box-shadow: 0 0 20px rgba(255, 0, 110, 0.7);
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.7);
   animation: glow 1.5s infinite alternate;
 
   @keyframes glow {
     from {
-      box-shadow: 0 0 10px rgba(255, 0, 110, 0.7);
+      box-shadow: 0 0 10px rgba(0, 150, 255, 0.7);
     }
     to {
-      box-shadow: 0 0 20px rgba(255, 0, 110, 1);
+      box-shadow: 0 0 20px rgba(0, 150, 255, 1);
     }
   }
 
   &:hover {
-    box-shadow: 0 0 30px rgba(255, 0, 110, 1);
+    box-shadow: 0 0 30px rgba(0, 150, 255, 1);
   }
 `;
 
