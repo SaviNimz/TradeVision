@@ -60,12 +60,14 @@ const LandingContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 97.5vh;
   color: #fff;
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box; 
 `;
+
 
 const Title = styled.h1`
   font-size: 4rem;
