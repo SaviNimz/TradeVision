@@ -19,6 +19,7 @@ const LandingPage = () => {
           minWidth: 200.0,
           scale: 1.0,
           scaleMobile: 1.0,
+          color: 0x6cfc8,
           backgroundColor: 0x1a181d,
         });
       }
