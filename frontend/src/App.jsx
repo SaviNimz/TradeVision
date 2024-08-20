@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LoginSignupPage from './pages/loginSignupPage';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Dashboard from './pages/dashboard';
 import ForecastPage from './pages/forecastPage';
 import ProfilePage from './pages/profilePage';
@@ -9,9 +8,12 @@ import Navbar from './components/navbar';
 import LandingPage from './pages/LandingPage';
 
 function App() {
+  const location = useLocation();
+  const isLandingPage = location.pathname === '/';
+
   return (
-    <Router>
-      <Navbar />
+    <>
+      {!isLandingPage && <Navbar />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -19,8 +21,16 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/feedback" element={<FeedbackPage />} />
       </Routes>
+    </>
+  );
+}
+
+function Main() {
+  return (
+    <Router>
+      <App />
     </Router>
   );
 }
 
-export default App;
+export default Main;
