@@ -13,9 +13,23 @@ db = client['tradevision']  # database name
 users_collection = db['users']  # collection name
 
 
-@User_handler.route('/api/login')
+@User_handler.route('/api/login', methods=['POST'])
 def login():
-    return 'Login'
+    data = request.get_json()
+    
+    email = data.get('email')
+    password = data.get('password')
+
+    # Check if the user exists
+    user = users_collection.find_one({'email': email})
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    # Verify the password
+    if bcrypt.check_password_hash(user['password'], password):
+        return jsonify({'message': 'Login successful'}), 200
+    else:
+        return jsonify({'message': 'Invalid password'}), 401
 
 @User_handler.route('/api/logout')
 def logout():
