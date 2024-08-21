@@ -1,20 +1,23 @@
-// Button.js
+// ActionButton.js
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
-  background-color: #008CBA;
+const ButtonStyled = styled.button`
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #007bff;
   color: white;
-  padding: 15px 30px;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-  margin: 10px;
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
 
-const ActionButton = ({ label }) => {
-  return <StyledButton>{label}</StyledButton>;
+const ActionButton = ({ label, onClick }) => {
+  return <ButtonStyled onClick={onClick}>{label}</ButtonStyled>;
 };
 
 export default ActionButton;
+
