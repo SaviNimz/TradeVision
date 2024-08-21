@@ -1,72 +1,60 @@
-import React, { useEffect, useRef, memo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 
-function MainChart() {
-  const container = useRef(null);
+const AdvancedChartContainer = styled.section`
+  grid-column: span 2;
+  height: 550px;
+`;
 
+const ChartDiv = styled.div`
+  height: 100%;
+`;
+
+const TradingViewWidget = React.memo(({ symbol }) => {
   useEffect(() => {
-    const containerElement = container.current;
-
-    // Create the script element
-    const script = document.createElement("script");
-    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
-    script.type = "text/javascript";
+    const script = document.createElement('script');
+    script.src = "https://s3.tradingview.com/tv.js";
     script.async = true;
-    script.innerHTML = JSON.stringify({
-      "width": "100%",
-      "height": "100%",
-      "autosize": true,
-      "symbol": "COINBASE:SOLUSD",
-      "interval": "D",
-      "timezone": "Etc/UTC",
-      "theme": "dark",
-      "style": "1",
-      "locale": "en",
-      "allow_symbol_change": true,
-      "calendar": false,
-      "support_host": "https://www.tradingview.com",
-      "hide_top_toolbar": false,
-      "hide_legend": false,
-      "show_interval_buttons": true
-    });
 
-    containerElement.appendChild(script);
+    const handleScriptLoad = () => {
+      new window.TradingView.widget({
+        autosize: true,
+        symbol: symbol || 'NASDAQ:AAPL',
+        interval: 'D',
+        timezone: 'Etc/UTC',
+        theme: 'dark',
+        style: '1',
+        locale: 'en',
+        hide_side_toolbar: false,
+        allow_symbol_change: true,
+        studies: ['STD;MACD'],
+        container_id: 'tradingview_ae7da',
+      });
+    };
+
+    document.querySelector("#advanced-chart .tradingview-widget-container").appendChild(script);
+    script.onload = handleScriptLoad;
 
     // Cleanup function to remove the script when the component unmounts
     return () => {
-      if (containerElement && script.parentNode) {
-        containerElement.removeChild(script);
-      }
+      document.querySelector("#advanced-chart .tradingview-widget-container").removeChild(script);
     };
-  }, []);
+  }, [symbol]);
+
+  return <div id="tradingview_ae7da" style={{ height: '100%', width: '100%' }} />;
+});
+
+function AdvancedChart() {
+  // You can also pass other props if needed
+  const symbol = useMemo(() => 'NASDAQ:AAPL', []);
 
   return (
-    <WidgetContainer>
-      <div className="tradingview-widget-container" ref={container} />
-    </WidgetContainer>
+    <AdvancedChartContainer id="advanced-chart">
+      <ChartDiv className="tradingview-widget-container" style={{ width: '100%' }}>
+        <TradingViewWidget symbol={symbol} />
+      </ChartDiv>
+    </AdvancedChartContainer>
   );
 }
 
-export default memo(MainChart);
-
-const WidgetContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;   // Ensure full width
-  height: 100vh;  // Adjust this value as needed
-  padding: 1rem;  // Padding to prevent content from touching the edges
-
-  .tradingview-widget-container {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;  // Ensures the widget does not exceed the container’s width
-    max-height: 100%; // Ensures the widget does not exceed the container’s height
-  }
-
-  // Media query to handle smaller screens
-  @media (max-width: 600px) {
-    padding: 0.5rem;  // Adjust padding for smaller screens
-    height: 50vh;    // Adjust height for smaller screens if needed
-  }
-`;
+export default AdvancedChart;
