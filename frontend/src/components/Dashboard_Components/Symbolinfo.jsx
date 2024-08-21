@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const SymbolInfoContainer = styled.section`
   grid-column: span 2;
   margin-top: 32px;
+  padding: 0 80px; /* Add padding from left and right */
 `;
 
 

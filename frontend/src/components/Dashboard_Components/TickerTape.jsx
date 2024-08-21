@@ -48,10 +48,9 @@ export default TickerTape;
 
 
 const TickerTapeContainer = styled.nav`
-  width: 100%;
   margin-bottom: 32px;
   margin-top: 32px;
-  padding: 0 16px; /* Add padding from left and right */
+  padding: 0 40px; /* Add padding from left and right */
   border-radius: 40px; /* Round corners */
   background-color: rgba(255, 255, 255, 0.1); /* Optional: Add a background color */
 `;

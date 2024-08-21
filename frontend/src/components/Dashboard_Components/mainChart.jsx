@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const AdvancedChartContainer = styled.section`
   grid-column: span 2;
   height: 550px;
+  padding: 0 16px; /* Add padding from left and right */
 `;
 
 const ChartDiv = styled.div`
@@ -27,7 +28,6 @@ const TradingViewWidget = React.memo(({ symbol }) => {
         locale: 'en',
         hide_side_toolbar: false,
         allow_symbol_change: true,
-        studies: ['STD;MACD'],
         container_id: 'tradingview_ae7da',
       });
     };
