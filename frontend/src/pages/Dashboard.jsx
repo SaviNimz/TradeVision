@@ -4,6 +4,8 @@ import AdvancedChart from '../components/Dashboard_Components/MainChart';
 import SearchBar from '../components/Dashboard_Components/SearchBar';
 import TickerTape from '../components/Dashboard_Components/TickerTape';
 import SymbolInfo from '../components/Dashboard_Components/Symbolinfo';
+import GainersChart from '../components/Dashboard_Components/GainersChart';
+
 const Dashboard = () => {
 
   return (
@@ -12,7 +14,7 @@ const Dashboard = () => {
       <TickerTape />
       <main>
         <AdvancedChart/>
-        <SymbolInfo/>
+        <GainersChart/>
       </main>
     </div>
   );

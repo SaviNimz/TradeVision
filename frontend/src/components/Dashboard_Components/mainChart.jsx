@@ -3,8 +3,12 @@ import styled from 'styled-components';
 
 const AdvancedChartContainer = styled.section`
   grid-column: span 2;
-  height: 550px;
+  height: 600px;
   padding: 0 16px; /* Add padding from left and right */
+
+  @media (max-width: 768px) {
+    height: 600px;
+  }
 `;
 
 const ChartDiv = styled.div`
