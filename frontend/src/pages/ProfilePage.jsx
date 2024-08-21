@@ -23,7 +23,7 @@ const ProfilePage = () => {
 
   const handleGenerateForecasts = () => {
     console.log('Navigating to /CsvForecast');
-    navigate('/CsvForecast');
+    navigate('/CsvUpload');
   };
 
   return (

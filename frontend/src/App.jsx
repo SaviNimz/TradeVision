@@ -21,7 +21,7 @@ function App() {
         <Route path="/forecast" element={<StockForecastPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/feedback" element={<FeedbackPage />} />
-        <Route path='/CsvForecast' element={<CSVUploadPage />} />
+        <Route path='/CsvUpload' element={<CSVUploadPage />} />
       </Routes>
     </>
   );
