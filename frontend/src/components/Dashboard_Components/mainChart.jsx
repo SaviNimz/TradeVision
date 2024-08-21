@@ -41,7 +41,10 @@ const TradingViewWidget = React.memo(({ symbol }) => {
 
     // Cleanup function to remove the script when the component unmounts
     return () => {
-      document.querySelector("#advanced-chart .tradingview-widget-container").removeChild(script);
+      const container = document.querySelector("#advanced-chart .tradingview-widget-container");
+      if (container && script) {
+        container.removeChild(script); // Only run if container exists
+      }
     };
   }, [symbol]);
 
