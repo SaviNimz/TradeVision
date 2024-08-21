@@ -31,7 +31,10 @@ function TickerTape() {
 
     // Cleanup function to remove the script when the component unmounts
     return () => {
-      document.querySelector("#ticker-tape .tradingview-widget-container").innerHTML = "";
+      const container = document.querySelector("#ticker-tape .tradingview-widget-container");
+      if (container) {
+        container.innerHTML = ""; // Only run if container exists
+      }
     };
   }, []); // Ensure it runs only once
 
@@ -45,7 +48,6 @@ function TickerTape() {
 }
 
 export default TickerTape;
-
 
 const TickerTapeContainer = styled.nav`
   margin-bottom: 32px;
