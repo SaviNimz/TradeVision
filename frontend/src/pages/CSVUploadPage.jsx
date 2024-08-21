@@ -30,7 +30,7 @@ const ForegroundContent = styled.div`
   z-index: 1; /* Bring child elements in front */
 `;
 
-const ForecastPage = () => {
+const CSVUploadPage = () => {
   return (
     <ForecastPageContainer>
       <BackgroundBlur />
@@ -41,4 +41,4 @@ const ForecastPage = () => {
   );
 };
 
-export default ForecastPage;
+export default CSVUploadPage;
