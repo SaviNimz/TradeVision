@@ -39,7 +39,6 @@ const NavList = styled.ul`
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;
     background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
     padding: 1rem 0;
     box-shadow: 0 8px 10px rgba(0, 0, 0, 0.5);
