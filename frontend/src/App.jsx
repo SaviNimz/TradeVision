@@ -6,7 +6,6 @@ import ProfilePage from './pages/profilePage';
 import FeedbackPage from './pages/feedBackPage';
 import Navbar from './components/navbar';
 import LandingPage from './pages/LandingPage';
-import CsvForecastPage from './pages/CsvForecastPage';
 
 function App() {
   const location = useLocation();
@@ -21,7 +20,7 @@ function App() {
         <Route path="/forecast" element={<ForecastPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/feedback" element={<FeedbackPage />} />
-        <Route path="/CsvForecast" element={<CsvForecastPage/>} />
+        <Route path='/CsvForecast' element={<ForecastPage />} />
       </Routes>
     </>
   );
