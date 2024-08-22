@@ -32,6 +32,7 @@ const TableContainer = styled.div`
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
+  border-radius: 20px;
   margin-top: 8px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 13px; // Smaller font size for compactness
