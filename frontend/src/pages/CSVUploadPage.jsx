@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import FileUploadCard from '../components/CSVforecast/UploadButton';
 import CSVTable from '../components/CSVforecast/CSVTable';
+import SelectComponent from '../components/CSVforecast/SelectComponent';
 import styled from 'styled-components';
 import bgimg from '../assets/forecast page.jpg';
 
@@ -34,6 +35,12 @@ const ForegroundContent = styled.div`
   align-items: center;
 `;
 
+const TableContainer = styled.div`
+  max-height: 300px; // Adjust this value as needed
+  overflow-y: auto;  // Enables vertical scrolling if content exceeds max height
+  margin-bottom: 20px; // Space between table and select component
+`;
+
 const CSVUploadPage = () => {
     const [csvData, setCsvData] = useState([]);
 
@@ -45,9 +52,18 @@ const CSVUploadPage = () => {
         <ForecastPageContainer>
             <BackgroundBlur />
             <ForegroundContent>
-                <FileUploadCard onUploadSuccess={handleUploadSuccess} />
-                {csvData.length > 0 && <CSVTable data={csvData} />}
-            </ForegroundContent>
+              {csvData.length === 0 && (
+                  <FileUploadCard onUploadSuccess={handleUploadSuccess} />
+              )}
+              {csvData.length > 0 && (
+                  <>
+                      <TableContainer>
+                          <CSVTable data={csvData} />
+                      </TableContainer>
+                      <SelectComponent /> {/* Render the SelectComponent below the table */}
+                  </>
+              )}
+          </ForegroundContent>
         </ForecastPageContainer>
     );
 };
