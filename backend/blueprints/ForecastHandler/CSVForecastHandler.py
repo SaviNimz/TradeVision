@@ -6,17 +6,9 @@ from blueprints.Validators.csv_validator import CSVValidator
 
 CSV_Forecast_handler = blueprints.Blueprint('csv_forecast_handler', __name__)
 
-# Define allowed file types (you can add more extensions if needed)
-ALLOWED_EXTENSIONS = {'csv'}
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 UPLOAD_FOLDER = 'UPLOAD_FOLDER'
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
-
 
 # Define the route to handle file uploads
 @CSV_Forecast_handler.route('/api/CSVupload', methods=['POST'])
@@ -31,7 +23,7 @@ def forecast():
     # creating a validator object
     validator = CSVValidator()
 
-    if file and validator.allowed_file(file.filename):
+    if file:
         filename = secure_filename(file.filename)
         file_path = os.path.join(UPLOAD_FOLDER, filename)
         file.save(file_path)
