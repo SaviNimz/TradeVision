@@ -30,9 +30,9 @@ def forecast():
 
         # Validation checks
         if not validator.validate_csv_structure(file_path):
-            return jsonify({'error': 'Invalid CSV structure'}), 400
-        if not validator.check_empty_rows(file_path):
-            return jsonify({'error': 'CSV contains empty rows'}), 400
+            return jsonify({'error': 'Invalid CSV structure Your CSV file should contain date, open, high, low, close, volume Columns.'}), 400
+        if not validator.check_empty_columns(file_path):
+            return jsonify({'error': 'CSV contains empty columns'}), 400
         if not validator.validate_data_types(file_path):
             return jsonify({'error': 'Invalid data types in CSV'}), 400
         if not validator.check_duplicate_rows(file_path):
