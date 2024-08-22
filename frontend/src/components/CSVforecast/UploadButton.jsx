@@ -55,6 +55,8 @@ const FileUploadCard = ({ onUploadSuccess }) => {
                 method: 'POST',
                 body: formData,
             });
+
+            // There is no need to call the backend again ( find a way to not use this way)
             const data = await response.json();
 
             if (response.ok) {
