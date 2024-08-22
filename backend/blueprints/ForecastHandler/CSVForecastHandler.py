@@ -38,6 +38,7 @@ def forecast():
         return jsonify({'success': 'File uploaded and processed successfully'}), 200
     else:
         return jsonify({'error': 'Invalid file type'}), 400
+    
 @CSV_Forecast_handler.route('/api/forecast/save')
 def save():
     return 'Save'

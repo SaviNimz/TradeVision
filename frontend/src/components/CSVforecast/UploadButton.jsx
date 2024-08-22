@@ -15,10 +15,9 @@ const FileUploadCard = () => {
         if (selectedFile) {
             const fileType = selectedFile.type;
 
-            // Check if the uploaded file is a CSV
             if (fileType !== 'text/csv' && fileType !== 'application/vnd.ms-excel') {
                 toast.error('Only CSV files are accepted.', {
-                    autoClose: 1500, // Toast message duration
+                    autoClose: 1500,
                 });
                 return;
             }
@@ -26,7 +25,7 @@ const FileUploadCard = () => {
             setFile(selectedFile);
             setMessage('');
             toast.success('File uploaded successfully!', {
-                autoClose: 1500, // Toast message duration
+                autoClose: 1500,
             });
         }
     };
@@ -35,17 +34,38 @@ const FileUploadCard = () => {
         setFile(null);
         setMessage('');
         toast.info('File removed.', {
-            autoClose: 1500, 
+            autoClose: 1500,
         });
     };
 
-    const handleUploadClick = () => {
+    const handleUploadClick = async () => {
         if (!file) {
             setMessage('Please select a file.');
-        } else {
-            toast.info('Upload Successful !', {
-                autoClose: 1500, 
-            }); 
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('http://localhost:5000/api/CSVupload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                toast.success('File uploaded successfully!', {
+                    autoClose: 1500,
+                });
+            } else {
+                toast.error('Failed to upload file.', {
+                    autoClose: 1500,
+                });
+            }
+        } catch (error) {
+            toast.error('An error occurred during upload.', {
+                autoClose: 1500,
+            });
         }
     };
 
