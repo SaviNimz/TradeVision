@@ -6,12 +6,12 @@ import { FaFileCsv } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
 import ErrorMessage from './ErrorMessage';
 
-const FileUploadCard = () => {
+const FileUploadCard = ({ onUploadSuccess }) => {
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState(''); // State for error message
+    const [errorMessage, setErrorMessage] = useState('');
     const [errorModalOpen, setErrorModalOpen] = useState(false);
-    
+
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
 
@@ -56,28 +56,28 @@ const FileUploadCard = () => {
                 body: formData,
             });
             const data = await response.json();
-            console.log(data);
+
             if (response.ok) {
                 toast.success('File uploaded successfully!', {
                     autoClose: 1500,
                 });
+                onUploadSuccess(data.data); // Pass the CSV data to the parent component
             } else {
-                // Set the error message from the backend
-                const errorMessage = data.error || 'An unknown error occurred.'; // Fallback message
+                const errorMessage = data.error || 'An unknown error occurred.';
                 setErrorMessage(errorMessage);
                 toast.error(errorMessage, {
                     autoClose: 1500,
                 });
-                setErrorModalOpen(true); // Open the error modal with the error message
+                setErrorModalOpen(true);
             }
         } catch (error) {
-            setErrorMessage('An error occurred while uploading the file.'); // Set a general error message
-            setErrorModalOpen(true); // Open the error modal
+            setErrorMessage('An error occurred while uploading the file.');
+            setErrorModalOpen(true);
         }
     };
 
     const handleCloseModal = () => {
-        setErrorModalOpen(false); // Close the error modal
+        setErrorModalOpen(false);
     };
 
     return (
