@@ -3,6 +3,7 @@ from flask import request, jsonify
 import os
 from werkzeug.utils import secure_filename
 from blueprints.Validators.csv_validator import CSVValidator
+import pandas as pd
 
 CSV_Forecast_handler = blueprints.Blueprint('csv_forecast_handler', __name__)
 
@@ -37,7 +38,19 @@ def forecast():
             return jsonify({'error': 'Invalid data types in CSV'}), 400
         if not validator.check_duplicate_rows(file_path):
             return jsonify({'error': 'CSV contains duplicate rows'}), 400
-        return jsonify({'success': 'File uploaded and processed successfully'}), 200
+
+        # sending the processed data to the frontend
+        # make this modular later
+        try:
+            df = pd.read_csv(file_path)
+            # Convert the DataFrame to a list of dictionaries
+            csv_data = df.to_dict(orient='records')
+
+            return jsonify({'success': 'File uploaded and processed successfully', 'data': csv_data}), 200
+
+        except Exception as e:
+            return jsonify({'error': f'Failed to read the CSV file: {str(e)}'}), 500
+        
     else:
         return jsonify({'error': 'Invalid file type'}), 400
     
