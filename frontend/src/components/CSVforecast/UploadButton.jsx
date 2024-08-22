@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaFileCsv } from 'react-icons/fa'; // Importing a CSV file icon
-import { AiOutlineClose } from 'react-icons/ai'; // Importing a close icon
+import { FaFileCsv } from 'react-icons/fa';
+import { AiOutlineClose } from 'react-icons/ai';
+import ErrorMessage from './ErrorMessage';
 
-const FileUploadCard = () => {
+const FileUploadCard = ({ onUploadSuccess }) => {
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [errorModalOpen, setErrorModalOpen] = useState(false);
 
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
@@ -15,18 +18,17 @@ const FileUploadCard = () => {
         if (selectedFile) {
             const fileType = selectedFile.type;
 
-            // Check if the uploaded file is a CSV
             if (fileType !== 'text/csv' && fileType !== 'application/vnd.ms-excel') {
                 toast.error('Only CSV files are accepted.', {
-                    autoClose: 1500, // Toast message duration
+                    autoClose: 1500,
                 });
                 return;
             }
 
             setFile(selectedFile);
             setMessage('');
-            toast.success('File uploaded successfully!', {
-                autoClose: 1500, // Toast message duration
+            toast.success('File added successfully!', {
+                autoClose: 1500,
             });
         }
     };
@@ -35,18 +37,49 @@ const FileUploadCard = () => {
         setFile(null);
         setMessage('');
         toast.info('File removed.', {
-            autoClose: 1500, 
+            autoClose: 1500,
         });
     };
 
-    const handleUploadClick = () => {
+    const handleUploadClick = async () => {
         if (!file) {
             setMessage('Please select a file.');
-        } else {
-            toast.info('Upload Successful !', {
-                autoClose: 1500, 
-            }); 
+            return;
         }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('http://localhost:5000/api/CSVupload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            // There is no need to call the backend again ( find a way to not use this way)
+            const data = await response.json();
+
+            if (response.ok) {
+                toast.success('File uploaded successfully!', {
+                    autoClose: 1500,
+                });
+                onUploadSuccess(data.data); // Pass the CSV data to the parent component
+            } else {
+                const errorMessage = data.error || 'An unknown error occurred.';
+                setErrorMessage(errorMessage);
+                toast.error(errorMessage, {
+                    autoClose: 1500,
+                });
+                setErrorModalOpen(true);
+            }
+        } catch (error) {
+            setErrorMessage('An error occurred while uploading the file.');
+            setErrorModalOpen(true);
+        }
+    };
+
+    const handleCloseModal = () => {
+        setErrorModalOpen(false);
     };
 
     return (
@@ -65,6 +98,9 @@ const FileUploadCard = () => {
             <UploadButton onClick={handleUploadClick}>Upload</UploadButton>
             {message && <Message>{message}</Message>}
             <ToastContainer />
+            {errorModalOpen && (
+                <ErrorMessage message={errorMessage} onClose={handleCloseModal} />
+            )}
         </Card>
     );
 };
@@ -91,12 +127,12 @@ const Card = styled.div`
 const Title = styled.h3`
     margin: 0 0 20px;
     font-size: 1.8rem;
-    color: #2c3e50; // A darker shade for professionalism
+    color: #2c3e50;
 `;
 
 const Input = styled.input`
     margin-bottom: 15px;
-    border: 2px solid #2980b9; // A blue color for a financial theme
+    border: 2px solid #2980b9;
     border-radius: 8px;
     padding: 12px;
     width: 100%;
@@ -104,13 +140,13 @@ const Input = styled.input`
     transition: border-color 0.3s;
 
     &:focus {
-        border-color: #1c6691; // A darker blue for focus
+        border-color: #1c6691;
         outline: none;
     }
 `;
 
 const UploadButton = styled.button`
-    background-color: #27ae60; // A modern green color
+    background-color: #27ae60;
     color: white;
     border: none;
     border-radius: 8px;
@@ -120,8 +156,9 @@ const UploadButton = styled.button`
     transition: background-color 0.3s;
     width: 100%;
     margin-top: 25px;
+
     &:hover {
-        background-color: #219653; // A slightly darker green on hover
+        background-color: #219653;
     }
 `;
 
@@ -138,17 +175,17 @@ const FileInfo = styled.div`
 `;
 
 const FileIcon = styled(FaFileCsv)`
-font-size: 3rem;
-    color: #27ae60; // Match the green theme
+    font-size: 3rem;
+    color: #27ae60;
 `;
 
 const CloseIcon = styled(AiOutlineClose)`
     margin-left: 10px;
     font-size: 1.5rem;
-    color: #c0392b; // A more muted red for the close icon
+    color: #c0392b;
     cursor: pointer;
 
     &:hover {
-        color: #a93226; // A darker shade for hover effect
+        color: #a93226;
     }
 `;
