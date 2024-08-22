@@ -14,10 +14,10 @@ class CSVValidator:
         actual_columns = [col.lower() for col in df.columns]
         return set(self.expected_columns).issubset(actual_columns)
 
-    def check_empty_rows(self, file_path):
+    def check_empty_columns(self, file_path):
         df = pd.read_csv(file_path)
-        return not df.isnull().all(axis=1).any()
-
+        return not df.isnull().all(axis=0).any()
+    
     def validate_data_types(self, file_path):
         df = pd.read_csv(file_path)
 
