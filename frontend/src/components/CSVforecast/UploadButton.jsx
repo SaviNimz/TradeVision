@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaFileCsv } from 'react-icons/fa'; // Importing a CSV file icon
-import { AiOutlineClose } from 'react-icons/ai'; // Importing a close icon
+import { FaFileCsv } from 'react-icons/fa';
+import { AiOutlineClose } from 'react-icons/ai';
+import ErrorMessage from './ErrorMessage';
 
 const FileUploadCard = () => {
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState('');
-
+    const [errorMessage, setErrorMessage] = useState(''); // State for error message
+    const [errorModalOpen, setErrorModalOpen] = useState(false);
+    
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
 
@@ -59,16 +62,22 @@ const FileUploadCard = () => {
                     autoClose: 1500,
                 });
             } else {
-                const errorMessage = data.error ;
+                // Set the error message from the backend
+                const errorMessage = data.error || 'An unknown error occurred.'; // Fallback message
+                setErrorMessage(errorMessage);
                 toast.error(errorMessage, {
                     autoClose: 1500,
                 });
+                setErrorModalOpen(true); // Open the error modal with the error message
             }
         } catch (error) {
-            toast.error('An error occurred during upload.', {
-                autoClose: 1500,
-            });
+            setErrorMessage('An error occurred while uploading the file.'); // Set a general error message
+            setErrorModalOpen(true); // Open the error modal
         }
+    };
+
+    const handleCloseModal = () => {
+        setErrorModalOpen(false); // Close the error modal
     };
 
     return (
@@ -87,6 +96,9 @@ const FileUploadCard = () => {
             <UploadButton onClick={handleUploadClick}>Upload</UploadButton>
             {message && <Message>{message}</Message>}
             <ToastContainer />
+            {errorModalOpen && (
+                <ErrorMessage message={errorMessage} onClose={handleCloseModal} />
+            )}
         </Card>
     );
 };
@@ -113,12 +125,12 @@ const Card = styled.div`
 const Title = styled.h3`
     margin: 0 0 20px;
     font-size: 1.8rem;
-    color: #2c3e50; // A darker shade for professionalism
+    color: #2c3e50;
 `;
 
 const Input = styled.input`
     margin-bottom: 15px;
-    border: 2px solid #2980b9; // A blue color for a financial theme
+    border: 2px solid #2980b9;
     border-radius: 8px;
     padding: 12px;
     width: 100%;
@@ -126,13 +138,13 @@ const Input = styled.input`
     transition: border-color 0.3s;
 
     &:focus {
-        border-color: #1c6691; // A darker blue for focus
+        border-color: #1c6691;
         outline: none;
     }
 `;
 
 const UploadButton = styled.button`
-    background-color: #27ae60; // A modern green color
+    background-color: #27ae60;
     color: white;
     border: none;
     border-radius: 8px;
@@ -142,8 +154,9 @@ const UploadButton = styled.button`
     transition: background-color 0.3s;
     width: 100%;
     margin-top: 25px;
+
     &:hover {
-        background-color: #219653; // A slightly darker green on hover
+        background-color: #219653;
     }
 `;
 
@@ -160,17 +173,17 @@ const FileInfo = styled.div`
 `;
 
 const FileIcon = styled(FaFileCsv)`
-font-size: 3rem;
-    color: #27ae60; // Match the green theme
+    font-size: 3rem;
+    color: #27ae60;
 `;
 
 const CloseIcon = styled(AiOutlineClose)`
     margin-left: 10px;
     font-size: 1.5rem;
-    color: #c0392b; // A more muted red for the close icon
+    color: #c0392b;
     cursor: pointer;
 
     &:hover {
-        color: #a93226; // A darker shade for hover effect
+        color: #a93226;
     }
 `;
