@@ -24,7 +24,7 @@ const FileUploadCard = () => {
 
             setFile(selectedFile);
             setMessage('');
-            toast.success('File uploaded successfully!', {
+            toast.success('File added successfully!', {
                 autoClose: 1500,
             });
         }
@@ -52,13 +52,15 @@ const FileUploadCard = () => {
                 method: 'POST',
                 body: formData,
             });
-
+            const data = await response.json();
+            console.log(data);
             if (response.ok) {
                 toast.success('File uploaded successfully!', {
                     autoClose: 1500,
                 });
             } else {
-                toast.error('Failed to upload file.', {
+                const errorMessage = data.error ;
+                toast.error(errorMessage, {
                     autoClose: 1500,
                 });
             }
