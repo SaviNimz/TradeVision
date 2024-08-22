@@ -2,7 +2,7 @@ from flask import blueprints
 from flask import request, jsonify
 import os
 from werkzeug.utils import secure_filename
-from blueprints.Validators.csv_validator import CSVValidator
+from blueprints.ML_Pipeline.csv_validator import CSVValidator
 import pandas as pd
 
 CSV_Forecast_handler = blueprints.Blueprint('csv_forecast_handler', __name__)
