@@ -15,11 +15,13 @@ The frontend is built with React, and yarn as the package manager.
 
    ```bash
    cd frontend
- 
+2. Install dependencies
+   ```bash
    yarn install
 
-   yarn dev
-   
+3. Start the development server
    ```bash
+   yarn dev
+
 
 
