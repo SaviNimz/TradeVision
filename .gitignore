@@ -1,3 +1,4 @@
 .anima/cache/
 .anima
 __pycache__/
+env/
