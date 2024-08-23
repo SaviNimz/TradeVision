@@ -5,9 +5,11 @@ import { FaChartLine, FaRegChartBar, FaRegEye } from 'react-icons/fa';
 const SelectComponent = ({ csvData }) => {
   const [column, setColumn] = useState('');
   const [selectedMethods, setSelectedMethods] = useState([]);
+  const [toastMessage, setToastMessage] = useState('');
 
   const handleColumnChange = (event) => {
     setColumn(event.target.value);
+    setToastMessage(''); // Clear toast message on column change
   };
 
   const handleMethodChange = (method) => {
@@ -16,31 +18,38 @@ const SelectComponent = ({ csvData }) => {
         ? prevMethods.filter((m) => m !== method)
         : [...prevMethods, method]
     );
+    setToastMessage(''); // Clear toast message on method change
   };
 
   const handleForecast = async () => {
+    // Check if a column and at least one method is selected
+    if (!column || selectedMethods.length === 0) {
+      setToastMessage('You need to select a Column and Model to Continue');
+      return;
+    }
+
     // Prepare data to send to the backend
     const payload = {
       column,
       methods: selectedMethods,
-      csvData, 
+      csvData,
     };
-  
+
     console.log("Payload to be sent:", payload); // Log the payload for debugging
-  
+
     try {
-      const response = await fetch('http://localhost:5000/api/forecast', { 
+      const response = await fetch('http://localhost:5000/api/forecast', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload), // Convert the payload to JSON
       });
-  
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
+
       const result = await response.json();
       console.log("Forecast response:", result);
       // Handle the response as needed (e.g., display forecast results)
@@ -52,6 +61,7 @@ const SelectComponent = ({ csvData }) => {
 
   return (
     <Card>
+      {toastMessage && <Toast>{toastMessage}</Toast>}
       <Question>What column do you want to forecast?</Question>
       <Select value={column} onChange={handleColumnChange}>
         <option value="">Select a column</option>
@@ -88,6 +98,7 @@ const SelectComponent = ({ csvData }) => {
 };
 
 export default SelectComponent;
+
 const Card = styled.div`
   background: #ffffff;
   border-radius: 12px;
@@ -101,6 +112,15 @@ const Card = styled.div`
   &:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
   }
+`;
+
+const Toast = styled.div`
+  background-color: #f44336; /* Red background */
+  color: white; /* White text */
+  padding: 10px; /* Some padding */
+  margin-bottom: 10px; /* Space below the toast */
+  border-radius: 5px; /* Rounded corners */
+  text-align: center; /* Centered text */
 `;
 
 const Question = styled.h3`
