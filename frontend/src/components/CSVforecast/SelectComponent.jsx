@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaChartLine, FaRegChartBar, FaRegEye } from 'react-icons/fa';
 
-
-const SelectComponent = () => {
+const SelectComponent = ({ csvData }) => {
   const [column, setColumn] = useState('');
   const [selectedMethods, setSelectedMethods] = useState([]);
 
@@ -19,10 +18,34 @@ const SelectComponent = () => {
     );
   };
 
-  const handleForecast = () => {
-    // Implement the forecast logic here
-    console.log("Selected column:", column);
-    console.log("Selected methods:", selectedMethods);
+  const handleForecast = async () => {
+    // Prepare data to send to the backend
+    const payload = {
+      column,
+      methods: selectedMethods,
+      csvData, 
+    };
+
+    try {
+      const response = await fetch('http://localhost:5000/api/forecast', { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload), // Convert the payload to JSON
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      console.log("Forecast response:", result);
+      // Handle the response as needed (e.g., display forecast results)
+    } catch (error) {
+      console.error("Error in forecasting:", error);
+      // Handle error (e.g., show an error message)
+    }
   };
 
   return (
@@ -63,7 +86,6 @@ const SelectComponent = () => {
 };
 
 export default SelectComponent;
-
 const Card = styled.div`
   background: #ffffff;
   border-radius: 12px;
