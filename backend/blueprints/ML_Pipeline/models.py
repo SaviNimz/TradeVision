@@ -7,7 +7,7 @@ from .preprocesser import TimeSeriesPreprocessor
 
 class Models:
     
-    def _init_(self):
+    def __init__(self):
         self.preprocessor = TimeSeriesPreprocessor()
         
     def train_arima(self, series):
@@ -50,6 +50,7 @@ class Models:
             series = data[target_col]  # Use the target column provided
             model_fit = self.train_arima(series)
             forecast = model_fit.forecast(steps=5)  # Forecast next 5 steps
+            print(forecast)
             return forecast
 
         elif method == 'Prophet':
@@ -66,10 +67,4 @@ class Models:
             last_n_lags = series[-5:].values.reshape(1, -1, 1)  # Last 5 values for prediction
             forecast = model.predict(last_n_lags)
             return self.preprocessor.inverse_transform(forecast)
-
-        elif method == 'XGBoost':
-            df = data  # Assuming the dataframe is passed directly
-            model, mse = self.train_xgboost(df)
-            return mse  # Return the MSE or you can add predictions as well
-
         return None

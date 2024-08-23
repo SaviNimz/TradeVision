@@ -25,7 +25,9 @@ const SelectComponent = ({ csvData }) => {
       methods: selectedMethods,
       csvData, 
     };
-
+  
+    console.log("Payload to be sent:", payload); // Log the payload for debugging
+  
     try {
       const response = await fetch('http://localhost:5000/api/forecast', { 
         method: 'POST',
@@ -34,11 +36,11 @@ const SelectComponent = ({ csvData }) => {
         },
         body: JSON.stringify(payload), // Convert the payload to JSON
       });
-
+  
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+  
       const result = await response.json();
       console.log("Forecast response:", result);
       // Handle the response as needed (e.g., display forecast results)

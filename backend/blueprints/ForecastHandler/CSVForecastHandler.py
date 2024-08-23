@@ -7,8 +7,9 @@ from blueprints.ML_Pipeline.models import Models
 import pandas as pd
 
 CSV_Forecast_handler = blueprints.Blueprint('csv_forecast_handler', __name__)
-models = Models()
 
+
+models = Models()
 
 UPLOAD_FOLDER = 'UPLOAD_FOLDER'
 if not os.path.exists(UPLOAD_FOLDER):
@@ -58,6 +59,7 @@ def Handle_upload():
         return jsonify({'error': 'Invalid file type'}), 400
 
 
+
 @CSV_Forecast_handler.route('/api/forecast', methods=['POST'])
 def forecast():
     data = request.json
@@ -78,7 +80,7 @@ def forecast():
     for method in methods:
         try:
             forecast_result = models.forecast(method, df, column)
-            
+            print(forecast_result)
             # Convert forecast_result to a JSON serializable format
             if isinstance(forecast_result, pd.Series):
                 results[method] = forecast_result.to_dict()  # Convert Series to a dictionary
@@ -91,7 +93,6 @@ def forecast():
             results[method] = {"error": str(e)}  # Capture any errors in the forecasting process
 
     return jsonify(results)
-
 
 @CSV_Forecast_handler.route('/api/forecast/save')
 def save():

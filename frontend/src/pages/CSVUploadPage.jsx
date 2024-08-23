@@ -85,7 +85,7 @@ const CSVUploadPage = () => {
                             <CSVTable data={csvData} />
                         </TableContainer>
                         <CardContainer>
-                            <SelectComponent /> {/* Render the SelectComponent inside the card */}
+                          <SelectComponent csvData={csvData} />
                         </CardContainer>
                     </>
                 )}
