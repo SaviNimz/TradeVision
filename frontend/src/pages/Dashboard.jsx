@@ -4,6 +4,22 @@ import AdvancedChart from '../components/Dashboard_Components/MainChart';
 import TickerTape from '../components/Dashboard_Components/TickerTape';
 import GainersChart from '../components/Dashboard_Components/GainersChart';
 
+const Dashboard = () => {
+  return (
+    <DashboardContainer>
+      <TickerTape />
+      <MainContent>
+        <Title>Real Time Market Data</Title>
+        <AdvancedChart />
+        <GainersChart />
+      </MainContent>
+    </DashboardContainer>
+  );
+};
+
+export default Dashboard;
+
+
 const DashboardContainer = styled.div`
   background: linear-gradient(to bottom, #000000, #1a1a1a);  /* Neon gradient background */
   min-height: 100vh; /* Full height */
@@ -29,18 +45,3 @@ const Title = styled.h2`
     0 3px 6px rgba(0, 255, 255, 0.4); /* Lighter neon */
   transform: perspective(500px) rotateX(5deg); /* Create a 3D effect */
 `;
-
-const Dashboard = () => {
-  return (
-    <DashboardContainer>
-      <TickerTape />
-      <MainContent>
-        <Title>Real Time Market Data</Title>
-        <AdvancedChart />
-        <GainersChart />
-      </MainContent>
-    </DashboardContainer>
-  );
-};
-
-export default Dashboard;
