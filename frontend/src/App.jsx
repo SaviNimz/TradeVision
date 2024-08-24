@@ -7,6 +7,7 @@ import FeedbackPage from './pages/feedBackPage';
 import Navbar from './components/navbar';
 import LandingPage from './pages/LandingPage';
 import StockForecastPage from './pages/StockForecastPage';
+import LoginSignupPage from './pages/LoginSignupPage';
 
 function App() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/feedback" element={<FeedbackPage />} />
         <Route path='/CsvUpload' element={<CSVUploadPage />} />
+        <Route path="/login" element={<LoginSignupPage />} />
       </Routes>
     </>
   );
