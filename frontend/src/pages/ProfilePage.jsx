@@ -1,7 +1,56 @@
 import React from 'react';
 import styled from 'styled-components';
+import ImageCard from '../components/profilePage/ImageCard';
+import forecastIcon from '../assets/forecast icon.png';
+import RetrieveIcon from '../assets/retrieve icon.png';
 
-// Styled components
+// ProfilePage component
+const ProfilePage = () => {
+  const user = {
+    name: "John Doe",
+    email: "johndoe@example.com",
+    profilePicture: "https://via.placeholder.com/100", // Placeholder image
+  };
+
+  const handleGenerateForecasts = () => {
+    // Add logic to generate forecasts
+    alert("Generate Forecasts clicked!");
+  };
+
+  const handleRetrieveSavedForecasts = () => {
+    // Add logic to retrieve saved forecasts
+    alert("Retrieve Saved Forecasts clicked!");
+  };
+
+  return (
+    <Container>
+      <ProfileCard>
+        <ProfilePicture src={user.profilePicture} alt="Profile" />
+        <Name>{user.name}</Name>
+        <Email>{user.email}</Email>
+        <ChangeButton>Change Account Details</ChangeButton>
+      </ProfileCard>
+      <MessageContainer>
+        <Message>
+          This is your profile page. Here you can generate forecasts, save and retrieve your previous forecasts.
+        </Message>
+        <ImageCard
+          image={forecastIcon} // Background image for Generate Forecasts
+          text="Generate Forecasts"
+          onClick={handleGenerateForecasts}
+        />
+        <ImageCard
+          image={RetrieveIcon} // Background image for Retrieve Saved Forecasts
+          text="Retrieve Saved Forecasts"
+          onClick={handleRetrieveSavedForecasts}
+        />
+      </MessageContainer>
+    </Container>
+  );
+};
+
+export default ProfilePage;
+
 const Container = styled.div`
   display: flex;
   padding: 20px;
@@ -65,50 +114,3 @@ const Message = styled.h3`
   margin-bottom: 20px;
   text-align: center;
 `;
-
-const ActionButton = styled.button`
-  width: 200px;       // Fixed width
-  height: 50px;       // Fixed height
-  margin: 10px 0;
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  text-align: center;
-  line-height: 50px;  // Center the text vertically
-
-  &:hover {
-    background-color: #1976d2;
-  }
-`;
-
-// ProfilePage component
-const ProfilePage = () => {
-  const user = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    profilePicture: "https://via.placeholder.com/100", // Placeholder image
-  };
-
-  return (
-    <Container>
-      <ProfileCard>
-        <ProfilePicture src={user.profilePicture} alt="Profile" />
-        <Name>{user.name}</Name>
-        <Email>{user.email}</Email>
-        <ChangeButton>Change Account Details</ChangeButton>
-      </ProfileCard>
-      <MessageContainer>
-        <Message>
-          This is your profile page. Here you can generate forecasts, save and retrieve your previous forecasts.
-        </Message>
-        <ActionButton>Generate Forecasts</ActionButton>
-        <ActionButton>Retrieve Saved Forecasts</ActionButton>
-      </MessageContainer>
-    </Container>
-  );
-};
-
-export default ProfilePage;
