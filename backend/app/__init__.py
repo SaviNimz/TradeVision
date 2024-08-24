@@ -1,6 +1,6 @@
 from flask import Flask
 from blueprints.UserHandler.UserHandler import User_handler
-from blueprints.ForecastHandler.ForecastHandler import Forecast_handler
+from blueprints.ForecastHandler.CSVForecastHandler import CSV_Forecast_handler
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 
