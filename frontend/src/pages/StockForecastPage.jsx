@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SearchBar from '../components/Dashboard_Components/SearchBar';
 import Header from '../components/StockForecastingPage/Header';
-import StockDropdown from '../components/StockForecastingPage/StockDropdown';
+import StockChart from '../components/StockForecastingPage/StockChart';
 
 const StockForecastPage = () => {
   const [selectedStock, setSelectedStock] = useState(null);
@@ -19,17 +19,11 @@ const StockForecastPage = () => {
       {/* Search Bar Component */}
       <SearchBar onSelect={handleSelect} />
 
-      {/* Stock Dropdown Component */}
-      <StockDropdown onSelect={handleSelect} selectedStock={selectedStock} />
-
       {/* Display Selected Stock Information */}
       {selectedStock && (
         <div style={{ marginTop: '20px' }}>
-          <h2>Selected Stock:</h2>
-          <p>
-            Name: {selectedStock.name} <br />
-            Symbol: {selectedStock.symbol}
-          </p>
+          {/* Render the StockChart component and pass the selected stock symbol */}
+          <StockChart stockType={selectedStock.symbol} />
         </div>
       )}
     </div>
