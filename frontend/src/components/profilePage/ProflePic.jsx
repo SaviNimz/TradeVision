@@ -1,33 +1,26 @@
-// ProfilePic.js
 import React from 'react';
 import styled from 'styled-components';
+import ProfilePic from './ProfilePic';
+import WelcomeMessage from './WelcomeMessage';
 
-const PicContainer = styled.div`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: #ccc; // Placeholder for profile picture
-  margin: 20px auto;
+const CardContainer = styled.div`
+  flex: 1;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
-const EditProfileButton = styled.button`
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  font-size: 16px;
-`;
-
-const ProfilePic = () => {
+const ProfileCard = () => {
   return (
-    <>
-      <PicContainer />
-      <EditProfileButton>Edit Profile</EditProfileButton>
-    </>
+    <CardContainer>
+      <ProfilePic />
+      <WelcomeMessage userName="John Doe" />
+    </CardContainer>
   );
 };
 
-export default ProfilePic;
+export default ProfileCard;
