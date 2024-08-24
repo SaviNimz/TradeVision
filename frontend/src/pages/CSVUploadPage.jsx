@@ -68,6 +68,7 @@ const CSVUploadPage = () => {
 
     const handleUploadSuccess = (data) => {
         setCsvData(data); // Store the CSV data in the state
+        console.log(data); // Log the CSV data to the console
     };
 
     return (
