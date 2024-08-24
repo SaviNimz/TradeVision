@@ -12,36 +12,38 @@ const FormContainer = styled.div`
   width: 100%;
   margin: auto;
   padding: 20px;
-  border: 1px solid #333; // Darker border
+  border: 1px solid #444; // Darker border
   border-radius: 8px;
-  background-color: rgba(20, 20, 20, 0.95); // Darker background
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(10, 10, 30, 0.9), rgba(30, 30, 60, 0.9)); // Dark blue futuristic gradient
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 128, 255, 0.5); // Added glow effect
   position: relative;
   z-index: 1;
 `;
 
 const Title = styled.h2`
-  color: #fff;
+  color: #ffffff;
   text-align: center; // Center align the title
+  text-shadow: 0 0 10px rgba(0, 128, 255, 0.8); // Added glow to the title
 `;
 
 const Input = styled.input`
   width: 100%;
   padding: 10px;
   margin: 10px -10px;
-  border: 1px solid #555; // Darker border
+  border: 1px solid #666; // Darker border
   border-radius: 4px;
-  background-color: #222; // Dark input background
-  color: #fff; // White text
+  background-color: rgba(20, 20, 40, 0.9); // Darker input background
+  color: #ffffff; // White text
   font-size: 16px;
 
   &::placeholder {
-    color: #aaa; // Lighter placeholder text
+    color: #bbb; // Lighter placeholder text
   }
 
   &:focus {
     outline: none;
     border-color: #007bff; // Highlight border color on focus
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); // Glow effect on focus
   }
 `;
 
@@ -49,7 +51,7 @@ const Button = styled.button`
   width: 100%;
   padding: 10px;
   margin-top: 10px;
-  background-color: #28a745; // Green background
+  background: linear-gradient(135deg, #28a745, #21b146); // Gradient for the button
   color: white;
   border: none;
   border-radius: 4px;
@@ -58,18 +60,21 @@ const Button = styled.button`
   align-items: center; // Center icon and text vertically
   justify-content: center; // Center icon and text horizontally
   font-size: 16px;
+  transition: background-color 0.3s, box-shadow 0.3s; // Smooth transition for hover effects
 
   &:hover {
-    background-color: #218838; // Darker green on hover
+    background: linear-gradient(135deg, #218838, #1e7e34); // Darker gradient on hover
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.7); // Glow effect on hover
   }
 `;
 
 const GoogleButton = styled(Button)`
-  background-color: #db4437; // Google red
+  background: linear-gradient(135deg, #db4437, #c13527); // Gradient for Google button
   margin-top: 10px;
 
   &:hover {
-    background-color: #c13527; // Darker red on hover
+    background: linear-gradient(135deg, #c13527, #a8231f); // Darker gradient on hover
+    box-shadow: 0 0 15px rgba(219, 68, 55, 0.7); // Glow effect on hover
   }
 `;
 
