@@ -1,124 +1,68 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components';
-import { FaUser, FaBars, FaTimes } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 const NavbarContainer = styled.nav`
-  background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
-  padding: 1rem 2rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 20px;
+  background-color: #0a1e3a; /* Dark futuristic blue */
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
   position: relative;
-
-  @media (max-width: 768px) {
-    justify-content: flex-end;
-  }
+  z-index: 10;
 `;
 
-const HamburgerIcon = styled.div`
-  display: block;
-  cursor: pointer;
-  font-size: 2rem;
+const Logo = styled.div`
+  font-size: 1.8rem;
+  font-weight: bold;
   color: #ffffff;
-
-  @media (min-width: 768px) {
-    display: none;
-  }
+  letter-spacing: 1.5px;
 `;
 
 const NavList = styled.ul`
   display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  justify-content: center; /* Center the options */
+  align-items: center;
+  gap: 80px; /* Increased gap for more space between options */
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
-    padding: 1rem 0;
-    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.5);
-    transform: ${({ isOpen }) => (isOpen ? 'translateY(0)' : 'translateY(-200%)')};
-    transition: transform 0.3s ease-in-out;
+    gap: 5px; /* Decreased gap for mobile mode */
   }
 `;
-
 const NavItem = styled.li`
-  margin: 0 3rem;
-
-  @media (max-width: 768px) {
-    margin: 1rem 0;
-    text-align: center;
-  }
+  list-style: none;
 `;
 
-const NavLink = styled(Link)`
-  color: #ffffff;
-  font-size: 1.2rem;
-  text-transform: uppercase;
+const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
-  font-family: 'Roboto', sans-serif;
-  letter-spacing: 2px;
-  position: relative;
-  padding: 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #b0c7e8;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
 
   &:hover {
-    color: #00f260;
-  }
-`;
-
-const ProfileIconWrapper = styled(Link)`
-  color: #ffffff;
-  font-size: 1.8rem;
-  cursor: pointer;
-  transition: color 0.3s ease-in-out;
-
-  &:hover {
-    color: #00f260;
+    background-color: rgba(176, 199, 232, 0.2);
   }
 
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const Logo = styled.div`
-  color: #ffffff;
-  font-size: 1.8rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: bold;
-
-  @media (max-width: 768px) {
-    display: none;
+  &.active {
+    color: #ffffff;
+    background-color: #1a3b5d;
   }
 `;
 
 function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <NavbarContainer>
-      <HamburgerIcon onClick={toggleMenu}>
-        {isOpen ? <FaTimes /> : <FaBars />}
-      </HamburgerIcon>
       <Logo>Trade Vision</Logo>
-      <NavList isOpen={isOpen}>
-        <NavItem><NavLink to="/dashboard">Dashboard</NavLink></NavItem>
-        <NavItem><NavLink to="/forecast">Forecast</NavLink></NavItem>
-        <NavItem><NavLink to="/feedback">Feedback</NavLink></NavItem>
-        <NavItem><NavLink to="/profile">Profile</NavLink></NavItem>
+      <NavList>
+        <NavItem><NavLinkStyled to="/dashboard">Dashboard</NavLinkStyled></NavItem>
+        <NavItem><NavLinkStyled to="/forecast">Forecast</NavLinkStyled></NavItem>
+        <NavItem><NavLinkStyled to="/feedback">Feedback</NavLinkStyled></NavItem>
+        <NavItem><NavLinkStyled to="/profile">Profile</NavLinkStyled></NavItem>
       </NavList>
-      <ProfileIconWrapper to="/profile">
-        <FaUser />
-      </ProfileIconWrapper>
     </NavbarContainer>
   );
 }
