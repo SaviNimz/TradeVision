@@ -5,6 +5,42 @@ import SelectComponent from '../components/CSVforecast/SelectComponent';
 import styled from 'styled-components';
 import bgimg from '../assets/forecast page.jpg';
 
+
+const CSVUploadPage = () => {
+    const [csvData, setCsvData] = useState([]);
+
+    const handleUploadSuccess = (data) => {
+        setCsvData(data); // Store the CSV data in the state
+        console.log(data); // Log the CSV data to the console
+    };
+
+    return (
+        <ForecastPageContainer>
+            <BackgroundBlur />
+            <ForegroundContent>
+                {csvData.length === 0 && (
+                    <CardContainer>
+                        <FileUploadCard onUploadSuccess={handleUploadSuccess} />
+                    </CardContainer>
+                )}
+                {csvData.length > 0 && (
+                    <>
+                        <TableContainer>
+                            <CSVTable data={csvData} />
+                        </TableContainer>
+                        <CardContainer>
+                          <SelectComponent csvData={csvData} />
+                        </CardContainer>
+                    </>
+                )}
+            </ForegroundContent>
+        </ForecastPageContainer>
+    );
+};
+
+export default CSVUploadPage;
+
+
 const ForecastPageContainer = styled.div`
   position: relative;
   display: flex;
@@ -62,37 +98,3 @@ const CardContainer = styled.div`
     order: 2;
   }
 `;
-
-const CSVUploadPage = () => {
-    const [csvData, setCsvData] = useState([]);
-
-    const handleUploadSuccess = (data) => {
-        setCsvData(data); // Store the CSV data in the state
-        console.log(data); // Log the CSV data to the console
-    };
-
-    return (
-        <ForecastPageContainer>
-            <BackgroundBlur />
-            <ForegroundContent>
-                {csvData.length === 0 && (
-                    <CardContainer>
-                        <FileUploadCard onUploadSuccess={handleUploadSuccess} />
-                    </CardContainer>
-                )}
-                {csvData.length > 0 && (
-                    <>
-                        <TableContainer>
-                            <CSVTable data={csvData} />
-                        </TableContainer>
-                        <CardContainer>
-                          <SelectComponent csvData={csvData} />
-                        </CardContainer>
-                    </>
-                )}
-            </ForegroundContent>
-        </ForecastPageContainer>
-    );
-};
-
-export default CSVUploadPage;
