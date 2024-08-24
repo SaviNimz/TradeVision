@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import styled from 'styled-components';
 import ImageCard from '../components/profilePage/ImageCard';
 import forecastIcon from '../assets/forecast icon.png';
@@ -6,6 +7,8 @@ import RetrieveIcon from '../assets/retrieve icon.png';
 
 // ProfilePage component
 const ProfilePage = () => {
+  const navigate = useNavigate(); // Initialize navigate
+
   const user = {
     name: "John Doe",
     email: "johndoe@example.com",
@@ -13,8 +16,7 @@ const ProfilePage = () => {
   };
 
   const handleGenerateForecasts = () => {
-    // Add logic to generate forecasts
-    alert("Generate Forecasts clicked!");
+    navigate('/CsvUpload'); // Route to /CsvUpload
   };
 
   const handleRetrieveSavedForecasts = () => {
@@ -50,7 +52,6 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
 const Container = styled.div`
   display: flex;
   padding: 20px;
