@@ -1,6 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
+// ImageCard component
+const ImageCard = ({ image, text, onClick }) => {
+  return (
+    <Card image={image} onClick={onClick}>
+      <span>{text}</span> {/* Wrap text in a span for z-index control */}
+    </Card>
+  );
+};
+
+export default ImageCard;
+
 // Styled component for the image card
 const Card = styled.div`
   position: relative; // Position relative for the pseudo-element
@@ -44,14 +56,3 @@ const Card = styled.div`
     z-index: 2; // Place text above the blurred background
   }
 `;
-
-// ImageCard component
-const ImageCard = ({ image, text, onClick }) => {
-  return (
-    <Card image={image} onClick={onClick}>
-      <span>{text}</span> {/* Wrap text in a span for z-index control */}
-    </Card>
-  );
-};
-
-export default ImageCard;
