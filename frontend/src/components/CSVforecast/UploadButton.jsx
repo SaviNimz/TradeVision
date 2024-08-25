@@ -56,14 +56,13 @@ const FileUploadCard = ({ onUploadSuccess }) => {
                 body: formData,
             });
 
-            // There is no need to call the backend again ( find a way to not use this way)
             const data = await response.json();
 
             if (response.ok) {
                 toast.success('File uploaded successfully!', {
                     autoClose: 1500,
                 });
-                onUploadSuccess(data.data); // Pass the CSV data to the parent component
+                onUploadSuccess(data.data); 
             } else {
                 const errorMessage = data.error || 'An unknown error occurred.';
                 setErrorMessage(errorMessage);
@@ -110,55 +109,67 @@ export default FileUploadCard;
 const Card = styled.div`
     width: 400px;
     padding: 35px;
-    border: 1px solid #eaeaea;
+    border: 1px solid #444;
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 128, 255, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f9f9f9;
+    background: linear-gradient(135deg, rgba(10, 10, 30, 0.9), rgba(30, 30, 60, 0.9));
     transition: box-shadow 0.3s;
 
     &:hover {
-        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
     }
 `;
 
 const Title = styled.h3`
     margin: 0 0 20px;
     font-size: 1.8rem;
-    color: #2c3e50;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 128, 255, 0.8);
 `;
 
 const Input = styled.input`
     margin-bottom: 15px;
-    border: 2px solid #2980b9;
+    border: 2px solid #666;
     border-radius: 8px;
     padding: 12px;
     width: 100%;
     font-size: 1rem;
+    background-color: rgba(20, 20, 40, 0.9);
+    color: #ffffff;
     transition: border-color 0.3s;
 
+    &::placeholder {
+        color: #bbb;
+    }
+
     &:focus {
-        border-color: #1c6691;
+        border-color: #007bff;
         outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     }
 `;
 
 const UploadButton = styled.button`
-    background-color: #27ae60;
+    background: linear-gradient(135deg, #28a745, #21b146);
     color: white;
     border: none;
     border-radius: 8px;
     padding: 15px 30px;
     cursor: pointer;
     font-size: 1.2rem;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
     width: 100%;
     margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
-        background-color: #219653;
+        background: linear-gradient(135deg, #218838, #1e7e34);
+        box-shadow: 0 0 15px rgba(40, 167, 69, 0.7);
     }
 `;
 
@@ -171,21 +182,21 @@ const FileInfoContainer = styled.div`
 const FileInfo = styled.div`
     margin-left: 10px;
     font-size: 1rem;
-    color: #7f8c8d; 
+    color: #ffffff;
 `;
 
 const FileIcon = styled(FaFileCsv)`
     font-size: 3rem;
-    color: #27ae60;
+    color: #28a745;
 `;
 
 const CloseIcon = styled(AiOutlineClose)`
     margin-left: 10px;
     font-size: 1.5rem;
-    color: #c0392b;
+    color: #db4437;
     cursor: pointer;
 
     &:hover {
-        color: #a93226;
+        color: #c13527;
     }
 `;
