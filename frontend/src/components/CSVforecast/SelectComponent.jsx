@@ -22,20 +22,18 @@ const SelectComponent = ({ csvData }) => {
   };
 
   const handleForecast = async () => {
-    // Check if a column and at least one method is selected
     if (!column || selectedMethods.length === 0) {
       setToastMessage('You need to select a Column and Model to Continue');
       return;
     }
 
-    // Prepare data to send to the backend
     const payload = {
       column,
       methods: selectedMethods,
       csvData,
     };
 
-    console.log("Payload to be sent:", payload); // Log the payload for debugging
+    console.log("Payload to be sent:", payload);
 
     try {
       const response = await fetch('http://localhost:5000/api/forecast', {
@@ -43,7 +41,7 @@ const SelectComponent = ({ csvData }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload), // Convert the payload to JSON
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -52,10 +50,8 @@ const SelectComponent = ({ csvData }) => {
 
       const result = await response.json();
       console.log("Forecast response:", result);
-      // Handle the response as needed (e.g., display forecast results)
     } catch (error) {
       console.error("Error in forecasting:", error);
-      // Handle error (e.g., show an error message)
     }
   };
 
@@ -100,9 +96,9 @@ const SelectComponent = ({ csvData }) => {
 export default SelectComponent;
 
 const Card = styled.div`
-  background: #ffffff;
+  background: #1e1e2f;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
   padding: 20px;
   width: 320px;
   margin: 40px auto;
@@ -110,23 +106,23 @@ const Card = styled.div`
   transition: all 0.3s ease;
 
   &:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8);
   }
 `;
 
 const Toast = styled.div`
-  background-color: #f44336; /* Red background */
-  color: white; /* White text */
-  padding: 10px; /* Some padding */
-  margin-bottom: 10px; /* Space below the toast */
-  border-radius: 5px; /* Rounded corners */
-  text-align: center; /* Centered text */
+  background-color: #e74c3c;
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-align: center;
 `;
 
 const Question = styled.h3`
   margin-bottom: 10px;
   text-align: center;
-  color: #333;
+  color: #e0e0e0;
   font-size: 18px;
 `;
 
@@ -134,13 +130,15 @@ const Select = styled.select`
   width: 100%;
   padding: 12px;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #555;
   border-radius: 6px;
+  background-color: #2c2c3e;
+  color: #fff;
   font-size: 16px;
   transition: border-color 0.3s ease;
 
   &:focus {
-    border-color: #007bff;
+    border-color: #4db8ff;
     outline: none;
   }
 `;
@@ -160,6 +158,7 @@ const Option = styled.label`
   padding: 10px;
   margin: 0 5px;
   border-radius: 6px;
+  background-color: #2c2c3e;
   transition: background-color 0.3s ease;
 
   input[type="checkbox"] {
@@ -169,25 +168,26 @@ const Option = styled.label`
   span {
     margin-top: 8px;
     font-size: 16px;
+    color: #fff;
   }
 
   &.selected {
-    background-color: #007bff;
+    background-color: #4db8ff;
     color: white;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: #3498db;
     }
   }
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #353549;
   }
 `;
 
 const Icon = styled.div`
   font-size: 24px;
-  color: #007bff;
+  color: #4db8ff;
 `;
 
 const ForecastButton = styled.button`
