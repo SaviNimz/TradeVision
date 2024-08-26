@@ -1,9 +1,21 @@
-import React from 'react'
+// FeedbackSection.jsx
+import React, { useState } from 'react';
+import FeedbackForm from '../components/FeedbackPage/FeedbackForm';
+import FeedbackList from '../components/FeedbackPage/FeedbackList';
 
 const FeedBackPage = () => {
-  return (
-    <div>FeedBackPage</div>
-  )
-}
+  const [feedbacks, setFeedbacks] = useState([]);
 
-export default FeedBackPage
+  const handleFeedbackSubmit = (feedback) => {
+    setFeedbacks([feedback, ...feedbacks]);
+  };
+
+  return (
+    <div>
+      <FeedbackForm onSubmit={handleFeedbackSubmit} />
+      <FeedbackList feedbacks={feedbacks} />
+    </div>
+  );
+};
+
+export default FeedBackPage;
