@@ -84,7 +84,7 @@ const Icon = styled(FontAwesomeIcon)`
   margin-right: 8px;
 `;
 
-const LoginForm = ({ onSwitchToSignup }) => {
+const LoginForm = ({ onSwitchToSignup, onGoogleLogin, onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -95,6 +95,7 @@ const LoginForm = ({ onSwitchToSignup }) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log('User logged in successfully!');
+      onLoginSuccess(); // Trigger the login success handler
       navigate('/dashboard');
     } catch (error) {
       console.error('Failed to log in user:', error.message);
@@ -108,6 +109,7 @@ const LoginForm = ({ onSwitchToSignup }) => {
     try {
       await signInWithPopup(auth, provider);
       console.log('User logged in with Google successfully!');
+      onGoogleLogin(); // Trigger Google login success handler
       navigate('/dashboard');
     } catch (error) {
       console.error('Failed to log in with Google:', error.message);
