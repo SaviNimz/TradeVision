@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import Dashboard from './pages/dashboard';
 import CSVUploadPage from './pages/CSVUploadPage';
 import ProfilePage from './pages/profilePage';
-import FeedbackPage from './pages/feedBackPage';
+import FeedbackPage from './pages/FeedBackPage';
 import Navbar from './components/navbar';
 import LandingPage from './pages/LandingPage';
 import StockForecastPage from './pages/StockForecastPage';
