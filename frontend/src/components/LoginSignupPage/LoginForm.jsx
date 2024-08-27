@@ -1,4 +1,3 @@
-// LoginForm.js
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,6 +5,7 @@ import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { auth } from '../../utils/firebase';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const FormContainer = styled.div`
   max-width: 400px;
@@ -85,6 +85,7 @@ const Icon = styled(FontAwesomeIcon)`
 const LoginForm = ({ onSwitchToSignup }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); // Initialize the navigate function
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
@@ -92,6 +93,7 @@ const LoginForm = ({ onSwitchToSignup }) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log('User logged in successfully!');
+      navigate('/dashboard'); // Navigate to the /dashboard route on success
     } catch (error) {
       console.error('Failed to log in user:', error.message);
     }
@@ -103,6 +105,7 @@ const LoginForm = ({ onSwitchToSignup }) => {
     try {
       await signInWithPopup(auth, provider);
       console.log('User logged in with Google successfully!');
+      navigate('/dashboard'); // Navigate to the /dashboard route on success
     } catch (error) {
       console.error('Failed to log in with Google:', error.message);
     }
@@ -110,7 +113,7 @@ const LoginForm = ({ onSwitchToSignup }) => {
 
   return (
     <FormContainer>
-      <Title>Login</Title> {/* Updated to use the Title component */}
+      <Title>Login</Title>
       <form onSubmit={handleEmailLogin} style={{ width: '100%' }}>
         <Input
           type="email"
