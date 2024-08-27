@@ -1,10 +1,95 @@
-// SignupForm.js
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { auth } from '../../utils/firebase';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const SignupForm = ({ onSwitchToLogin }) => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleEmailSignup = async (e) => {
+    e.preventDefault();
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      console.log('User registered successfully!');
+      navigate('/dashboard'); // Redirect to dashboard on successful signup
+    } catch (error) {
+      console.error('Failed to register user:', error.message);
+      if (error.code === 'auth/email-already-in-use') {
+        toast.error('Email already taken!', {
+          position: 'top-right',
+          autoClose: 1500,
+          hideProgressBar: true,
+          closeOnClick: true,
+        });
+      }
+    }
+  };
+
+  const handleGoogleSignup = async () => {
+    const provider = new GoogleAuthProvider();
+
+    try {
+      await signInWithPopup(auth, provider);
+      console.log('User registered with Google successfully!');
+      navigate('/dashboard'); // Redirect to dashboard on successful Google signup
+    } catch (error) {
+      console.error('Failed to sign up with Google:', error.message);
+    }
+  };
+
+  return (
+    <FormContainer>
+      <ToastContainer />
+      <Title>Sign Up</Title>
+      <form onSubmit={handleEmailSignup}>
+        <Input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <Input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <Button type="submit">Sign Up</Button>
+        <GoogleButton type="button" onClick={handleGoogleSignup}>
+          <FontAwesomeIcon icon={faGoogle} style={{ marginRight: '8px' }} />
+          Sign up with Google
+        </GoogleButton>
+      </form>
+      <p style={{ color: '#aaa' }}>
+        Already have an account?{' '}
+        <span onClick={onSwitchToLogin} style={{ color: '#007bff', cursor: 'pointer' }}>
+          Login
+        </span>
+      </p>
+    </FormContainer>
+  );
+};
+
+export default SignupForm;
+
 
 const FormContainer = styled.div`
   max-width: 400px;
@@ -73,73 +158,3 @@ const GoogleButton = styled(Button)`
     box-shadow: 0 0 15px rgba(219, 68, 55, 0.7); // Glow effect on hover
   }
 `;
-
-const SignupForm = ({ onSwitchToLogin }) => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleEmailSignup = async (e) => {
-    e.preventDefault();
-
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      console.log('User registered successfully!');
-    } catch (error) {
-      console.error('Failed to register user:', error.message);
-    }
-  };
-
-  const handleGoogleSignup = async () => {
-    const provider = new GoogleAuthProvider();
-
-    try {
-      await signInWithPopup(auth, provider);
-      console.log('User registered with Google successfully!');
-    } catch (error) {
-      console.error('Failed to sign up with Google:', error.message);
-    }
-  };
-
-  return (
-    <FormContainer>
-      <Title>Sign Up</Title> {/* Updated to use the Title component */}
-      <form onSubmit={handleEmailSignup}>
-        <Input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <Button type="submit">Sign Up</Button>
-        <GoogleButton type="button" onClick={handleGoogleSignup}>
-          <FontAwesomeIcon icon={faGoogle} style={{ marginRight: '8px' }} />
-          Sign up with Google
-        </GoogleButton>
-      </form>
-      <p style={{ color: '#aaa' }}>
-        Already have an account?{' '}
-        <span onClick={onSwitchToLogin} style={{ color: '#007bff', cursor: 'pointer' }}>
-          Login
-        </span>
-      </p>
-    </FormContainer>
-  );
-};
-
-export default SignupForm;
