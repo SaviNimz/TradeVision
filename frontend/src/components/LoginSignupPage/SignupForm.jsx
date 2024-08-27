@@ -5,6 +5,8 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { auth } from '../../utils/firebase';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignupForm = ({ onSwitchToLogin }) => {
   const [username, setUsername] = useState('');
@@ -21,6 +23,14 @@ const SignupForm = ({ onSwitchToLogin }) => {
       navigate('/dashboard'); // Redirect to dashboard on successful signup
     } catch (error) {
       console.error('Failed to register user:', error.message);
+      if (error.code === 'auth/email-already-in-use') {
+        toast.error('Email already taken!', {
+          position: 'top-right',
+          autoClose: 1500,
+          hideProgressBar: true,
+          closeOnClick: true,
+        });
+      }
     }
   };
 
@@ -38,6 +48,7 @@ const SignupForm = ({ onSwitchToLogin }) => {
 
   return (
     <FormContainer>
+      <ToastContainer />
       <Title>Sign Up</Title>
       <form onSubmit={handleEmailSignup}>
         <Input
