@@ -12,32 +12,45 @@ const ListContainer = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-height: 400px;
   overflow-y: auto;
-  
+
   @media (max-width: 600px) {
     padding: 15px;
     max-height: 300px;
   }
 `;
 
+const Title = styled.h2`
+  color: #333; /* Dark text color */
+  margin-bottom: 20px;
+`;
+
 const FeedbackItem = styled.div`
   padding: 10px;
   border-bottom: 1px solid #ddd;
-  
+  color: #333; /* Dark text color */
+  font-style: italic; /* Italic text */
+
   &:last-child {
     border-bottom: none;
   }
-  
+
   @media (max-width: 600px) {
     padding: 8px;
   }
 `;
 
+const NoFeedbackMessage = styled.p`
+  color: #666; /* Lighter dark color */
+  text-align: center; /* Centered text */
+  font-style: normal; /* Non-italic text */
+`;
+
 const FeedbackList = ({ feedbacks }) => {
   return (
     <ListContainer>
-      <h2>Previous Feedbacks</h2>
+      <Title>Previous Feedbacks</Title>
       {feedbacks.length === 0 ? (
-        <p>No feedbacks yet.</p>
+        <NoFeedbackMessage>Your previous feedback will appear here.</NoFeedbackMessage>
       ) : (
         feedbacks.map((feedback, index) => (
           <FeedbackItem key={index}>
