@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaChartLine, FaRegChartBar, FaRegEye } from 'react-icons/fa';
+import { saveAs } from 'file-saver';
+import Papa from 'papaparse';
+
 
 const SelectComponent = ({ csvData }) => {
   const [column, setColumn] = useState('');
@@ -26,15 +29,15 @@ const SelectComponent = ({ csvData }) => {
       setToastMessage('You need to select a Column and Model to Continue');
       return;
     }
-
+  
     const payload = {
       column,
       methods: selectedMethods,
       csvData,
     };
-
+  
     console.log("Payload to be sent:", payload);
-
+  
     try {
       const response = await fetch('http://localhost:5000/api/forecast', {
         method: 'POST',
@@ -43,18 +46,24 @@ const SelectComponent = ({ csvData }) => {
         },
         body: JSON.stringify(payload),
       });
-
+  
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+  
       const result = await response.json();
       console.log("Forecast response:", result);
+  
+      // Convert JSON to CSV using PapaParse
+      const csv = Papa.unparse(result);
+      console.log("Forecast result in CSV:", csv);
+      // Trigger the file download
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      saveAs(blob, 'forecast_result.csv');
     } catch (error) {
       console.error("Error in forecasting:", error);
     }
   };
-
   return (
     <Card>
       {toastMessage && <Toast>{toastMessage}</Toast>}
@@ -94,6 +103,7 @@ const SelectComponent = ({ csvData }) => {
 };
 
 export default SelectComponent;
+
 
 const Card = styled.div`
   background: #1e1e2f;
