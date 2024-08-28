@@ -54,8 +54,16 @@ const SelectComponent = ({ csvData }) => {
       const result = await response.json();
       console.log("Forecast response:", result);
   
-      // Convert JSON to CSV using PapaParse
-      const csv = Papa.unparse(result);
+      // Flatten the response for CSV conversion
+      const flattenedData = Object.entries(result.ARIMA).map(([key, value]) => ({
+        index: key,
+        forecast: value,
+      }));
+      
+      console.log("Flattened data for CSV:", flattenedData);
+
+      // Convert flattened data to CSV using PapaParse
+      const csv = Papa.unparse(flattenedData);
       console.log("Forecast result in CSV:", csv);
       // Trigger the file download
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
