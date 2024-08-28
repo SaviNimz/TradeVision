@@ -1,4 +1,3 @@
-// FeedbackForm.jsx
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -16,49 +15,61 @@ const FormContainer = styled.div`
   }
 `;
 
+const FormTitle = styled.h2`
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+  color: black;
+`;
+
+
 const Input = styled.input`
   width: 100%;
-  padding: 7px;
+  padding: 12px;
   margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 4px;
+  box-sizing: border-box;
   
   @media (max-width: 600px) {
-    padding: 8px;
+    padding: 10px;
     margin: 8px 0;
   }
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 4px;
-  min-height: 100px;
+  min-height: 120px;
+  box-sizing: border-box;
   
   @media (max-width: 600px) {
-    padding: 8px;
+    padding: 10px;
     margin: 8px 0;
-    min-height: 80px;
+    min-height: 100px;
   }
 `;
 
 const Button = styled.button`
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
   border-radius: 4px;
   background: #00f260;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
+  display: block;
+  margin: 20px auto 0;
   
   &:hover {
     background: #00d084;
   }
   
   @media (max-width: 600px) {
-    padding: 8px 16px;
+    padding: 10px 20px;
     font-size: 14px;
   }
 `;
@@ -78,7 +89,7 @@ const FeedbackForm = ({ onSubmit }) => {
 
   return (
     <FormContainer>
-      <h2>Submit Your Feedback</h2>
+      <FormTitle>Submit Your Feedback</FormTitle>
       <form onSubmit={handleSubmit}>
         <Input
           type="text"
