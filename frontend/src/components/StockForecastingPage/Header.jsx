@@ -8,12 +8,12 @@ const HeaderContainer = styled.div`
 
 const Title = styled.h1`
   font-size: 2rem;
-  color: #333;
+  color: #ffffff; /* Light text color for dark background */
 `;
 
 const Slogan = styled.p`
   font-size: 1.2rem;
-  color: #777;
+  color: #cccccc; /* Lighter text color for slogan */
 `;
 
 const Header = () => {
