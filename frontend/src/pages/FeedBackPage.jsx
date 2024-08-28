@@ -5,9 +5,10 @@ import FeedbackList from '../components/FeedbackPage/FeedbackList';
 import styled from 'styled-components';
 
 const PageContainer = styled.div`
-  background: linear-gradient(135deg, rgba(10, 10, 30, 0.9), rgba(30, 30, 60, 0.9));
-  min-height: 100vh;
   padding: 20px;
+  background: linear-gradient(135deg, #000000, #002f4c, #004080); /* Very dark blue gradient background */
+  color: #ffffff; /* Light text color for contrast */
+  min-height: 100vh; /* Ensures the background covers the full viewport height */
 `;
 
 const FeedBackPage = () => {

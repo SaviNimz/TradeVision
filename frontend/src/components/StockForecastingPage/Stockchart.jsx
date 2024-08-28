@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import { FaChartLine, FaCalendar, FaTags } from 'react-icons/fa';
 
 const ChartContainer = styled.div`
-  background-color: #1c1c2f; /* Dark background */
+  background-color: rgba(28, 28, 47, 0.6); /* Slightly translucent dark background */
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Slightly light white shadow */
   margin: 20px auto; /* Center the chart container */
   max-width: 90%; /* Allow the chart to be responsive */
   overflow: hidden; /* Hide any overflow */
@@ -16,6 +16,7 @@ const ChartContainer = styled.div`
   flex-direction: column; /* Stack elements vertically */
   align-items: center; /* Center children horizontally */
 `;
+
 
 const ControlPanel = styled.div`
   display: flex;
