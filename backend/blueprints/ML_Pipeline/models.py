@@ -12,7 +12,14 @@ class Models:
         
     def train_arima(self, series):
         """Train ARIMA model."""
-        processed_series = self.preprocessor.preprocess_arima(series)
+        print(series)
+
+        # This preprocessor does not seem to work properly 
+        # will comment this for now and use the original series
+        # processed_series = self.preprocessor.preprocess_arima(series)
+
+        processed_series = series
+        print(processed_series)
         model = ARIMA(processed_series, order=(5, 1, 0))  # Example order
         model_fit = model.fit()
         return model_fit

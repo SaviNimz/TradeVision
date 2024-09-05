@@ -8,7 +8,7 @@ const PageContainer = styled.div`
   padding: 20px;
   background: linear-gradient(135deg, #000000, #002f4c, #004080); /* Very dark blue gradient background */
   color: #ffffff; /* Light text color for contrast */
-  min-height: 100vh; /* Ensures the background covers the full viewport height */
+  min-height: 84vh; /* Ensures the background covers the full viewport height */
 `;
 
 const FeedBackPage = () => {
