@@ -5,6 +5,40 @@ import Header from '../components/StockForecastingPage/Header';
 import StockChart from '../components/StockForecastingPage/StockChart';
 import styled, { keyframes } from 'styled-components';
 
+const StockForecastPage = () => {
+  const [selectedStock, setSelectedStock] = useState(null);
+
+  const handleSelect = (stock) => setSelectedStock(stock); // Simplified the event handler
+
+  return (
+    <PageContainer>
+      {/* Header */}
+      <Header />
+
+      {/* Search Bar */}
+      <SearchBar onSelect={handleSelect} />
+
+      {/* Display Message and Animated Icon when no stock is selected */}
+      {!selectedStock ? (
+        <IconContainer>
+          <AnimatedIcon>
+            <FaSearch /> {/* Magnifying glass icon */}
+          </AnimatedIcon>
+          <Message>Search for stocks and get your prediction now!</Message>
+        </IconContainer>
+      ) : (
+        <StockInfoContainer>
+          {/* StockChart with selected stock symbol */}
+          <StockChart stockType={selectedStock.symbol} />
+        </StockInfoContainer>
+      )}
+    </PageContainer>
+  );
+};
+
+export default StockForecastPage;
+
+
 // Define bounce animation for the icon
 const bounce = keyframes`
   0%, 20%, 50%, 80%, 100% {
@@ -75,36 +109,3 @@ const PageContainer = styled.div`
 const StockInfoContainer = styled.div`
   margin-top: 20px;
 `;
-
-const StockForecastPage = () => {
-  const [selectedStock, setSelectedStock] = useState(null);
-
-  const handleSelect = (stock) => setSelectedStock(stock); // Simplified the event handler
-
-  return (
-    <PageContainer>
-      {/* Header */}
-      <Header />
-
-      {/* Search Bar */}
-      <SearchBar onSelect={handleSelect} />
-
-      {/* Display Message and Animated Icon when no stock is selected */}
-      {!selectedStock ? (
-        <IconContainer>
-          <AnimatedIcon>
-            <FaSearch /> {/* Magnifying glass icon */}
-          </AnimatedIcon>
-          <Message>Search for stocks and get your prediction now!</Message>
-        </IconContainer>
-      ) : (
-        <StockInfoContainer>
-          {/* StockChart with selected stock symbol */}
-          <StockChart stockType={selectedStock.symbol} />
-        </StockInfoContainer>
-      )}
-    </PageContainer>
-  );
-};
-
-export default StockForecastPage;
