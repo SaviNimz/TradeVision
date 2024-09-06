@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
+import { saveAs } from 'file-saver';
 
 const StockPredictor = () => {
     const [stockSymbol, setStockSymbol] = useState('');
@@ -9,9 +9,11 @@ const StockPredictor = () => {
     const [predictedPrices, setPredictedPrices] = useState([]);
     const [originalPrices, setOriginalPrices] = useState([]);
     const [dates, setDates] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
   
     const handlePredict = async () => {
+        setLoading(true); // Start loading
         try {
           const response = await fetch('http://localhost:5000/api/predict', {
             method: 'POST',
@@ -36,12 +38,23 @@ const StockPredictor = () => {
           setPredictedPrices(data.predicted_prices);
           setOriginalPrices(data.original_prices);
           setError('');
+          downloadCSV(data.dates, data.predicted_prices, data.original_prices); // Download CSV
         } catch (err) {
           setError(err.message);
+        } finally {
+          setLoading(false); // End loading
         }
       };
-      
-  
+
+    const downloadCSV = (dates, predictedPrices, originalPrices) => {
+        let csvContent = "Date,Predicted Price,Original Price\n";
+        dates.forEach((date, index) => {
+          csvContent += `${date},${predictedPrices[index]},${originalPrices[index]}\n`;
+        });
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        saveAs(blob, 'predicted_stock_prices.csv');
+    };
+
     return (
       <Container>
         <h2>Stock Price Prediction</h2>
@@ -70,21 +83,10 @@ const StockPredictor = () => {
           />
         </InputField>
         <button onClick={handlePredict}>Predict</button>
-  
+
+        {loading && <Loading>Loading...</Loading>} {/* Show loading spinner */}
+
         {error && <ErrorMessage>{error}</ErrorMessage>}
-  
-        {dates.length > 0 && (
-          <Results>
-            <h3>Prediction Results</h3>
-            <ul>
-              {dates.map((date, index) => (
-                <li key={index}>
-                  <strong>{date}:</strong> Predicted: {predictedPrices[index]}, Original: {originalPrices[index]}
-                </li>
-              ))}
-            </ul>
-          </Results>
-        )}
       </Container>
     );
   };
@@ -119,16 +121,8 @@ const StockPredictor = () => {
     margin-top: 10px;
   `;
   
-  const Results = styled.div`
-    margin-top: 20px;
-    h3 {
-      margin-bottom: 10px;
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    li {
-      margin-bottom: 8px;
-    }
+  const Loading = styled.div`
+    margin-top: 10px;
+    color: #00f;
+    font-weight: bold;
   `;

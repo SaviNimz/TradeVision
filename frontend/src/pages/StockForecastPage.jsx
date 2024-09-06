@@ -3,6 +3,7 @@ import { FaArrowUp, FaSearch } from 'react-icons/fa'; // Importing arrow up and 
 import SearchBar from '../components/Dashboard_Components/SearchBar';
 import Header from '../components/StockForecastingPage/Header';
 import StockChart from '../components/StockForecastingPage/StockChart';
+import StockPredictor from '../components/StockForecastingPage/StockPredictor'; // Import the StockPredictor component
 import styled, { keyframes } from 'styled-components';
 
 const StockForecastPage = () => {
@@ -109,3 +110,4 @@ const PageContainer = styled.div`
 const StockInfoContainer = styled.div`
   margin-top: 20px;
 `;
+
