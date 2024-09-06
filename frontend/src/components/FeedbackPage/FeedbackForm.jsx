@@ -9,9 +9,15 @@ const FormContainer = styled.div`
   border-radius: 8px;
   background: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
-  @media (max-width: 600px) {
+
+  @media (max-width: 768px) {
     padding: 15px;
+    max-width: 90%; /* Takes more screen width on smaller devices */
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+    max-width: 100%; /* Full width for mobile */
   }
 `;
 
@@ -20,8 +26,15 @@ const FormTitle = styled.h2`
   font-size: 24px;
   text-align: center;
   color: black;
-`;
 
+  @media (max-width: 768px) {
+    font-size: 20px; /* Smaller title on tablet */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px; /* Even smaller title on mobile */
+  }
+`;
 
 const Input = styled.input`
   width: 100%;
@@ -30,7 +43,7 @@ const Input = styled.input`
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
-  
+
   @media (max-width: 600px) {
     padding: 10px;
     margin: 8px 0;
@@ -45,7 +58,7 @@ const TextArea = styled.textarea`
   border-radius: 4px;
   min-height: 120px;
   box-sizing: border-box;
-  
+
   @media (max-width: 600px) {
     padding: 10px;
     margin: 8px 0;
@@ -63,11 +76,11 @@ const Button = styled.button`
   cursor: pointer;
   display: block;
   margin: 20px auto 0;
-  
+
   &:hover {
     background: #00d084;
   }
-  
+
   @media (max-width: 600px) {
     padding: 10px 20px;
     font-size: 14px;
