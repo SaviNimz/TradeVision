@@ -1,4 +1,3 @@
-// FeedbackList.jsx
 import React from 'react';
 import styled from 'styled-components';
 
@@ -13,15 +12,29 @@ const ListContainer = styled.div`
   max-height: 400px;
   overflow-y: auto;
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     padding: 15px;
-    max-height: 300px;
+    max-width: 90%;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+    max-width: 100%;
+    max-height: 300px; /* Reduce height for smaller screens */
   }
 `;
 
 const Title = styled.h2`
   color: #333; /* Dark text color */
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 `;
 
 const FeedbackItem = styled.div`
