@@ -52,12 +52,18 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
 const Container = styled.div`
   display: flex;
   padding: 20px;
   background-color: #121212;
   color: #ffffff;
   height: 83vh;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 const ProfileCard = styled.div`
@@ -69,6 +75,11 @@ const ProfileCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
 `;
 
 const ProfilePicture = styled.img`
@@ -109,9 +120,17 @@ const MessageContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
 const Message = styled.h3`
   margin-bottom: 20px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;

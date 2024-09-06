@@ -1,15 +1,8 @@
-// FeedbackSection.jsx
 import React, { useState } from 'react';
 import FeedbackForm from '../components/FeedbackPage/FeedbackForm';
 import FeedbackList from '../components/FeedbackPage/FeedbackList';
 import styled from 'styled-components';
 
-const PageContainer = styled.div`
-  padding: 20px;
-  background: linear-gradient(135deg, #000000, #002f4c, #004080); /* Very dark blue gradient background */
-  color: #ffffff; /* Light text color for contrast */
-  min-height: 84vh; /* Ensures the background covers the full viewport height */
-`;
 
 const FeedBackPage = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -27,3 +20,11 @@ const FeedBackPage = () => {
 };
 
 export default FeedBackPage;
+
+
+const PageContainer = styled.div`
+  padding: 20px;
+  background: linear-gradient(135deg, #000000, #002f4c, #004080); /* Very dark blue gradient background */
+  color: #ffffff; /* Light text color for contrast */
+  min-height: 84vh; 
+`;

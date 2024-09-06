@@ -6,6 +6,40 @@ import StockChart from '../components/StockForecastingPage/StockChart';
 import StockPredictor from '../components/StockForecastingPage/StockPredictor'; // Import the StockPredictor component
 import styled, { keyframes } from 'styled-components';
 
+const StockForecastPage = () => {
+  const [selectedStock, setSelectedStock] = useState(null);
+
+  const handleSelect = (stock) => setSelectedStock(stock); // Simplified the event handler
+
+  return (
+    <PageContainer>
+      {/* Header */}
+      <Header />
+
+      {/* Search Bar */}
+      <SearchBar onSelect={handleSelect} />
+
+      {/* Display Message and Animated Icon when no stock is selected */}
+      {!selectedStock ? (
+        <IconContainer>
+          <AnimatedIcon>
+            <FaSearch /> {/* Magnifying glass icon */}
+          </AnimatedIcon>
+          <Message>Search for stocks and get your prediction now!</Message>
+        </IconContainer>
+      ) : (
+        <StockInfoContainer>
+          {/* StockChart with selected stock symbol */}
+          <StockChart stockType={selectedStock.symbol} />
+        </StockInfoContainer>
+      )}
+    </PageContainer>
+  );
+};
+
+export default StockForecastPage;
+
+
 // Define bounce animation for the icon
 const bounce = keyframes`
   0%, 20%, 50%, 80%, 100% {
@@ -40,7 +74,7 @@ const IconContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 50px; /* Adjust padding to position icon lower */
+  padding-top: 50px;
 `;
 
 // Styled component for the animated icon
@@ -52,68 +86,28 @@ const AnimatedIcon = styled.div`
   height: 100px;
   
   svg {
-    font-size: 3rem; /* Adjust size as needed */
-    color: rgba(255, 255, 255, 0.7); /* Transparent white color */
-    animation: ${pulse} 2s infinite; /* Pulse animation */
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.7);
+    animation: ${pulse} 2s infinite;
   }
 `;
 
 // Styled component for the message near the icon
 const Message = styled.div`
-  margin-top: 10px; /* Space between icon and message */
-  font-size: 1rem; /* Smaller font size */
+  margin-top: 10px;
+  font-size: 1rem;
   color: #ffffff;
   text-align: center;
 `;
 
 const PageContainer = styled.div`
   padding: 20px;
-  background: linear-gradient(135deg, #000000, #002f4c, #004080); /* Very dark blue gradient background */
-  color: #ffffff; /* Light text color for contrast */
-  min-height: 100vh; /* Ensures the background covers the full viewport height */
+  background: linear-gradient(135deg, #000000, #002f4c, #004080); /* Dark blue gradient */
+  color: #ffffff;
+  min-height: 100vh; /* Full viewport height */
 `;
 
 const StockInfoContainer = styled.div`
   margin-top: 20px;
 `;
 
-const StockForecastPage = () => {
-  const [selectedStock, setSelectedStock] = useState(null);
-
-  const handleSelect = (item) => {
-    setSelectedStock(item); // Update the selected stock state
-    console.log('Selected stock:', item); // Log the selected stock
-  };
-
-  return (
-    <PageContainer>
-      {/* Header Component */}
-      <Header />
-
-      {/* Search Bar Component */}
-      <SearchBar onSelect={handleSelect} />
-
-      {/* Display Message and Animated Icon while no stock is selected */}
-      {!selectedStock && (
-        <IconContainer>
-          <AnimatedIcon>
-            <FaSearch /> {/* Render magnifying glass icon */}
-          </AnimatedIcon>
-          <Message>Search for stocks and get your prediction now!</Message>
-        </IconContainer>
-      )}
-
-      {/* Display Selected Stock Information */}
-      {selectedStock && (
-        <StockInfoContainer>
-          {/* Render the StockChart component and pass the selected stock symbol */}
-          <StockChart stockType={selectedStock.symbol} />
-          {/* Render the StockPredictor component and pass the selected stock symbol */}
-          <StockPredictor stockName={selectedStock.symbol} />
-        </StockInfoContainer>
-      )}
-    </PageContainer>
-  );
-};
-
-export default StockForecastPage;
