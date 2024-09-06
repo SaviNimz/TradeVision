@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import AdvancedChart from '../components/Dashboard_Components/MainChart';
 import TickerTape from '../components/Dashboard_Components/TickerTape';
 import GainersChart from '../components/Dashboard_Components/GainersChart';
+import NewsComponent from '../services/NewsService';
 
 const Dashboard = () => {
   return (
@@ -12,6 +13,7 @@ const Dashboard = () => {
         <Title>Real Time Market Data</Title>
         <AdvancedChart />
         <GainersChart />
+        <NewsComponent />
       </MainContent>
     </DashboardContainer>
   );
