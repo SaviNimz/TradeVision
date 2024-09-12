@@ -1,5 +1,69 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios'; // Import Axios
+
+const FeedbackForm = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [feedback, setFeedback] = useState('');
+  const [message, setMessage] = useState(''); // Feedback message state
+  const [error, setError] = useState(''); // Error state
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios.post('http://localhost:5000/api/feedbacks', {
+      name,
+      email,
+      feedback,
+    })
+      .then((response) => {
+        setMessage(response.data.message);
+        setError('');
+        setName('');
+        setEmail('');
+        setFeedback('');
+      })
+      .catch((error) => {
+        setMessage('');
+        setError(error.response ? error.response.data.message : 'An error occurred');
+      });
+  };
+
+  return (
+    <FormContainer>
+      <FormTitle>Submit Your Feedback</FormTitle>
+      {message && <p style={{ color: 'green', textAlign: 'center' }}>{message}</p>}
+      {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <Input
+          type="email"
+          placeholder="Your Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <TextArea
+          placeholder="Your Feedback"
+          value={feedback}
+          onChange={(e) => setFeedback(e.target.value)}
+          required
+        />
+        <Button type="submit">Submit</Button>
+      </form>
+    </FormContainer>
+  );
+};
+
+export default FeedbackForm;
+
 
 const FormContainer = styled.div`
   width: 100%;
@@ -86,48 +150,3 @@ const Button = styled.button`
     font-size: 14px;
   }
 `;
-
-const FeedbackForm = ({ onSubmit }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [feedback, setFeedback] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({ name, email, feedback });
-    setName('');
-    setEmail('');
-    setFeedback('');
-  };
-
-  return (
-    <FormContainer>
-      <FormTitle>Submit Your Feedback</FormTitle>
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="Your Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <Input
-          type="email"
-          placeholder="Your Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <TextArea
-          placeholder="Your Feedback"
-          value={feedback}
-          onChange={(e) => setFeedback(e.target.value)}
-          required
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </FormContainer>
-  );
-};
-
-export default FeedbackForm;
