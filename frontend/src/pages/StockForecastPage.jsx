@@ -4,12 +4,20 @@ import SearchBar from '../components/Dashboard_Components/SearchBar';
 import Header from '../components/StockForecastingPage/Header';
 import StockChart from '../components/StockForecastingPage/StockChart';
 import StockPredictor from '../components/StockForecastingPage/StockPredictor'; // Import the StockPredictor component
+import SymbolInfo from '../components/StockForecastingPage/Symbolinfo';
+import Chart from '../components/StockForecastingPage/Chart';
 import styled, { keyframes } from 'styled-components';
 
 const StockForecastPage = () => {
   const [selectedStock, setSelectedStock] = useState(null);
 
-  const handleSelect = (stock) => setSelectedStock(stock); // Simplified the event handler
+  // Handle stock selection from the search bar
+  const handleSelect = (stock) => setSelectedStock(stock); 
+
+  // Add a null check for selectedStock before accessing symbol
+  if (selectedStock) {
+    console.log(selectedStock.symbol);
+  }
 
   return (
     <PageContainer>
@@ -29,8 +37,9 @@ const StockForecastPage = () => {
         </IconContainer>
       ) : (
         <StockInfoContainer>
-          {/* StockChart with selected stock symbol */}
-          <StockChart stockType={selectedStock.symbol} />
+          {/* SymbolInfo with selected stock symbol */}
+          <SymbolInfo symbol={selectedStock.symbol} />
+          <Chart symbol={selectedStock.symbol} />
         </StockInfoContainer>
       )}
     </PageContainer>
