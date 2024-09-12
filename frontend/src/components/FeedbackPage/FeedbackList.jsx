@@ -57,9 +57,9 @@ const ListContainer = styled.div`
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
-  border-radius: 12px; /* Slightly more rounded corners */
-  background: #f9f9f9; /* Light background color */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(10, 10, 30, 0.9), rgba(30, 30, 60, 0.9)); /* Updated background */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 128, 255, 0.5);
   max-height: 500px;
   overflow-y: auto;
 
@@ -76,9 +76,11 @@ const ListContainer = styled.div`
 `;
 
 const Title = styled.h2`
-  color: #333;
+  color: #ffffff; /* Updated color for the title */
   margin-bottom: 20px;
-  font-family: 'Roboto', sans-serif; /* Modern font */
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(0, 128, 255, 0.8); /* Glowing effect */
 
   @media (max-width: 768px) {
     font-size: 20px;
@@ -91,20 +93,20 @@ const Title = styled.h2`
 
 const FeedbackItem = styled.div`
   padding: 15px;
-  border: 1px solid #e0e0e0; /* Soft border */
-  border-radius: 8px; /* Rounded corners */
-  margin-bottom: 10px; /* Spacing between items */
-  background: #fff; /* White background for items */
-  color: #333;
-  transition: transform 0.2s, box-shadow 0.2s; /* Smooth hover effects */
+  border: 1px solid rgba(60, 60, 90, 0.7); /* Updated border color */
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background: rgba(40, 40, 60, 0.8); /* Updated background */
+  color: #ffffff; /* Updated text color */
+  transition: transform 0.2s, box-shadow 0.2s;
 
   &:hover {
-    transform: translateY(-2px); /* Slight lift effect on hover */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Deeper shadow on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.7); /* Updated hover effect */
   }
 
   &:last-child {
-    margin-bottom: 0; /* Remove margin for last item */
+    margin-bottom: 0;
   }
 
   @media (max-width: 600px) {
@@ -113,12 +115,12 @@ const FeedbackItem = styled.div`
 `;
 
 const NoFeedbackMessage = styled.p`
-  color: #666;
+  color: #cccccc; /* Updated color */
   text-align: center;
-  font-style: normal;
+  font-style: italic;
 `;
 
 const LoadingMessage = styled.p`
-  color: #007bff;
+  color: #007bff; /* Consistent with the scheme */
   text-align: center;
 `;
