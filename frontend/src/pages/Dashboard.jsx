@@ -40,7 +40,7 @@ const Title = styled.h2`
   font-weight: bold; /* Make the title bold */
   margin: 0; /* Remove default margin */
   text-align: center; /* Center the title */
-  color: #66ffcc; /* Bright neon color for modern look */
+  color: white; /* Change color to white */
   text-shadow: 
     0 1px 2px rgba(0, 0, 0, 0.5), /* Subtle shadow for depth */
     0 2px 4px rgba(0, 255, 255, 0.6), /* Neon effect */
