@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import FeedbackForm from '../components/FeedbackPage/FeedbackForm';
 import FeedbackList from '../components/FeedbackPage/FeedbackList';
 import styled from 'styled-components';
+import { ToastContainer } from 'react-toastify'; // Import ToastContainer
+import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 
 const FeedBackPage = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -13,12 +15,12 @@ const FeedBackPage = () => {
   return (
     <PageContainer>
       <FeedbackForm onSubmit={handleFeedbackSubmit} />
+      <ToastContainer /> {/* Add ToastContainer to render toasts */}
     </PageContainer>
   );
 };
 
 export default FeedBackPage;
-
 const PageContainer = styled.div`
   display: flex; /* Use flexbox for layout */
   flex-direction: row; /* Align children in a row */

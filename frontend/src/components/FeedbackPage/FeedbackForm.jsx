@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios'; // Import Axios
+import axios from 'axios'; 
+import { toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
-const FeedbackForm = () => {
+const FeedbackForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [feedback, setFeedback] = useState('');
-  const [message, setMessage] = useState(''); // Feedback message state
-  const [error, setError] = useState(''); // Error state
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,18 +23,24 @@ const FeedbackForm = () => {
         setName('');
         setEmail('');
         setFeedback('');
-        setMessage('Feedback submitted successfully!');
+
+        // Display success toast with faster disappearing time (e.g., 2000ms or 2 seconds)
+        toast.success('Feedback submitted successfully!', { autoClose: 2000 });
+
+        if (onSubmit) {
+          onSubmit(response.data); 
+        }
       })
       .catch((error) => {
-        setMessage('');
         setError(error.response ? error.response.data.message : 'An error occurred');
+        // Display error toast with faster disappearing time
+        toast.error('Failed to submit feedback!', { autoClose: 2000 });
       });
   };
 
   return (
     <FormContainer>
       <FormTitle>Submit Your Feedback</FormTitle>
-      {message && <p style={{ color: 'lightgreen', textAlign: 'center' }}>{message}</p>}
       {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <Input
