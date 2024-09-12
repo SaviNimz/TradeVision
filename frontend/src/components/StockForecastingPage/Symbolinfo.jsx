@@ -1,4 +1,9 @@
 import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
+
+const WidgetContainer = styled.div`
+  padding: 16px; /* Adjust padding as needed */
+`;
 
 const SymbolInfo = ({ symbol }) => {
   const containerRef = useRef(null);
@@ -30,9 +35,9 @@ const SymbolInfo = ({ symbol }) => {
   }, [fullSymbol]);
 
   return (
-    <div className="tradingview-widget-container">
+    <WidgetContainer>
       <div ref={containerRef} className="tradingview-widget-container__widget"></div>
-    </div>
+    </WidgetContainer>
   );
 };
 
