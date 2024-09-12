@@ -68,7 +68,7 @@ const FormContainer = styled.div`
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  max-height: 550px;
+  max-height: 700px;
   padding: 20px;
   border-radius: 8px;
   background: linear-gradient(135deg, rgba(10, 10, 30, 0.9), rgba(30, 30, 60, 0.9));
@@ -122,7 +122,7 @@ const Input = styled.input`
   }
 
   @media (max-width: 600px) {
-    padding: 10px;
+    padding: 20px;
     margin: 8px 0;
   }
 `;
@@ -173,6 +173,6 @@ const Button = styled.button`
 
   @media (max-width: 600px) {
     padding: 10px 20px;
-    font-size: 14px;
+    font-size: 24px;
   }
 `;

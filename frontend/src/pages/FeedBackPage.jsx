@@ -13,7 +13,6 @@ const FeedBackPage = () => {
   return (
     <PageContainer>
       <FeedbackForm onSubmit={handleFeedbackSubmit} />
-      <FeedbackList feedbacks={feedbacks} />
     </PageContainer>
   );
 };
@@ -29,6 +28,6 @@ const PageContainer = styled.div`
   min-height: 84vh;
 
   @media (max-width: 768px) {
-    flex-direction: column; /* Stack components vertically on smaller screens */
+
   }
 `;
