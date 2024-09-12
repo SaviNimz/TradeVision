@@ -5,6 +5,7 @@ import Header from '../components/StockForecastingPage/Header';
 import StockChart from '../components/StockForecastingPage/StockChart';
 import StockPredictor from '../components/StockForecastingPage/StockPredictor'; // Import the StockPredictor component
 import SymbolInfo from '../components/StockForecastingPage/Symbolinfo';
+import Chart from '../components/StockForecastingPage/Chart';
 import styled, { keyframes } from 'styled-components';
 
 const StockForecastPage = () => {
@@ -38,10 +39,7 @@ const StockForecastPage = () => {
         <StockInfoContainer>
           {/* SymbolInfo with selected stock symbol */}
           <SymbolInfo symbol={selectedStock.symbol} />
-          {/* StockChart with selected stock symbol */}
-          <StockChart symbol={selectedStock} />
-          {/* StockPredictor component */}
-          <StockPredictor symbol={selectedStock} />
+          <Chart symbol={selectedStock.symbol} />
         </StockInfoContainer>
       )}
     </PageContainer>
