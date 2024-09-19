@@ -5,7 +5,7 @@ import yfinance as yf
 import numpy as np
 import pandas as pd
 import torch
-
+from datetime import datetime, timedelta
 
 from blueprints.ML_Pipeline.ResNLS.model_definition import ResNLS
 
@@ -22,13 +22,23 @@ model.eval()
 scaler = MinMaxScaler(feature_range=(0, 1))
 
 def get_last_sequence(symbol, n_input=5):
-    # Fetch historical data
-    df = yf.download(symbol, start="2012-01-01", end="2024-09-06", interval="1d")
+    # Fetch historical data for the last 10 days to ensure we have at least 5 valid trading days
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=10)  # Fetch data for the last 10 days
+    
+    # Download historical data
+    df = yf.download(symbol, start=start_date.strftime("%Y-%m-%d"), end=end_date.strftime("%Y-%m-%d"), interval="1d")
+    
     # Create dataset containing only close prices
     data = pd.DataFrame(pd.to_numeric(df["Close"]))
-    dataset = np.reshape(data.values, (df.shape[0], 1))
+    print(data) 
+    # Check if we have at least 5 data points
+    if data.shape[0] < n_input:
+        raise ValueError("Not enough data points available for the specified number of input days.")
+    
     # Normalize the dataset
-    scaled_data = scaler.fit_transform(dataset)
+    scaled_data = scaler.fit_transform(data.values.reshape(-1, 1))
+
     # Get the last n_input days
     last_sequence = scaled_data[-n_input:, 0]
     return last_sequence
