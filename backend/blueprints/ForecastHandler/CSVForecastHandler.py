@@ -3,12 +3,16 @@ from flask import request, jsonify
 from werkzeug.utils import secure_filename
 from blueprints.ML_Pipeline.csv_validator import CSVValidator
 from blueprints.ML_Pipeline.models import Models
-from keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
 import yfinance as yf
 import numpy as np
 import pandas as pd
 import os
+import torch
+
+
+from blueprints.ML_Pipeline.ResNLS.model_definition import ResNLS
+
 
 CSV_Forecast_handler = blueprints.Blueprint('csv_forecast_handler', __name__)
 
@@ -96,62 +100,3 @@ def forecast():
 
     return jsonify(results)
 
-#loading the model
-model_path = 'D:/Sem 5/Semester project/codebase/TradeVision/backend/Models/Stock Predictions Model.keras'
-model = load_model(model_path)
-
-
-@CSV_Forecast_handler.route('/api/predict', methods=['POST'])
-def predict():
-    data = request.get_json()
-    stock = data['stock_symbol']
-    start = data['start_date']
-    end = data['end_date']
-
-    # Fetch stock data
-    stock_data = yf.download(stock, start, end)
-
-    if stock_data.empty:
-        return jsonify({'error': 'Stock data not available'}), 400
-
-    # Prepare training and test data
-    data_train = pd.DataFrame(stock_data['Close'][0:int(len(stock_data) * 0.80)])
-    data_test = pd.DataFrame(stock_data['Close'][int(len(stock_data) * 0.80):])
-
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    
-    # Preparing data for prediction
-    past_100_days = data_train.tail(100)
-    data_test = pd.concat([past_100_days, data_test], ignore_index=True)
-    data_test_scaled = scaler.fit_transform(data_test)
-
-    x_test = []
-    y_test = []
-
-    for i in range(100, data_test_scaled.shape[0]):
-        x_test.append(data_test_scaled[i-100:i])
-        y_test.append(data_test_scaled[i, 0])
-
-    x_test, y_test = np.array(x_test), np.array(y_test)
-
-    # Making predictions with Keras model
-    predictions = model.predict(x_test)
-
-    # Scaling back the predictions
-    scale_factor = 1 / scaler.scale_[0]
-    predictions = predictions * scale_factor
-    y_test = y_test * scale_factor
-
-    # Prepare response data
-    response = {
-        'dates': stock_data.index[-len(predictions):].strftime('%Y-%m-%d').tolist(),
-        'predicted_prices': predictions.flatten().tolist(),
-        'original_prices': y_test.flatten().tolist(),
-    }
-
-    return jsonify(response)
-
-
-@CSV_Forecast_handler.route('/api/forecast/save')
-def save():
-    return 'Save'
