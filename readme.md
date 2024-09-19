@@ -36,8 +36,12 @@ This is the backend component of the Real-Time Stock Price Prediction Applicatio
 2. Create and activate a virtual environment
    ```bash
    python -m venv venv
-   venv\Scripts\activate
+   .\env\Scripts\activate
 
 3. Install the required packages
    ```bash
    pip install -r requirements.txt
+
+4. Start the backend server
+   ```bash
+   flask run --debug
