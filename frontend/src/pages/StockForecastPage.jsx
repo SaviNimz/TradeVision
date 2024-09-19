@@ -13,11 +13,32 @@ const StockForecastPage = () => {
   // Handle stock selection from the search bar
   const handleSelect = (stock) => setSelectedStock(stock);
 
-  // Handle the click on "Forecast Now"
-  const handleForecastClick = () => {
-    alert('Forecast action triggered!'); 
+  const handleForecastClick = async () => {
+    alert('Forecast action triggered!');
+    
+    const n_future = 10; // Default value for n_future
+    const symbol = selectedStock['symbol']; 
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/Stockpredict', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ symbol, n_future }), // Send symbol and n_future as JSON
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json(); // Parse JSON response
+      console.log(data.predicted_prices); // Log the predicted prices
+  
+    } catch (error) {
+      console.error('Error fetching forecast data:', error); // Log any errors
+    }
   };
-
   return (
     <PageContainer>
       {/* Header */}
