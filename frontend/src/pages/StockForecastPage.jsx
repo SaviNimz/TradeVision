@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { FaArrowUp, FaSearch } from 'react-icons/fa'; // Importing arrow up and search icons from react-icons
+import { FaSearch } from 'react-icons/fa'; 
 import SearchBar from '../components/Dashboard_Components/SearchBar';
 import Header from '../components/StockForecastingPage/Header';
 import SymbolInfo from '../components/StockForecastingPage/Symbolinfo';
 import Chart from '../components/StockForecastingPage/Chart';
-import styled, { keyframes } from 'styled-components'; // Add keyframes for animation
-import ForecastNowButton from '../components/StockForecastingPage/ForecastNowButton'; // Import the new ForecastNowButton component
+import styled, { keyframes } from 'styled-components'; 
+import ForecastNowButton from '../components/StockForecastingPage/ForecastNowButton'; 
+import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart'; // Import the new ForecastedPricesChart component
 
 const StockForecastPage = () => {
   const [selectedStock, setSelectedStock] = useState(null);
+  const [predictedPrices, setPredictedPrices] = useState([]);
 
   // Handle stock selection from the search bar
   const handleSelect = (stock) => setSelectedStock(stock);
 
   const handleForecastClick = async () => {
-    alert('Forecast action triggered!');
-    
-    const n_future = 10; // Default value for n_future
+    const n_future = 10; 
     const symbol = selectedStock['symbol']; 
   
     try {
@@ -25,53 +25,54 @@ const StockForecastPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ symbol, n_future }), // Send symbol and n_future as JSON
+        body: JSON.stringify({ symbol, n_future }), 
       });
   
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
   
-      const data = await response.json(); // Parse JSON response
-      console.log(data.predicted_prices); // Log the predicted prices
+      const data = await response.json(); 
+      setPredictedPrices(data.predicted_prices); // Save the predicted prices
   
     } catch (error) {
-      console.error('Error fetching forecast data:', error); // Log any errors
+      console.error('Error fetching forecast data:', error);
     }
   };
+
   return (
     <PageContainer>
-      {/* Header */}
       <Header />
 
       {/* Search Bar */}
       <SearchBar onSelect={handleSelect} />
 
-      {/* Display Message and Animated Icon when no stock is selected */}
       {!selectedStock ? (
         <IconContainer>
           <AnimatedIcon>
-            <FaSearch /> {/* Magnifying glass icon */}
+            <FaSearch /> 
           </AnimatedIcon>
           <Message>Search for stocks and get your prediction now!</Message>
         </IconContainer>
       ) : (
         <StockInfoContainer>
-          {/* SymbolInfo with selected stock symbol */}
           <SymbolInfo symbol={selectedStock.symbol} />
           <Chart symbol={selectedStock.symbol} />
         </StockInfoContainer>
       )}
 
-      {/* Conditionally render the "Forecast Now" button only if a stock is selected */}
       {selectedStock && <ForecastNowButton onClick={handleForecastClick} />}
+
+      {/* Display the ForecastedPricesChart only if we have predicted prices */}
+      {predictedPrices.length > 0 && (
+        <ForecastedPricesChart predictedPrices={predictedPrices} />
+      )}
     </PageContainer>
   );
 };
 
 export default StockForecastPage;
 
-// Styled components
 const pulse = keyframes`
   0% {
     transform: scale(1);
