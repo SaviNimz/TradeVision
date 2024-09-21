@@ -1,46 +1,71 @@
 import React, { useState } from 'react';
-import { FaArrowUp, FaSearch } from 'react-icons/fa'; // Importing arrow up and search icons from react-icons
+import { FaSearch } from 'react-icons/fa'; 
 import SearchBar from '../components/Dashboard_Components/SearchBar';
 import Header from '../components/StockForecastingPage/Header';
-import StockChart from '../components/StockForecastingPage/StockChart';
-import StockPredictor from '../components/StockForecastingPage/StockPredictor'; // Import the StockPredictor component
 import SymbolInfo from '../components/StockForecastingPage/Symbolinfo';
 import Chart from '../components/StockForecastingPage/Chart';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components'; 
+import ForecastNowButton from '../components/StockForecastingPage/ForecastNowButton'; 
+import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart'; // Import the new ForecastedPricesChart component
 
 const StockForecastPage = () => {
   const [selectedStock, setSelectedStock] = useState(null);
+  const [predictedPrices, setPredictedPrices] = useState([]);
 
   // Handle stock selection from the search bar
-  const handleSelect = (stock) => setSelectedStock(stock); 
+  const handleSelect = (stock) => setSelectedStock(stock);
 
-  // Add a null check for selectedStock before accessing symbol
-  if (selectedStock) {
-    console.log(selectedStock.symbol);
-  }
+  const handleForecastClick = async () => {
+    const n_future = 10; 
+    const symbol = selectedStock['symbol']; 
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/Stockpredict', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ symbol, n_future }), 
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json(); 
+      setPredictedPrices(data.predicted_prices); // Save the predicted prices
+  
+    } catch (error) {
+      console.error('Error fetching forecast data:', error);
+    }
+  };
 
   return (
     <PageContainer>
-      {/* Header */}
       <Header />
 
       {/* Search Bar */}
       <SearchBar onSelect={handleSelect} />
 
-      {/* Display Message and Animated Icon when no stock is selected */}
       {!selectedStock ? (
         <IconContainer>
           <AnimatedIcon>
-            <FaSearch /> {/* Magnifying glass icon */}
+            <FaSearch /> 
           </AnimatedIcon>
           <Message>Search for stocks and get your prediction now!</Message>
         </IconContainer>
       ) : (
         <StockInfoContainer>
-          {/* SymbolInfo with selected stock symbol */}
           <SymbolInfo symbol={selectedStock.symbol} />
           <Chart symbol={selectedStock.symbol} />
         </StockInfoContainer>
+      )}
+
+      {selectedStock && <ForecastNowButton onClick={handleForecastClick} />}
+
+      {/* Display the ForecastedPricesChart only if we have predicted prices */}
+      {predictedPrices.length > 0 && (
+        <ForecastedPricesChart predictedPrices={predictedPrices} />
       )}
     </PageContainer>
   );
@@ -48,21 +73,6 @@ const StockForecastPage = () => {
 
 export default StockForecastPage;
 
-
-// Define bounce animation for the icon
-const bounce = keyframes`
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-30px);
-  }
-  60% {
-    transform: translateY(-15px);
-  }
-`;
-
-// Define pulse animation for the magnifying glass
 const pulse = keyframes`
   0% {
     transform: scale(1);
@@ -78,7 +88,6 @@ const pulse = keyframes`
   }
 `;
 
-// Styled component for the container holding the icon and message
 const IconContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -86,14 +95,13 @@ const IconContainer = styled.div`
   padding-top: 50px;
 `;
 
-// Styled component for the animated icon
 const AnimatedIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100px;
   height: 100px;
-  
+
   svg {
     font-size: 3rem;
     color: rgba(255, 255, 255, 0.7);
@@ -101,7 +109,6 @@ const AnimatedIcon = styled.div`
   }
 `;
 
-// Styled component for the message near the icon
 const Message = styled.div`
   margin-top: 10px;
   font-size: 1rem;
@@ -114,9 +121,9 @@ const PageContainer = styled.div`
   background: linear-gradient(135deg, #000000, #002f4c, #004080); /* Dark blue gradient */
   color: #ffffff;
   min-height: 100vh; /* Full viewport height */
+  position: relative; /* So that absolute elements can be positioned */
 `;
 
 const StockInfoContainer = styled.div`
   margin-top: 20px;
 `;
-

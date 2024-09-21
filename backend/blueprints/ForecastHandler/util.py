@@ -1,5 +1,24 @@
 import torch
 import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+import yfinance as yf
+import pandas as pd
+
+scaler = MinMaxScaler(feature_range=(0, 1))
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+def get_last_sequence(symbol, n_input=5):
+    # Fetch historical data
+    df = yf.download(symbol, start="2024-08-01", end="2024-09-06", interval="1d")
+    # Create dataset containing only close prices
+    data = pd.DataFrame(pd.to_numeric(df["Close"]))
+    dataset = np.reshape(data.values, (df.shape[0], 1))
+    # Normalize the dataset
+    scaled_data = scaler.fit_transform(dataset)
+    # Get the last n_input days
+    last_sequence = scaled_data[-n_input:, 0]
+    return last_sequence
+
 
 def forecast_future(model, last_sequence, n_future, n_input, scaler):
     """
