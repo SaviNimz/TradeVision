@@ -55,10 +55,9 @@ export default ForecastedPricesChart;
 
 // Styled component for the chart container
 const ChartContainer = styled.div`
-  width: 100%;
-  max-width: 600px;
+  width: 700px;
   margin: 0 auto;
-  padding: 50px;
+  padding: 10px;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   color: white;

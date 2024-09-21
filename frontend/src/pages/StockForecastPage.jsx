@@ -7,18 +7,20 @@ import Chart from '../components/StockForecastingPage/Chart';
 import styled, { keyframes } from 'styled-components';
 import ForecastNowButton from '../components/StockForecastingPage/ForecastNowButton';
 import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart'; // Import the new ForecastedPricesChart component
+import ForecastSummary from '../components/StockForecastingPage/ForecastSummary';
+
 
 const StockForecastPage = () => {
   const [selectedStock, setSelectedStock] = useState(null);
   const [predictedPrices, setPredictedPrices] = useState([]);
-  const [loading, setLoading] = useState(false); // Add loading state
-  const [forecastGenerated, setForecastGenerated] = useState(false); // State to check if forecast is generated
+  const [loading, setLoading] = useState(false);
+  const [forecastGenerated, setForecastGenerated] = useState(false);
 
   // Handle stock selection from the search bar
   const handleSelect = (stock) => setSelectedStock(stock);
 
   const handleForecastClick = async () => {
-    setLoading(true); // Start loading
+    setLoading(true); 
     setForecastGenerated(false);
     const n_future = 10;
     const symbol = selectedStock['symbol'];
@@ -37,13 +39,13 @@ const StockForecastPage = () => {
       }
 
       const data = await response.json();
-      setPredictedPrices(data.predicted_prices); // Save the predicted prices
-      setForecastGenerated(true); // Forecast generated successfully
+      setPredictedPrices(data.predicted_prices);
+      setForecastGenerated(true);
 
     } catch (error) {
       console.error('Error fetching forecast data:', error);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
@@ -53,12 +55,12 @@ const StockForecastPage = () => {
         <LoadingOverlay>
           {!forecastGenerated ? (
             <Spinner>
-              <FaSpinner className="spinner" /> {/* Loading Spinner */}
+              <FaSpinner className="spinner" />
               <LoadingMessage>Generating forecast...</LoadingMessage>
             </Spinner>
           ) : (
             <SuccessMessage>
-              <FaCheck className="check-icon" /> {/* Check Icon */}
+              <FaCheck className="check-icon" />
               <LoadingMessage>Forecast generated!</LoadingMessage>
             </SuccessMessage>
           )}
@@ -68,7 +70,6 @@ const StockForecastPage = () => {
       <PageContainer blur={loading}>
         <Header />
 
-        {/* Search Bar */}
         <SearchBar onSelect={handleSelect} />
 
         {!selectedStock ? (
@@ -87,9 +88,12 @@ const StockForecastPage = () => {
 
         {selectedStock && <ForecastNowButton onClick={handleForecastClick} />}
 
-        {/* Display the ForecastedPricesChart only if we have predicted prices */}
+        {/* Flex container for side-by-side components */}
         {predictedPrices.length > 0 && (
-          <ForecastedPricesChart predictedPrices={predictedPrices} />
+          <ForecastContainer>
+            <ForecastedPricesChart predictedPrices={predictedPrices} />
+            <ForecastSummary predictedPrices={predictedPrices} />
+          </ForecastContainer>
         )}
       </PageContainer>
     </>
@@ -145,15 +149,26 @@ const Message = styled.div`
 
 const PageContainer = styled.div`
   padding: 20px;
-  background: linear-gradient(135deg, #000000, #002f4c, #004080); /* Dark blue gradient */
+  background: linear-gradient(135deg, #000000, #002f4c, #004080); 
   color: #ffffff;
-  min-height: 100vh; /* Full viewport height */
-  position: relative; /* So that absolute elements can be positioned */
-  filter: ${({ blur }) => (blur ? 'blur(5px)' : 'none')}; /* Blur effect when loading */
+  min-height: 100vh;
+  position: relative;
+  filter: ${({ blur }) => (blur ? 'blur(5px)' : 'none')};
 `;
 
 const StockInfoContainer = styled.div`
   margin-top: 20px;
+`;
+
+const ForecastContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const LoadingOverlay = styled.div`
@@ -162,11 +177,11 @@ const LoadingOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999; /* Make sure it overlays everything */
+  z-index: 999;
 `;
 
 const Spinner = styled.div`
@@ -197,7 +212,7 @@ const SuccessMessage = styled.div`
 
   .check-icon {
     font-size: 4rem;
-    color: #00ff00; /* Green for success */
+    color: #00ff00;
   }
 `;
 
