@@ -1,108 +1,47 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
-const FormContainer = styled.div`
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 8px;
-  background: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-  @media (max-width: 768px) {
-    padding: 15px;
-    max-width: 90%; /* Takes more screen width on smaller devices */
-  }
-
-  @media (max-width: 480px) {
-    padding: 10px;
-    max-width: 100%; /* Full width for mobile */
-  }
-`;
-
-const FormTitle = styled.h2`
-  margin-bottom: 20px;
-  font-size: 24px;
-  text-align: center;
-  color: black;
-
-  @media (max-width: 768px) {
-    font-size: 20px; /* Smaller title on tablet */
-  }
-
-  @media (max-width: 480px) {
-    font-size: 18px; /* Even smaller title on mobile */
-  }
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-
-  @media (max-width: 600px) {
-    padding: 10px;
-    margin: 8px 0;
-  }
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  min-height: 120px;
-  box-sizing: border-box;
-
-  @media (max-width: 600px) {
-    padding: 10px;
-    margin: 8px 0;
-    min-height: 100px;
-  }
-`;
-
-const Button = styled.button`
-  padding: 12px 24px;
-  border: none;
-  border-radius: 4px;
-  background: #00f260;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  display: block;
-  margin: 20px auto 0;
-
-  &:hover {
-    background: #00d084;
-  }
-
-  @media (max-width: 600px) {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-`;
+import axios from 'axios'; 
+import { toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const FeedbackForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [feedback, setFeedback] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ name, email, feedback });
-    setName('');
-    setEmail('');
-    setFeedback('');
+
+    axios.post('http://localhost:5000/api/feedbacks', {
+      name,
+      email,
+      feedback,
+    })
+      .then((response) => {
+        setError('');
+        setName('');
+        setEmail('');
+        setFeedback('');
+
+        // Display success toast with faster disappearing time (e.g., 2000ms or 2 seconds)
+        toast.success('Feedback submitted successfully!', { autoClose: 2000 });
+
+        if (onSubmit) {
+          onSubmit(response.data); 
+        }
+      })
+      .catch((error) => {
+        setError(error.response ? error.response.data.message : 'An error occurred');
+        // Display error toast with faster disappearing time
+        toast.error('Failed to submit feedback!', { autoClose: 2000 });
+      });
   };
 
   return (
     <FormContainer>
       <FormTitle>Submit Your Feedback</FormTitle>
+      {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <Input
           type="text"
@@ -131,3 +70,116 @@ const FeedbackForm = ({ onSubmit }) => {
 };
 
 export default FeedbackForm;
+
+const FormContainer = styled.div`
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  max-height: 700px;
+  padding: 20px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(10, 10, 30, 0.9), rgba(30, 30, 60, 0.9));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 128, 255, 0.5);
+
+  @media (max-width: 768px) {
+    padding: 15px;
+    max-width: 90%; /* Takes more screen width on smaller devices */
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+    max-width: 100%; /* Full width for mobile */
+  }
+`;
+
+const FormTitle = styled.h2`
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+  color: #ffffff; /* Updated color for the title */
+  text-shadow: 0 0 10px rgba(0, 128, 255, 0.8);
+
+  @media (max-width: 768px) {
+    font-size: 20px; /* Smaller title on tablet */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px; /* Even smaller title on mobile */
+  }
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #666; /* Updated border color */
+  border-radius: 4px;
+  background-color: rgba(20, 20, 40, 0.9); /* Updated background color */
+  color: #ffffff; /* Updated text color */
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: #bbb;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  @media (max-width: 600px) {
+    padding: 20px;
+    margin: 8px 0;
+  }
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #666; /* Updated border color */
+  border-radius: 4px;
+  background-color: rgba(20, 20, 40, 0.9); /* Updated background color */
+  color: #ffffff; /* Updated text color */
+  min-height: 120px;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: #bbb;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  @media (max-width: 600px) {
+    padding: 10px;
+    margin: 8px 0;
+    min-height: 100px;
+  }
+`;
+
+const Button = styled.button`
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #28a745, #21b146); /* Updated background color */
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto 0;
+
+  &:hover {
+    background: linear-gradient(135deg, #218838, #1e7e34); /* Updated hover color */
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.7);
+  }
+
+  @media (max-width: 600px) {
+    padding: 10px 20px;
+    font-size: 24px;
+  }
+`;
