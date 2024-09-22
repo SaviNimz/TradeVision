@@ -56,6 +56,15 @@ const SummaryContainer = styled.div`
     background: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     color: #ffffff;
+
+    @media (max-width: 768px) {
+        margin-right: 0;
+        padding: 10px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 5px;
+    }
 `;
 
 const SummaryBox = styled.div`
@@ -71,6 +80,31 @@ const SummaryBox = styled.div`
 
     p {
         margin: 5px 0;
+        font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        padding: 10px;
+
+        h2 {
+            font-size: 1rem;
+        }
+
+        p {
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        padding: 8px;
+
+        h2 {
+            font-size: 0.9rem;
+        }
+
+        p {
+            font-size: 0.8rem;
+        }
     }
 `;
 
@@ -97,5 +131,23 @@ const CSVDownloadButton = styled.div`
 
     &:hover {
         background: #0050a0;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 1rem;
+        padding: 8px 16px;
+
+        svg {
+            font-size: 1.2rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+
+        svg {
+            font-size: 1rem;
+        }
     }
 `;
