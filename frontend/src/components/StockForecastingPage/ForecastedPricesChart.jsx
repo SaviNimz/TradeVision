@@ -55,10 +55,20 @@ export default ForecastedPricesChart;
 
 // Styled component for the chart container
 const ChartContainer = styled.div`
-  width: 700px;
+  width: 90%; /* Responsive width, adjusts to screen size */
+  max-width: 700px; /* Limit the width on larger screens */
   margin: 0 auto;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   color: white;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 15px;
+    font-size: 14px; /* Adjust text size for small screens */
+  }
 `;
