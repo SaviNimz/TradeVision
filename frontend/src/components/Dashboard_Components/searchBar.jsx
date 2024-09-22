@@ -7,9 +7,18 @@ import { FaSearch } from 'react-icons/fa';
 const SearchContainer = styled.div`
   position: relative;
   width: 100%;
-  max-width: 500px; /* Constrain width */
+  max-width: 500px; /* Constrain width for large screens */
   margin: 0 auto; /* Center horizontally */
   padding: 0 15px; /* Padding for small screens */
+
+  @media (max-width: 768px) {
+    max-width: 400px; /* Reduce width for tablet screens */
+  }
+
+  @media (max-width: 480px) {
+    max-width: 100%; /* Full width for mobile screens */
+    padding: 0 10px; /* Add some side padding */
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -25,6 +34,10 @@ const InputWrapper = styled.div`
   &:focus-within {
     border-color: #007bff;
   }
+
+  @media (max-width: 480px) {
+    padding: 0 8px; /* Adjust padding for mobile screens */
+  }
 `;
 
 const Input = styled.input`
@@ -34,12 +47,27 @@ const Input = styled.input`
   outline: none;
   font-size: 16px;
   border-radius: 8px;
+
+  @media (max-width: 768px) {
+    padding: 10px 8px; /* Slightly reduce padding for tablets */
+    font-size: 15px; /* Adjust font size for tablets */
+  }
+
+  @media (max-width: 480px) {
+    padding: 8px 6px; /* Reduce padding for mobile */
+    font-size: 14px; /* Adjust font size for mobile */
+  }
 `;
 
 const SearchIcon = styled(FaSearch)`
   color: #888;
   font-size: 18px;
   margin-right: 8px;
+
+  @media (max-width: 480px) {
+    font-size: 16px; /* Adjust icon size for mobile */
+    margin-right: 6px; /* Reduce space between icon and input */
+  }
 `;
 
 const Dropdown = styled.ul`
@@ -55,6 +83,10 @@ const Dropdown = styled.ul`
   margin: 0;
   padding: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 480px) {
+    max-height: 200px; /* Reduce max-height for mobile */
+  }
 `;
 
 const DropdownItem = styled.li`
@@ -69,6 +101,16 @@ const DropdownItem = styled.li`
 
   &:active {
     background-color: #e0e0e0;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 15px; /* Adjust font size for tablets */
+    padding: 10px 12px; /* Adjust padding for tablets */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px; /* Adjust font size for mobile */
+    padding: 8px 10px; /* Adjust padding for mobile */
   }
 `;
 
