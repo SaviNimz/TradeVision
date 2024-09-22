@@ -62,7 +62,6 @@ const Container = styled.div`
   padding: 20px;
   background: linear-gradient(135deg, #000000, #002f4c, #004080); 
   color: #ffffff;
-  color: #ffffff;
   height: 88vh;
   box-sizing: border-box;
 `;
@@ -130,8 +129,6 @@ const ChangeButton = styled.button`
 
 const MessageContainer = styled.div`
   flex: 1;
-  // background: linear-gradient(135deg, #000000, #002f4c, #004080); 
-  // color: #ffffff;
   border-radius: 10px;
   padding: 20px;
   display: flex;
@@ -146,7 +143,8 @@ const MessageContainer = styled.div`
 
 const CardsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap; // Allow wrapping for responsive layout
+  justify-content: center; // Center the cards
   width: 100%;
 
   @media (max-width: 768px) {
