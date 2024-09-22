@@ -2,8 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import styled from 'styled-components';
 import ImageCard from '../components/profilePage/ImageCard';
-import forecastIcon from '../assets/forecast icon.png';
-import RetrieveIcon from '../assets/retrieve icon.png';
+import forecastIcon from '../assets/icon1.jpg';
+import RetrieveIcon from '../assets/icon2.jpeg';
 
 // ProfilePage component
 const ProfilePage = () => {
@@ -20,32 +20,33 @@ const ProfilePage = () => {
   };
 
   const handleRetrieveSavedForecasts = () => {
-    // Add logic to retrieve saved forecasts
-    alert("Retrieve Saved Forecasts clicked!");
+    alert("Retrieve Saved Forecasts clicked!"); // Placeholder logic
   };
 
   return (
     <Container>
-      <ProfileCard>
+      <ProfileStrip>
         <ProfilePicture src={user.profilePicture} alt="Profile" />
-        <Name>{user.name}</Name>
-        <Email>{user.email}</Email>
+        <ProfileInfo>
+          <Name>{user.name}</Name>
+          <Email>{user.email}</Email>
+        </ProfileInfo>
         <ChangeButton>Change Account Details</ChangeButton>
-      </ProfileCard>
+      </ProfileStrip>
+      
       <MessageContainer>
-        <Message>
-          This is your profile page. Here you can generate forecasts, save and retrieve your previous forecasts.
-        </Message>
-        <ImageCard
-          image={forecastIcon} // Background image for Generate Forecasts
-          text="Generate Forecasts"
-          onClick={handleGenerateForecasts}
-        />
-        <ImageCard
-          image={RetrieveIcon} // Background image for Retrieve Saved Forecasts
-          text="Retrieve Saved Forecasts"
-          onClick={handleRetrieveSavedForecasts}
-        />
+        <CardsContainer>
+          <ImageCard
+            image={forecastIcon} // Background image for Generate Forecasts
+            text="Generate Forecasts"
+            onClick={handleGenerateForecasts}
+          />
+          <ImageCard
+            image={RetrieveIcon} // Background image for Retrieve Saved Forecasts
+            text="Retrieve Saved Forecasts"
+            onClick={handleRetrieveSavedForecasts}
+          />
+        </CardsContainer>
       </MessageContainer>
     </Container>
   );
@@ -53,67 +54,84 @@ const ProfilePage = () => {
 
 export default ProfilePage;
 
+// Styled Components
+
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 20px;
-  background-color: #121212;
+  background: linear-gradient(135deg, #000000, #002f4c, #004080); 
   color: #ffffff;
-  height: 83vh;
+  color: #ffffff;
+  height: 88vh;
+  box-sizing: border-box;
+`;
+
+const ProfileStrip = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: rgba(20, 20, 40, 0.9);
+  border-radius: 10px;
+  margin-bottom: 20px;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    height: auto;
-  }
-`;
-
-const ProfileCard = styled.div`
-  flex: 1;
-  background-color: #1e1e1e;
-  border-radius: 10px;
-  padding: 20px;
-  margin-right: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    margin-right: 0;
-    margin-bottom: 20px;
+    align-items: center;
+    text-align: center;
   }
 `;
 
 const ProfilePicture = styled.img`
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  margin-bottom: 20px;
+  width: 70px;
+  height: 70px;
+`;
+
+const ProfileInfo = styled.div`
+  flex: 1;
+  margin-left: 20px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
 `;
 
 const Name = styled.h2`
-  margin: 10px 0;
+  margin: 5px 0;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(0, 128, 255, 0.8);
 `;
 
 const Email = styled.p`
-  margin: 5px 0;
+  margin: 0;
+  color: #bbb;
 `;
 
 const ChangeButton = styled.button`
-  margin-top: auto;
   padding: 10px 20px;
-  background-color: #4caf50;
+  background: linear-gradient(135deg, #28a745, #21b146);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
 
   &:hover {
-    background-color: #45a049;
+    background: linear-gradient(135deg, #218838, #1e7e34);
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.7);
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 10px;
   }
 `;
 
 const MessageContainer = styled.div`
-  flex: 2;
-  background-color: #1e1e1e;
+  flex: 1;
+  // background: linear-gradient(135deg, #000000, #002f4c, #004080); 
+  // color: #ffffff;
   border-radius: 10px;
   padding: 20px;
   display: flex;
@@ -126,11 +144,13 @@ const MessageContainer = styled.div`
   }
 `;
 
-const Message = styled.h3`
-  margin-bottom: 20px;
-  text-align: center;
+const CardsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 
   @media (max-width: 768px) {
-    font-size: 1rem;
+    flex-direction: column;
+    align-items: center;
   }
 `;
