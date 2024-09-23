@@ -5,7 +5,7 @@ import { saveAs } from 'file-saver';
 import Papa from 'papaparse';
 
 
-const SelectComponent = ({ csvData }) => {
+const SelectComponent = ({ csvData, onForecast }) => {
   const [column, setColumn] = useState('');
   const [selectedMethods, setSelectedMethods] = useState([]);
   const [toastMessage, setToastMessage] = useState('');
@@ -29,15 +29,15 @@ const SelectComponent = ({ csvData }) => {
       setToastMessage('You need to select a Column and Model to Continue');
       return;
     }
-  
+
     const payload = {
       column,
       methods: selectedMethods,
       csvData,
     };
-  
+
     console.log("Payload to be sent:", payload);
-  
+
     try {
       const response = await fetch('http://localhost:5000/api/forecast', {
         method: 'POST',
@@ -46,20 +46,25 @@ const SelectComponent = ({ csvData }) => {
         },
         body: JSON.stringify(payload),
       });
-  
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
+
       const result = await response.json();
       console.log("Forecast response:", result);
-  
+
+      // Send the forecast result to the parent component
+      if (onForecast) {
+        onForecast(result);
+      }
+
       // Flatten the response for CSV conversion
       const flattenedData = Object.entries(result.ARIMA).map(([key, value]) => ({
         index: key,
         forecast: value,
       }));
-      
+
       console.log("Flattened data for CSV:", flattenedData);
 
       // Convert flattened data to CSV using PapaParse
@@ -72,6 +77,7 @@ const SelectComponent = ({ csvData }) => {
       console.error("Error in forecasting:", error);
     }
   };
+
   return (
     <Card>
       {toastMessage && <Toast>{toastMessage}</Toast>}
@@ -111,7 +117,6 @@ const SelectComponent = ({ csvData }) => {
 };
 
 export default SelectComponent;
-
 
 const Card = styled.div`
   background: #1e1e2f;
