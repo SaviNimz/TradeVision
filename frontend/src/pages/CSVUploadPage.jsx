@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import FileUploadCard from '../components/CSVforecast/UploadButton';
-import CSVTable from '../components/CSVforecast/CSVTable';
 import SelectComponent from '../components/CSVforecast/SelectComponent';
 import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart';
 import ForecastSummary from '../components/StockForecastingPage/ForecastSummary';
@@ -9,76 +8,66 @@ import bgimg from '../assets/forecast page.jpg';
 
 const CSVUploadPage = () => {
   const [csvData, setCsvData] = useState([]);
-  const [forecastResult, setForecastResult] = useState(null); // To store forecast result
+  const [forecastResult, setForecastResult] = useState(null);
 
-  // Handle CSV file upload
   const handleUploadSuccess = (data) => {
-    setCsvData(data); // Store the CSV data in the state
-    console.log(data); // Log the CSV data to the console
+    setCsvData(data);
+    console.log(data);
   };
 
   const handleForecastResult = (result) => {
-    // Extract only the forecast values from the result
-    const cleanedForecast = result.map(item => item.forecast); // Get array of forecast values
-
-    // Set the cleaned forecast result to the state
+    const cleanedForecast = result.map((item) => item.forecast);
     setForecastResult(cleanedForecast);
-    
-    console.log("Received cleaned forecast result:", cleanedForecast);
+    console.log('Received cleaned forecast result:', cleanedForecast);
   };
 
   return (
-    <ForecastPageContainer>
-      <BackgroundBlur />
-      <ForegroundContent>
-        {csvData.length === 0 && (
-          <CardContainer>
-            <FileUploadCard onUploadSuccess={handleUploadSuccess} />
-          </CardContainer>
-        )}
-        {csvData.length > 0 && (
-          <>
-            <TableContainer>
-              <CSVTable data={csvData} />
-            </TableContainer>
-            <CardContainer>
-              <SelectComponent csvData={csvData} onForecast={handleForecastResult} />
-            </CardContainer>
-          </>
-        )}
+    <PageWrapper>
+      <BackgroundOverlay />
+      <ContentWrapper>
+        <HeaderSection>
+          <h1>CSV Stock Forecast</h1>
+          <p>Upload your CSV file and get detailed stock price predictions.</p>
+        </HeaderSection>
 
-        {/* Display forecast results */}
+        <CardContainer>
+          {csvData.length === 0 ? (
+            <FileUploadCard onUploadSuccess={handleUploadSuccess} />
+          ) : (
+            <SelectComponent csvData={csvData} onForecast={handleForecastResult} />
+          )}
+        </CardContainer>
+
         {forecastResult && (
-          <ForecastResultContainer>
+          <ForecastSection>
             <ChartContainer>
-              {/* Pass forecasted prices to ForecastedPricesChart */}
               <ForecastedPricesChart predictedPrices={forecastResult} />
             </ChartContainer>
             <SummaryContainer>
-              {/* Pass forecasted prices to ForecastSummary */}
-              {/* <ForecastSummary predictedPrices={forecastResult} /> */}
+              <ForecastSummary predictedPrices={forecastResult} />
             </SummaryContainer>
-          </ForecastResultContainer>
+          </ForecastSection>
         )}
-      </ForegroundContent>
-    </ForecastPageContainer>
+      </ContentWrapper>
+    </PageWrapper>
   );
 };
 
 export default CSVUploadPage;
 
-// Styled Components
-
-const ForecastPageContainer = styled.div`
+const PageWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 88vh;
+  padding: 20px;
+  background-color: #0f2027;
+  color: white;
   overflow: hidden;
 `;
 
-const BackgroundBlur = styled.div`
+const BackgroundOverlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -87,64 +76,84 @@ const BackgroundBlur = styled.div`
   background-image: url(${bgimg});
   background-size: cover;
   background-position: center;
-  filter: blur(8px);
-  z-index: 0;
+  filter: blur(5px) brightness(0.5);
+  z-index: -1;
 `;
 
-const ForegroundContent = styled.div`
+const ContentWrapper = styled.div`
   position: relative;
   z-index: 1;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1000px;
+  width: 100%;
+  padding: 20px;
   gap: 20px;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  }
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
 `;
 
-const TableContainer = styled.div`
-  max-height: 600px;
-  overflow-y: auto;
-  flex: 3;
-  padding: 20px;
+const HeaderSection = styled.div`
+  text-align: center;
+  color: #f0f0f0;
 
-  @media (max-width: 768px) {
-    order: 1;
-    margin-bottom: 20px;
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #00f260, #0575e6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: #c0c0c0;
   }
 `;
 
 const CardContainer = styled.div`
-  flex: 1;
+  width: 100%;
   padding: 20px;
-
-  @media (max-width: 768px) {
-    order: 2;
-  }
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
 `;
 
-const ForecastResultContainer = styled.div`
-  width: 100%;
+const ForecastSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-`;
-
-const ChartContainer = styled.div`
+  gap: 20px;
   width: 100%;
-  max-width: 700px;
-  margin-bottom: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 `;
 
 const SummaryContainer = styled.div`
   width: 100%;
-  max-width: 700px;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  overflow-y: auto;
+  max-height: 400px; /* Set max height */
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+`;
+
+const ChartContainer = styled.div`
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  max-height: 500px; /* Set max height */
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    max-height: 200px; /* Reduce height for smaller screens */
+  }
 `;
