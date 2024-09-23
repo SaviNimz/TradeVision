@@ -87,12 +87,16 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: 1000px;
-  width: 100%;
+  width: 100%; /* Ensure full width */
   padding: 20px;
   gap: 20px;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 15px;
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+
+  @media (max-width: 768px) {
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
 `;
 
 const HeaderSection = styled.div`
@@ -122,6 +126,10 @@ const CardContainer = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 768px) {
+    padding: 10px; /* Reduce padding for smaller screens */
+  }
 `;
 
 const ForecastSection = styled.div`
@@ -133,6 +141,10 @@ const ForecastSection = styled.div`
   padding: 20px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
+
+  @media (max-width: 768px) {
+    padding: 10px; /* Reduce padding for smaller screens */
+  }
 `;
 
 const ChartContainer = styled.div`
@@ -160,4 +172,8 @@ const SummaryContainer = styled.div`
   display: flex; /* Add flex display */
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
+
+  @media (max-width: 768px) {
+    max-height: 400px; /* Adjust for smaller screens */
+  }
 `;
