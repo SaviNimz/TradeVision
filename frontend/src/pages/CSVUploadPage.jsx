@@ -60,7 +60,7 @@ const PageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 88vh;
+  min-height: 84vh;
   padding: 20px;
   background-color: #0f2027;
   color: white;
@@ -135,6 +135,20 @@ const ForecastSection = styled.div`
   border-radius: 10px;
 `;
 
+const ChartContainer = styled.div`
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  max-height: 600px; /* Increased max height */
+  min-height: 300px; /* Set a minimum height */
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    max-height: 300px; /* Adjust for smaller screens */
+  }
+`;
+
 const SummaryContainer = styled.div`
   width: 100%;
   padding: 10px;
@@ -143,17 +157,7 @@ const SummaryContainer = styled.div`
   overflow-y: auto;
   max-height: 400px; /* Set max height */
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-`;
-
-const ChartContainer = styled.div`
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.4);
-  max-height: 500px; /* Set max height */
-  overflow: hidden;
-
-  @media (max-width: 768px) {
-    max-height: 200px; /* Reduce height for smaller screens */
-  }
+  display: flex; /* Add flex display */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 `;
