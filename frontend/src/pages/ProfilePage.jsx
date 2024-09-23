@@ -1,26 +1,25 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ImageCard from '../components/profilePage/ImageCard';
 import forecastIcon from '../assets/icon1.jpg';
 import RetrieveIcon from '../assets/icon2.jpeg';
 
-// ProfilePage component
 const ProfilePage = () => {
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   const user = {
     name: "John Doe",
     email: "johndoe@example.com",
-    profilePicture: "https://via.placeholder.com/100", // Placeholder image
+    profilePicture: "https://via.placeholder.com/100", 
   };
 
   const handleGenerateForecasts = () => {
-    navigate('/CsvUpload'); // Route to /CsvUpload
+    navigate('/CsvUpload');
   };
 
   const handleRetrieveSavedForecasts = () => {
-    alert("Retrieve Saved Forecasts clicked!"); // Placeholder logic
+    alert("Retrieve Saved Forecasts clicked!");
   };
 
   return (
@@ -34,20 +33,18 @@ const ProfilePage = () => {
         <ChangeButton>Change Account Details</ChangeButton>
       </ProfileStrip>
       
-      <MessageContainer>
-        <CardsContainer>
-          <ImageCard
-            image={forecastIcon} // Background image for Generate Forecasts
-            text="Generate Forecasts"
-            onClick={handleGenerateForecasts}
-          />
-          <ImageCard
-            image={RetrieveIcon} // Background image for Retrieve Saved Forecasts
-            text="Retrieve Saved Forecasts"
-            onClick={handleRetrieveSavedForecasts}
-          />
-        </CardsContainer>
-      </MessageContainer>
+      <CardsSection>
+        <ImageCard
+          image={forecastIcon}
+          text="Generate Forecasts"
+          onClick={handleGenerateForecasts}
+        />
+        <ImageCard
+          image={RetrieveIcon}
+          text="Retrieve Saved Forecasts"
+          onClick={handleRetrieveSavedForecasts}
+        />
+      </CardsSection>
     </Container>
   );
 };
@@ -60,21 +57,25 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background: linear-gradient(135deg, #000000, #002f4c, #004080); 
+  background: linear-gradient(135deg, #0a0a23, #001f3f, #003f5c); 
   color: #ffffff;
   height: 88vh;
   box-sizing: border-box;
+  overflow: hidden;
 `;
 
 const ProfileStrip = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
-  background-color: rgba(20, 20, 40, 0.9);
-  border-radius: 10px;
-  margin-bottom: 20px;
-
+  padding: 25px 35px;
+  background-color: rgba(10, 10, 30, 0.85);
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+  margin-left: 120px;
+  margin-right: 120px;
+  
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
@@ -84,8 +85,15 @@ const ProfileStrip = styled.div`
 
 const ProfilePicture = styled.img`
   border-radius: 50%;
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
+  border: 3px solid #0066cc;
+  transition: transform 0.3s ease-in-out;
+  
+  &:hover {
+    transform: scale(1.1);
+    border-color: #00ccff;
+  }
 `;
 
 const ProfileInfo = styled.div`
@@ -94,6 +102,7 @@ const ProfileInfo = styled.div`
 
   @media (max-width: 768px) {
     margin-left: 0;
+    margin-top: 15px;
   }
 `;
 
@@ -109,46 +118,34 @@ const Email = styled.p`
 `;
 
 const ChangeButton = styled.button`
-  padding: 10px 20px;
+  padding: 10px 25px;
   background: linear-gradient(135deg, #28a745, #21b146);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
 
   &:hover {
     background: linear-gradient(135deg, #218838, #1e7e34);
-    box-shadow: 0 0 15px rgba(40, 167, 69, 0.7);
+    box-shadow: 0 0 20px rgba(40, 167, 69, 0.8);
   }
 
   @media (max-width: 768px) {
-    margin-top: 10px;
+    margin-top: 15px;
   }
 `;
 
-const MessageContainer = styled.div`
-  flex: 1;
-  border-radius: 10px;
-  padding: 20px;
+const CardsSection = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    padding: 10px;
-  }
-`;
-
-const CardsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap; // Allow wrapping for responsive layout
-  justify-content: center; // Center the cards
+  gap: 40px;
+  margin-top: 20px;
   width: 100%;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    align-items: center;
+    gap: 20px;
   }
 `;
+
