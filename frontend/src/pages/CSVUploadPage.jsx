@@ -3,22 +3,29 @@ import FileUploadCard from '../components/CSVforecast/UploadButton';
 import SelectComponent from '../components/CSVforecast/SelectComponent';
 import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart';
 import ForecastSummary from '../components/StockForecastingPage/ForecastSummary';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import bgimg from '../assets/forecast page.jpg';
+import { FaCheck, FaSpinner } from 'react-icons/fa'; // Import FaCheck and FaSpinner
 
 const CSVUploadPage = () => {
   const [csvData, setCsvData] = useState([]);
   const [forecastResult, setForecastResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleUploadSuccess = (data) => {
     setCsvData(data);
     console.log(data);
   };
 
-  const handleForecastResult = (result) => {
+  const handleForecastResult = async (result) => {
+    setLoading(true); // Set loading to true before processing
+    // Simulate a delay to see the loading animation
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    
     const cleanedForecast = result.map((item) => item.forecast);
     setForecastResult(cleanedForecast);
     console.log('Received cleaned forecast result:', cleanedForecast);
+    setLoading(false); // Set loading to false after processing
   };
 
   return (
@@ -49,11 +56,21 @@ const CSVUploadPage = () => {
           </ForecastSection>
         )}
       </ContentWrapper>
+
+      {loading && (
+        <LoadingOverlay>
+          <Spinner>
+            <FaSpinner className="spinner" />
+            <LoadingMessage>Generating forecast...</LoadingMessage>
+          </Spinner>
+        </LoadingOverlay>
+      )}
     </PageWrapper>
   );
 };
-
 export default CSVUploadPage;
+
+// Styled components
 
 const PageWrapper = styled.div`
   position: relative;
@@ -79,6 +96,7 @@ const BackgroundOverlay = styled.div`
   z-index: 1;
   filter: blur(5px) brightness(0.5);
 `;
+
 const ContentWrapper = styled.div`
   position: relative;
   z-index: 1;
@@ -175,4 +193,44 @@ const SummaryContainer = styled.div`
   @media (max-width: 768px) {
     max-height: 400px; /* Adjust for smaller screens */
   }
+`;
+
+const LoadingOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+const Spinner = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .spinner {
+    font-size: 4rem;
+    color: #ffffff;
+    animation: spin 2s infinite linear;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+const LoadingMessage = styled.div`
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: #ffffff;
 `;
