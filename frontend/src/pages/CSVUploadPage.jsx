@@ -76,10 +76,9 @@ const BackgroundOverlay = styled.div`
   background-image: url(${bgimg});
   background-size: cover;
   background-position: center;
+  z-index: 1;
   filter: blur(5px) brightness(0.5);
-  z-index: -1;
 `;
-
 const ContentWrapper = styled.div`
   position: relative;
   z-index: 1;
