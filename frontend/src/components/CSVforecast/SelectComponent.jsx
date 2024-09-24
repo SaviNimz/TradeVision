@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaChartLine, FaRegChartBar, FaRegEye } from 'react-icons/fa';
-import { saveAs } from 'file-saver';
 import Papa from 'papaparse';
 
-
-const SelectComponent = ({ csvData }) => {
+const SelectComponent = ({ csvData, onForecast }) => {
   const [column, setColumn] = useState('');
   const [selectedMethods, setSelectedMethods] = useState([]);
   const [toastMessage, setToastMessage] = useState('');
+  const [csvResult, setCsvResult] = useState(null); // Store the CSV result here
 
   const handleColumnChange = (event) => {
     setColumn(event.target.value);
-    setToastMessage(''); // Clear toast message on column change
+    setToastMessage('');
   };
 
   const handleMethodChange = (method) => {
@@ -21,7 +20,7 @@ const SelectComponent = ({ csvData }) => {
         ? prevMethods.filter((m) => m !== method)
         : [...prevMethods, method]
     );
-    setToastMessage(''); // Clear toast message on method change
+    setToastMessage('');
   };
 
   const handleForecast = async () => {
@@ -29,49 +28,34 @@ const SelectComponent = ({ csvData }) => {
       setToastMessage('You need to select a Column and Model to Continue');
       return;
     }
-  
-    const payload = {
-      column,
-      methods: selectedMethods,
-      csvData,
-    };
-  
-    console.log("Payload to be sent:", payload);
-  
+
+    const payload = { column, methods: selectedMethods, csvData };
+
     try {
       const response = await fetch('http://localhost:5000/api/forecast', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-  
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-  
+
+      if (!response.ok) throw new Error('Network response was not ok');
+
       const result = await response.json();
-      console.log("Forecast response:", result);
-  
-      // Flatten the response for CSV conversion
       const flattenedData = Object.entries(result.ARIMA).map(([key, value]) => ({
         index: key,
         forecast: value,
       }));
-      
-      console.log("Flattened data for CSV:", flattenedData);
 
-      // Convert flattened data to CSV using PapaParse
+      if (onForecast) onForecast(flattenedData);
+
+      // Generate CSV but don't auto-download or print
       const csv = Papa.unparse(flattenedData);
-      console.log("Forecast result in CSV:", csv);
-      // Trigger the file download
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      saveAs(blob, 'forecast_result.csv');
+      setCsvResult(csv); // Store CSV in state silently
     } catch (error) {
       console.error("Error in forecasting:", error);
     }
   };
+
   return (
     <Card>
       {toastMessage && <Toast>{toastMessage}</Toast>}
@@ -98,9 +82,11 @@ const SelectComponent = ({ csvData }) => {
               checked={selectedMethods.includes(methodOption)}
               onChange={() => handleMethodChange(methodOption)}
             />
-            {methodOption === 'ARIMA' && <Icon><FaChartLine /></Icon>}
-            {methodOption === 'Prophet' && <Icon><FaRegChartBar /></Icon>}
-            {methodOption === 'LSTM' && <Icon><FaRegEye /></Icon>}
+            <Icon>
+              {methodOption === 'ARIMA' && <FaChartLine />}
+              {methodOption === 'Prophet' && <FaRegChartBar />}
+              {methodOption === 'LSTM' && <FaRegEye />}
+            </Icon>
             <span>{methodOption}</span>
           </Option>
         ))}
@@ -112,13 +98,12 @@ const SelectComponent = ({ csvData }) => {
 
 export default SelectComponent;
 
-
 const Card = styled.div`
   background: #1e1e2f;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-  padding: 20px;
-  width: 320px;
+  padding: 30px;
+  width: 600px;
   margin: 40px auto;
   position: relative;
   transition: all 0.3s ease;
@@ -132,21 +117,21 @@ const Toast = styled.div`
   background-color: #e74c3c;
   color: white;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border-radius: 5px;
   text-align: center;
 `;
 
 const Question = styled.h3`
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   text-align: center;
   color: #e0e0e0;
-  font-size: 18px;
+  font-size: 20px;
 `;
 
 const Select = styled.select`
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   margin-bottom: 20px;
   border: 1px solid #555;
   border-radius: 6px;
@@ -163,7 +148,7 @@ const Select = styled.select`
 
 const OptionsContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-bottom: 20px;
 `;
 
@@ -204,17 +189,17 @@ const Option = styled.label`
 `;
 
 const Icon = styled.div`
-  font-size: 24px;
+  font-size: 26px;
   color: #4db8ff;
 `;
 
 const ForecastButton = styled.button`
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   margin-top: 20px;
   background-color: #28a745;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
