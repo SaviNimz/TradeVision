@@ -12,7 +12,7 @@ const ProfilePage = () => {
 
   const user = {
     name: "John Doe",
-    email: "johndoe@example.com",
+    email: "johndoe@gmail.com",
     profilePicture: "https://randomuser.me/api/portraits/men/79.jpg", // Placeholder image
     // profilePicture: `../assets/profile-image.png`, // Placeholder image
 
@@ -37,7 +37,7 @@ const ProfilePage = () => {
       </ProfileCard>
       <MessageContainer>
         <Message>
-          This is your profile page. Here you can generate forecasts, save and retrieve your previous forecasts.
+        <Name> <h1>Welcome 👋</h1> {user.name}</Name> to Your Personal Dashboard: Create, Save, and Track Your Insights
         </Message>
         <ImageCard
           image={forecastIcon} // Background image for Generate Forecasts
