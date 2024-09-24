@@ -47,8 +47,10 @@ const ForecastPageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 88vh;
+  height: 89vh;
   overflow: hidden;
+  blurbg: url(${bgimg});
+  background-size: cover;
 `;
 
 const BackgroundBlur = styled.div`
@@ -60,13 +62,13 @@ const BackgroundBlur = styled.div`
   background-image: url(${bgimg});
   background-size: cover;
   background-position: center;
-  filter: blur(8px);
+  filter: blur(7px);
   z-index: 0;
 `;
 
 const ForegroundContent = styled.div`
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: flex-start;
   justify-content: center;

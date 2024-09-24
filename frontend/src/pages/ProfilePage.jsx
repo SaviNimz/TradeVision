@@ -92,7 +92,7 @@ const ProfilePicture = styled.img`
   margin-bottom: 20px;
 `;
 
-const Name = styled.h2`
+const Name = styled.h1`
   margin: 10px 0;
 `;
 
