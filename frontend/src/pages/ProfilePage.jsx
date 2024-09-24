@@ -13,7 +13,7 @@ const ProfilePage = () => {
   const user = {
     name: "John Doe",
     email: "johndoe@example.com",
-    profilePicture: "https://randomuser.me/api/portraits/women/79.jpg", // Placeholder image
+    profilePicture: "https://randomuser.me/api/portraits/men/79.jpg", // Placeholder image
     // profilePicture: `../assets/profile-image.png`, // Placeholder image
 
   };
