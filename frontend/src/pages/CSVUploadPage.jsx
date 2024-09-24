@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FileUploadCard from '../components/CSVforecast/UploadButton';
 import SelectComponent from '../components/CSVforecast/SelectComponent';
 import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart';
-import ForecastSummary from '../components/Redundant/ForecastSummary2'; 
+import ForecastSummary from '../components/CSVforecast/ForecastSummary2'; 
 import styled, { keyframes } from 'styled-components';
 import bgimg from '../assets/forecast page.jpg';
 import { FaCheck, FaSpinner } from 'react-icons/fa'; // Import FaCheck and FaSpinner
