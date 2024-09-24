@@ -41,7 +41,7 @@ const PageContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 40px;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Smooth dark blue gradient */
+  background: linear-gradient(135deg, #002f, #002f40, #004060); 
   color: #ffffff;
   min-height: 100vh;
 
@@ -53,7 +53,7 @@ const PageContainer = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.1); /* Slight transparency */
+  background: linear-gradient(135deg, #000000, #002f4c, #004080); 
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);

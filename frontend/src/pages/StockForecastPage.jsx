@@ -128,6 +128,18 @@ const IconContainer = styled.div`
 `;
 
 const AnimatedIcon = styled.div`
+text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+  color: #f9f9f9;
+  font-family: 'Arial', sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  animation: fadeIn 1s ease-in-out;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
   display: flex;
   justify-content: center;
   align-items: center;
@@ -142,6 +154,18 @@ const AnimatedIcon = styled.div`
 `;
 
 const Message = styled.div`
+text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+  color: #f9f9f9;
+  font-family: 'Arial', sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  animation: fadeIn 1s ease-in-out;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
   margin-top: 10px;
   font-size: 1rem;
   color: #ffffff;
@@ -149,6 +173,7 @@ const Message = styled.div`
 `;
 
 const PageContainer = styled.div`
+
   padding: 20px;
   background: linear-gradient(135deg, #000000, #002f4c, #004080); 
   color: #ffffff;
@@ -158,10 +183,12 @@ const PageContainer = styled.div`
 `;
 
 const StockInfoContainer = styled.div`
+
   margin-top: 20px;
 `;
 
 const ForecastContainer = styled.div`
+
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -173,6 +200,7 @@ const ForecastContainer = styled.div`
 `;
 
 const LoadingOverlay = styled.div`
+
   position: fixed;
   top: 0;
   left: 0;
@@ -186,6 +214,7 @@ const LoadingOverlay = styled.div`
 `;
 
 const Spinner = styled.div`
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -207,6 +236,7 @@ const Spinner = styled.div`
 `;
 
 const SuccessMessage = styled.div`
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -218,6 +248,7 @@ const SuccessMessage = styled.div`
 `;
 
 const LoadingMessage = styled.div`
+
   margin-top: 20px;
   font-size: 1.5rem;
   color: #ffffff;
