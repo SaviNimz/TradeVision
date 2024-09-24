@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import FileUploadCard from '../components/CSVforecast/UploadButton';
-import CSVTable from '../components/CSVforecast/CSVTable';
-import SelectComponent from '../components/CSVforecast/SelectComponent';
+import FileUploadCard from '../components/CSVforecast/UploadButton.jsx';
+import CSVTable from '../components/CSVforecast/CSVTable.jsx';
+import SelectComponent from '../components/CSVforecast/SelectComponent.jsx';
 import styled from 'styled-components';
 import bgimg from '../assets/forecast page.jpg';
 

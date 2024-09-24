@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import FeedbackForm from '../components/FeedbackPage/FeedbackForm';
-import FeedbackList from '../components/FeedbackPage/FeedbackList';
+import FeedbackForm from '../components/FeedbackPage/FeedbackForm.jsx';
+import FeedbackList from '../components/FeedbackPage/FeedbackList.jsx';
 import styled from 'styled-components';
 import { ToastContainer } from 'react-toastify'; // Import ToastContainer
 import 'react-toastify/dist/ReactToastify.css'; // Import the styles

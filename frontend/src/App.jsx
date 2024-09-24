@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
-import Dashboard from './pages/dashboard';
-import CSVUploadPage from './pages/CSVUploadPage';
-import ProfilePage from './pages/profilePage';
-import FeedbackPage from './pages/FeedBackPage';
-import Navbar from './components/navbar';
+import Dashboard from './pages/Dashboard.jsx';
+import CSVUploadPage from './pages/CSVUploadPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
+import FeedbackPage from './pages/FeedBackPage.jsx';
+import Navbar from './components/navbar.jsx';
 import LandingPage from './pages/LandingPage';
-import StockForecastPage from './pages/StockForecastPage';
-import LoginSignupPage from './pages/LoginSignupPage';
+import StockForecastPage from './pages/StockForecastPage.jsx';
+import LoginSignupPage from './pages/LoginSignupPage.jsx';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Manage authentication state

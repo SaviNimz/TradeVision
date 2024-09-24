@@ -1,13 +1,14 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { FaSearch, FaCheck, FaSpinner } from 'react-icons/fa'; // Import FaCheck and FaSpinner
-import SearchBar from '../components/Dashboard_Components/SearchBar';
-import Header from '../components/StockForecastingPage/Header';
-import SymbolInfo from '../components/StockForecastingPage/Symbolinfo';
-import Chart from '../components/StockForecastingPage/Chart';
+import SearchBar from '../components/Dashboard_Components/searchBar.jsx';
+import Header from '../components/StockForecastingPage/Header.jsx';
+import SymbolInfo from '../components/StockForecastingPage/Symbolinfo.jsx';
+import Chart from '../components/StockForecastingPage/Chart.jsx';
 import styled, { keyframes } from 'styled-components';
-import ForecastNowButton from '../components/StockForecastingPage/ForecastNowButton';
-import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart'; // Import the new ForecastedPricesChart component
-import ForecastSummary from '../components/StockForecastingPage/ForecastSummary';
+import ForecastNowButton from '../components/StockForecastingPage/ForecastNowButton.jsx';
+import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart.jsx'; // Import the new ForecastedPricesChart component
+import ForecastSummary from '../components/StockForecastingPage/ForecastSummary.jsx';
 
 
 const StockForecastPage = () => {

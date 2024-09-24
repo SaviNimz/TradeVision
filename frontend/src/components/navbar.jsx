@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
@@ -44,7 +45,16 @@ const NavLinkStyled = styled(NavLink)`
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: rgba(176, 199, 232, 0.2);
+  
+    background-color: rgba(225, 225, 225, 0.5);
+    transform: translateX(-50%);
+     background-color: #fff;
+    color: #000;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    z-index: 10;
   }
 
   &.active {
