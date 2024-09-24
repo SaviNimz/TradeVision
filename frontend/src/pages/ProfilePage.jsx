@@ -11,7 +11,7 @@ const ProfilePage = () => {
   const user = {
     name: "John Doe",
     email: "johndoe@example.com",
-    profilePicture: "https://via.placeholder.com/100", 
+    profilePicture: "https://via.placeholder.com/100",
   };
 
   const handleGenerateForecasts = () => {
@@ -59,27 +59,35 @@ const Container = styled.div`
   padding: 20px;
   background: linear-gradient(135deg, #0a0a23, #001f3f, #003f5c); 
   color: #ffffff;
-  height: 88vh;
+  min-height: 100vh;
   box-sizing: border-box;
-  overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 `;
 
 const ProfileStrip = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 25px 35px;
+  padding: 25px 20px;
   background-color: rgba(10, 10, 30, 0.85);
   border-radius: 12px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
   margin-bottom: 30px;
-  margin-left: 120px;
-  margin-right: 120px;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
   
   @media (max-width: 768px) {
     flex-direction: column;
-    align-items: center;
     text-align: center;
+    padding: 15px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 
@@ -93,6 +101,11 @@ const ProfilePicture = styled.img`
   &:hover {
     transform: scale(1.1);
     border-color: #00ccff;
+  }
+
+  @media (max-width: 768px) {
+    width: 80px;
+    height: 80px;
   }
 `;
 
@@ -110,6 +123,11 @@ const Name = styled.h2`
   margin: 5px 0;
   color: #ffffff;
   text-shadow: 0 0 10px rgba(0, 128, 255, 0.8);
+  font-size: 1.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+  }
 `;
 
 const Email = styled.p`
@@ -133,6 +151,7 @@ const ChangeButton = styled.button`
 
   @media (max-width: 768px) {
     margin-top: 15px;
+    padding: 8px 20px;
   }
 `;
 
@@ -142,10 +161,12 @@ const CardsSection = styled.div`
   gap: 40px;
   margin-top: 20px;
   width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 
   @media (max-width: 768px) {
-    flex-direction: column;
+    flex-direction: column; /* Stack only in mobile view */
     gap: 20px;
   }
 `;
-
