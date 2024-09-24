@@ -151,7 +151,7 @@ const PageContainer = styled.div`
   padding: 20px;
   background: linear-gradient(135deg, #000000, #002f4c, #004080); 
   color: #ffffff;
-  min-height: 100vh;
+  min-height: 84vh;
   position: relative;
   filter: ${({ blur }) => (blur ? 'blur(5px)' : 'none')};
 `;

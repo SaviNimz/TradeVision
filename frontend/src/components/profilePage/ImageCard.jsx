@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 // ImageCard component
 const ImageCard = ({ image, text, onClick }) => {
   return (
@@ -16,17 +15,16 @@ export default ImageCard;
 // Styled component for the image card
 const Card = styled.div`
   position: relative; // Position relative for the pseudo-element
-  width: 45%; // Reduced width for side-by-side layout
-  height: 150px; // Increased height
+  width: 100%; // Use full width on small screens
+  max-width: 600px; // Max width for larger screens
+  height: 400px; // Increased height for better visibility
   background-image: url(${(props) => props.image}); // Background image from props
   background-size: cover;
   background-position: center;
   border-radius: 10px;
-  margin: 10px; // Adjust margin to create space between cards
+  margin: 10px; 
   cursor: pointer;
-  color: black; // Change text color to white for better contrast
-  font-size: 20px;
-  font-weight: bold;
+  color: white; 
   text-align: center;
   display: flex;
   justify-content: center;
@@ -50,9 +48,21 @@ const Card = styled.div`
     z-index: 1; // Place it below the text
   }
 
-  // Text styling to make it more dominant
+  // Text styling to make it larger and more visible
   & > span {
     position: relative;
     z-index: 2; // Place text above the blurred background
+    font-size: 20px; // Decreased font size for smaller screens
+    font-weight: bold; // Make the font weight bolder
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); // Add text shadow for better contrast
+    padding: 10px;
+  }
+
+  @media (min-width: 768px) {
+    width: 45%; // Use 45% width for larger screens
+    height: 350px; // Increased height for larger screens
+    & > span {
+      font-size: 32px; // Increased font size for larger screens
+    }
   }
 `;
