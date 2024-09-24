@@ -26,9 +26,23 @@ class Models:
     
     def train_prophet(self, df, date_col='Date', value_col='Value'):
         """Train Prophet model."""
+        # Convert date column to datetime using .loc to avoid the SettingWithCopyWarning
+        df.loc[:, date_col] = pd.to_datetime(df[date_col])
+
+        # Preprocess the dataframe for Prophet
         processed_df = self.preprocessor.preprocess_prophet(df, date_col, value_col)
+
+        # Log the processed data for debugging
+        print(f"Processed Data for Prophet:\n{processed_df.head()}")
+
+        # Fit the model
         model = Prophet()
-        model.fit(processed_df)
+        try:
+            model.fit(processed_df)
+        except Exception as e:
+            print(f"Error fitting Prophet model: {e}")
+            raise e
+
         return model
     
     def train_lstm(self, series, n_lags=5):
@@ -61,11 +75,14 @@ class Models:
             return forecast
 
         elif method == 'Prophet':
-            df = data[['Date', target_col]]  # Use the target column provided
+            df = data[['Date', target_col]]
+            print(f"Data passed to Prophet:\n{df.head()}")
             model = self.train_prophet(df)
             future = model.make_future_dataframe(periods=5)
+            print(f"Future dataframe:\n{future.tail()}")
             forecast = model.predict(future)
-            return forecast['yhat'][-5:]  # Get last 5 predictions
+            print(f"Forecast result:\n{forecast.tail()}")
+            return forecast['yhat'][-5:]
 
         elif method == 'LSTM':
             series = data[target_col]  # Use the target column provided

@@ -33,8 +33,22 @@ class TimeSeriesPreprocessor:
 
     def preprocess_prophet(self, df, date_col='Date', value_col='Value'):
         """Preprocess time series data for Prophet."""
+        # Ensure date column is in datetime format using .loc
+        df.loc[:, date_col] = pd.to_datetime(df[date_col], errors='coerce')
+        
+        # Check for invalid dates
+        if df[date_col].isnull().any():
+            print("Error: Invalid date values found.")
+            return None
+        
+        # Rename columns for Prophet
         df = df[[date_col, value_col]].rename(columns={date_col: 'ds', value_col: 'y'})
-        df['y'] = np.log(df['y'])  # Prophet works better with logged data
+        
+        # Check for non-positive values in 'y'
+        if any(df['y'] <= 0):
+            print("Warning: Non-positive values found in 'y' column. Applying log transformation.")
+            df['y'] = np.log(df['y'] + 1)  # Adding 1 to avoid log(0)
+
         return df
 
     def preprocess_lstm(self, series, n_lags=5, scale=True):
@@ -52,6 +66,7 @@ class TimeSeriesPreprocessor:
         
         X = np.array(X)
         y = np.array(y)
+        print(X)
         return X, y
 
     def preprocess_xgboost(self, df, target_col='Target', test_size=0.2, lags=5):
