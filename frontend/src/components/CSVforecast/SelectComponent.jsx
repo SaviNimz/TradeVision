@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaChartLine, FaRegChartBar, FaRegEye } from 'react-icons/fa';
-import { saveAs } from 'file-saver';
 import Papa from 'papaparse';
 
 const SelectComponent = ({ csvData, onForecast }) => {
   const [column, setColumn] = useState('');
   const [selectedMethods, setSelectedMethods] = useState([]);
   const [toastMessage, setToastMessage] = useState('');
+  const [csvResult, setCsvResult] = useState(null); // Store the CSV result here
 
   const handleColumnChange = (event) => {
     setColumn(event.target.value);
@@ -48,9 +48,9 @@ const SelectComponent = ({ csvData, onForecast }) => {
 
       if (onForecast) onForecast(flattenedData);
 
+      // Generate CSV but don't auto-download or print
       const csv = Papa.unparse(flattenedData);
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      saveAs(blob, 'forecast_result.csv');
+      setCsvResult(csv); // Store CSV in state silently
     } catch (error) {
       console.error("Error in forecasting:", error);
     }
@@ -103,7 +103,7 @@ const Card = styled.div`
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
   padding: 30px;
-  width: 600px; /* Increased width */
+  width: 600px;
   margin: 40px auto;
   position: relative;
   transition: all 0.3s ease;
@@ -126,7 +126,7 @@ const Question = styled.h3`
   margin-bottom: 15px;
   text-align: center;
   color: #e0e0e0;
-  font-size: 20px; /* Increased font size */
+  font-size: 20px;
 `;
 
 const Select = styled.select`
@@ -148,7 +148,7 @@ const Select = styled.select`
 
 const OptionsContainer = styled.div`
   display: flex;
-  justify-content: space-between; /* Adjusted for better spacing */
+  justify-content: space-between;
   margin-bottom: 20px;
 `;
 
@@ -189,17 +189,17 @@ const Option = styled.label`
 `;
 
 const Icon = styled.div`
-  font-size: 26px; /* Increased icon size */
+  font-size: 26px;
   color: #4db8ff;
 `;
 
 const ForecastButton = styled.button`
   width: 100%;
-  padding: 14px; /* Increased padding */
+  padding: 14px;
   margin-top: 20px;
   background-color: #28a745;
   color: white;
-  font-size: 18px; /* Increased font size */
+  font-size: 18px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
