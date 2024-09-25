@@ -1,25 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ImageCard from '../components/profilePage/ImageCard';
 import forecastIcon from '../assets/icon1.jpg';
 import RetrieveIcon from '../assets/icon2.jpeg';
+import { auth } from '../utils/firebase';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    profilePicture: 'https://via.placeholder.com/100',
+  });
 
-  const user = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    profilePicture: "https://via.placeholder.com/100",
-  };
+  useEffect(() => {
+    const currentUser = auth.currentUser;
+    
+    if (currentUser) {
+      // Set the user's display name and email from Firebase
+      setUser({
+        name: currentUser.displayName || 'Anonymous User',
+        email: currentUser.email,
+        profilePicture: currentUser.photoURL || 'https://via.placeholder.com/100',
+      });
+    }
+  }, []);
 
   const handleGenerateForecasts = () => {
     navigate('/CsvUpload');
   };
 
   const handleRetrieveSavedForecasts = () => {
-    alert("Retrieve Saved Forecasts clicked!");
+    alert('Retrieve Saved Forecasts clicked!');
   };
 
   return (
@@ -30,7 +43,7 @@ const ProfilePage = () => {
           <Name>{user.name}</Name>
           <Email>{user.email}</Email>
         </ProfileInfo>
-        <ChangeButton>Change Account Details</ChangeButton>
+        {/* <ChangeButton>Change Account Details</ChangeButton> */}
       </ProfileStrip>
       
       <CardsSection>
