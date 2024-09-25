@@ -20,6 +20,7 @@ const FormContainer = styled.div`
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 128, 255, 0.5);
   position: relative;
   z-index: 1;
+  min-height: 400px;
 `;
 
 const Title = styled.h2`
