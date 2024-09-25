@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import logoImage from '../assets/logo.jpeg'; // Replace with the actual path to your logo image
 
 const NavbarContainer = styled.nav`
   display: flex;
@@ -14,10 +15,18 @@ const NavbarContainer = styled.nav`
 `;
 
 const Logo = styled.div`
+  display: flex;
+  align-items: center; /* Center image and text vertically */
   font-size: 1.8rem;
   font-weight: bold;
   color: #ffffff;
   letter-spacing: 1.5px;
+
+  img {
+    height: 60px; 
+    width: 80px;
+    margin-right: 10px; /* Space between image and text */
+  }
 `;
 
 const NavList = styled.ul`
@@ -92,7 +101,10 @@ function Navbar() {
 
   return (
     <NavbarContainer>
-      <Logo>Trade Vision</Logo>
+      <Logo>
+        <img src={logoImage} alt="Trade Vision Logo" /> {/* Logo image */}
+        Trade Vision
+      </Logo>
       <HamburgerMenu onClick={toggleMenu} />
       <NavList isOpen={isOpen}>
         <NavItem><NavLinkStyled to="/dashboard">Dashboard</NavLinkStyled></NavItem>
