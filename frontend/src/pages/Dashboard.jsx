@@ -31,12 +31,16 @@ const DashboardContainer = styled.div`
 `;
 
 const MainContent = styled.main`
+  background: linear-gradient(135deg, #000000, #002f4c, #004080); 
+
   display: flex;
   flex-direction: column;
   gap: 20px;
 `;
 
 const Title = styled.h2`
+  background: linear-gradient(135deg, #000000, #002f4c, #004080); 
+
   font-size: 36px; /* Adjust font size as needed */
   font-weight: bold; /* Make the title bold */
   margin: 0; /* Remove default margin */

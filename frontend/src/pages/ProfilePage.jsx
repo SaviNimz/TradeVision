@@ -57,9 +57,11 @@ const ProfilePage = () => {
 export default ProfilePage;
 
 const Container = styled.div`
+  background: linear-gradient(135deg, #002f4c, #004080,#000000); 
+
   display: flex;
   padding: 20px;
-  background-color: #121212;
+  // background-color: #121212;
   color: #ffffff;
   height: 83vh;
 
@@ -71,7 +73,9 @@ const Container = styled.div`
 
 const ProfileCard = styled.div`
   flex: 1;
-  background-color: #1e1e1e;
+ 
+  background: linear-gradient(135deg, #000000, #002f4c, #004080); 
+
   border-radius: 10px;
   padding: 20px;
   margin-right: 20px;
@@ -117,6 +121,8 @@ const ChangeButton = styled.button`
 const MessageContainer = styled.div`
   flex: 2;
   background-color: #1e1e1e;
+  background: linear-gradient(135deg, #000000, #002f4c, #004080); 
+
   border-radius: 10px;
   padding: 20px;
   display: flex;
