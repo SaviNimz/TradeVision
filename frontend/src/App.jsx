@@ -5,6 +5,7 @@ import CSVUploadPage from './pages/CSVUploadPage';
 import ProfilePage from './pages/profilePage';
 import FeedbackPage from './pages/FeedBackPage';
 import Navbar from './components/navbar';
+import Footer from './components/Footer';
 import LandingPage from './pages/LandingPage';
 import StockForecastPage from './pages/StockForecastPage';
 import LoginSignupPage from './pages/LoginSignupPage';
@@ -69,6 +70,7 @@ function App() {
           element={isAuthenticated ? <CSVUploadPage /> : <Navigate to="/login" />}
         />
       </Routes>
+      <Footer />
     </>
   );
 }
