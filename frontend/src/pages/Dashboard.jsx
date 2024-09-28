@@ -22,7 +22,7 @@ export default Dashboard;
 
 
 const DashboardContainer = styled.div`
-  background: linear-gradient(235deg, #000000, #002f4c, #002080); 
+  background: linear-gradient(235deg, #000000 0%, #002f4c 40%, rgba(0, 0, 0, 0.9) 80%, #002080 100%); 
   color: #ffffff;
   min-height: 100vh; /* Full height */
   padding: 20px;
