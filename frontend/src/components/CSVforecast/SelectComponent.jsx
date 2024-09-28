@@ -70,7 +70,7 @@ const SelectComponent = ({ csvData, onForecast }) => {
       </Select>
       <Question>Select forecasting model(s)</Question>
       <OptionsContainer>
-        {['ARIMA', 'Prophet', 'LSTM'].map((methodOption) => (
+        {['ARIMA', 'Prophet', 'ResNLS'].map((methodOption) => (
           <Option
             key={methodOption}
             className={selectedMethods.includes(methodOption) ? 'selected' : ''}
@@ -85,7 +85,7 @@ const SelectComponent = ({ csvData, onForecast }) => {
             <Icon>
               {methodOption === 'ARIMA' && <FaChartLine />}
               {methodOption === 'Prophet' && <FaRegChartBar />}
-              {methodOption === 'LSTM' && <FaRegEye />}
+              {methodOption === 'ResNLS' && <FaRegEye />}
             </Icon>
             <span>{methodOption}</span>
           </Option>
