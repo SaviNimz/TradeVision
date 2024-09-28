@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ImageCard from '../components/profilePage/ImageCard';
 import forecastIcon from '../assets/icon1.jpg';
 import RetrieveIcon from '../assets/icon2.jpeg';
+import profpic from '../assets/profpic.jpg';
 import { auth } from '../utils/firebase';
 
 const ProfilePage = () => {
@@ -11,7 +12,7 @@ const ProfilePage = () => {
   const [user, setUser] = useState({
     name: '',
     email: '',
-    profilePicture: 'https://via.placeholder.com/100',
+    profilePicture: profpic,
   });
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const ProfilePage = () => {
       setUser({
         name: currentUser.displayName || 'Anonymous User',
         email: currentUser.email,
-        profilePicture: currentUser.photoURL || 'https://via.placeholder.com/100',
+        profilePicture: currentUser.photoURL || profpic,
       });
     }
   }, []);
@@ -106,7 +107,7 @@ const ProfileStrip = styled.div`
 
 const ProfilePicture = styled.img`
   border-radius: 50%;
-  width: 90px;
+  width: 100px;
   height: 90px;
   border: 3px solid #0066cc;
   transition: transform 0.3s ease-in-out;

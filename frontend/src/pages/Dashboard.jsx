@@ -22,7 +22,8 @@ export default Dashboard;
 
 
 const DashboardContainer = styled.div`
-  background: linear-gradient(to bottom, #000000, #1a1a1a);  /* Neon gradient background */
+  background: linear-gradient(235deg, #000000, #002f4c, #002080); 
+  color: #ffffff;
   min-height: 100vh; /* Full height */
   padding: 20px;
   color: #fff; /* Ensure text is readable */
