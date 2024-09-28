@@ -33,8 +33,22 @@ class TimeSeriesPreprocessor:
 
     def preprocess_prophet(self, df, date_col='Date', value_col='Value'):
         """Preprocess time series data for Prophet."""
+        # Ensure date column is in datetime format using .loc
+        df.loc[:, date_col] = pd.to_datetime(df[date_col], errors='coerce')
+        
+        # Check for invalid dates
+        if df[date_col].isnull().any():
+            print("Error: Invalid date values found.")
+            return None
+        
+        # Rename columns for Prophet
         df = df[[date_col, value_col]].rename(columns={date_col: 'ds', value_col: 'y'})
-        df['y'] = np.log(df['y'])  # Prophet works better with logged data
+        
+        # Check for non-positive values in 'y'
+        if any(df['y'] <= 0):
+            print("Warning: Non-positive values found in 'y' column. Applying log transformation.")
+            df['y'] = np.log(df['y'] + 1)  # Adding 1 to avoid log(0)
+
         return df
 
     def preprocess_lstm(self, series, n_lags=5, scale=True):
@@ -52,6 +66,7 @@ class TimeSeriesPreprocessor:
         
         X = np.array(X)
         y = np.array(y)
+        print(X)
         return X, y
 
     def preprocess_xgboost(self, df, target_col='Target', test_size=0.2, lags=5):
@@ -76,15 +91,42 @@ class TimeSeriesPreprocessor:
         if self.scaler:
             series = self.scaler.inverse_transform(series.reshape(-1, 1))
         return series
+        
+    def reshape_data(self, train_data, test_data, days):
+        """Reshape time series data for models like LSTM or CNN."""
+        
+        def split_data(dataset, train_day, predict_day):
+            x = []
+            y = []
+            for i in range(train_day, len(dataset) - predict_day + 1):
+                x.append(dataset[i - train_day: i, 0])
+                y.append(dataset[i + predict_day - 1, 0])
+            return np.array(x), np.array(y)
 
-# Example Usage:
-# preprocessor = TimeSeriesPreprocessor()
+        # Check types and shapes
+        print("Type of train_data:", type(train_data))
+        print("Shape of train_data:", train_data.shape if hasattr(train_data, 'shape') else None)
+        print("Type of test_data:", type(test_data))
+        print("Shape of test_data:", test_data.shape if hasattr(test_data, 'shape') else None)
 
-# ARIMA preprocessing
-# arima_series = preprocessor.preprocess_arima(time_series_data)
+        # Prepare training and testing datasets using lagging
+        x_train, y_train = split_data(train_data, days, 1)
+        x_test, y_test = split_data(test_data, days, 1)
 
-# Prophet preprocessing
-# prophet_df = preprocessor.preprocess_prophet(time_series_df, date_col='Date', value_col='Close')
+        # Print shapes of split data
+        print("Split Training Data - X shape:", x_train.shape)
+        print("Split Training Data - Y shape:", y_train.shape)
+        print("Split Testing Data - X shape:", x_test.shape)
+        print("Split Testing Data - Y shape:", y_test.shape)
 
-# LSTM preprocessing
-# X_lstm, y_lstm = preprocessor.preprocess_lstm(time_series_data, n_lags=5)
+        # Reshape data for input into LSTM or CNN models
+        x_train = np.reshape(x_train, (x_train.shape[0], 1, x_train.shape[1]))
+        x_test = np.reshape(x_test, (x_test.shape[0], 1, x_test.shape[1]))
+
+        return x_train, y_train, x_test, y_test
+
+    def inverse_transform(self, series):
+        """Inverse transform the series after scaling (for LSTM)."""
+        if self.scaler:
+            series = self.scaler.inverse_transform(series.reshape(-1, 1))
+        return series
