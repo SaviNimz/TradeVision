@@ -141,12 +141,14 @@ const ToggleContainer = styled.div`
   transition: background-color 0.3s ease, border-color 0.3s ease;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 
-  /* Background image settings */
+  /* Background color settings */
+  background-color: rgba(255, 255, 255, 0.7); /* Light semi-transparent background */
   background-image: url(${bot}); /* Set the imported image as background */
   background-size: cover; /* Cover the whole area */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Prevent repetition */
 `;
+
 
 const ToggleButton = styled.div`
   font-size: 16px;
@@ -154,7 +156,7 @@ const ToggleButton = styled.div`
   text-transform: uppercase;
   cursor: pointer;
   background-color: transparent;
-  color: #FFFFFF; /* Keep the golden text for the button */
+  color: #FFFFFF; 
   border-radius: 10px;
   transition: background-color 0.3s ease, color 0.3s ease;
 `;
