@@ -5,6 +5,11 @@ import FeedbackList from '../components/FeedbackPage/FeedbackList.jsx';
 import styled from 'styled-components';
 import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
 import 'react-toastify/dist/ReactToastify.css'; // Import the styles
+import BackgroundImage from '../assets/image.png'; // Import the background image
+import Icon1 from '../assets/dependability.png'; // Example for the icon
+import Icon2 from '../assets/Safeandsecure.webp'; // Replace with actual image paths
+import Icon3 from '../assets/Regulated.png';
+import Icon4 from '../assets/247support.avif';
 
 const FeedBackPage = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -22,8 +27,42 @@ const FeedBackPage = () => {
     });
   };
 
+  const features = [
+    {
+      icon: Icon1,
+      title: 'Dependable',
+      description: 'Our 99.97% uptime ensures your uninterrupted access to the markets.',
+    },
+    {
+      icon: Icon2,
+      title: 'Safe and secure',
+      description: 'We keep your personal data and funds safe.',
+    },
+    {
+      icon: Icon3,
+      title: 'Regulated',
+      description: 'We’re regulated and licensed by global financial authorities.',
+    },
+    {
+      icon: Icon4,
+      title: '24/7 support',
+      description: 'Our professional multilingual team is here for you anytime.',
+    },
+  ];
+
   return (
     <PageContainer>
+      <ContentWrapper>
+        <FeatureContainer>
+          {features.map((feature, index) => (
+            <FeatureCard key={index}>
+              <Icon src={feature.icon} alt={feature.title} />
+              <Title>{feature.title}</Title>
+              <Description>{feature.description}</Description>
+            </FeatureCard>
+          ))}
+        </FeatureContainer>
+      </ContentWrapper>
       <ContentWrapper>
         <Header>We Value Your Feedback!</Header>
         <FeedbackForm onSubmit={handleFeedbackSubmit} />
@@ -41,11 +80,13 @@ const PageContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 40px;
-  background: linear-gradient(135deg, #002f, #002f40, #004060); 
+  background: url(${BackgroundImage}) no-repeat center center fixed; /* Set background image */
+  background-size: cover; /* Ensure image covers the container */
   color: #ffffff;
   min-height: 100vh;
 
   @media (max-width: 768px) {
+    flex-direction: column;
     padding: 20px;
   }
 `;
@@ -53,8 +94,8 @@ const PageContainer = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #000000, #002f4c, #004080); 
-  padding: 40px;
+  background: rgba(0, 0, 0, 0.5); /* Use a dark overlay to improve text readability */
+  padding: 20px;
   border-radius: 15px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   max-width: 800px;
@@ -81,4 +122,48 @@ const Header = styled.h1`
   }
 `;
 
-// Add more custom styling for feedback form and feedback list if needed
+const FeatureContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 40px;
+`;
+
+const FeatureCard = styled.div`
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+
+  &:hover {
+   transform: scale(1.05);
+    
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Adds a more pronounced shadow */
+    background-color: #ffffff; /* Changes background color to white on hover */
+  }
+`;
+
+
+const Icon = styled.img`
+  width: 200px;
+  height: 200px;
+  margin-bottom: 10px;
+`;
+
+const Title = styled.h3`
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+`;
+
+const Description = styled.p`
+  font-size: 16px;
+  color: #666;
+`;
