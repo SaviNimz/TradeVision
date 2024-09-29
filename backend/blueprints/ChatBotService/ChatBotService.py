@@ -140,7 +140,3 @@ class StockMarketChatbotService:
         return result
 
 chatbot_service = StockMarketChatbotService()
-
-question = "What is the stock market?"
-response = chatbot_service.chatbot(question)
-print(f"Response: {response}")
