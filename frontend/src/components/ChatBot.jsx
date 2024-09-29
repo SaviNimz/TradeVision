@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai'; // Import the close icon
+import bot from '../assets/bot.png'; // Import the bot image
+
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([
@@ -82,7 +84,7 @@ const Chatbot = () => {
     <ChatbotContainer>
       {!isOpen ? (
         <ToggleContainer onClick={() => setIsOpen(true)}>
-          <ToggleButton>Chat with us</ToggleButton>
+          <ToggleButton></ToggleButton>
         </ToggleContainer>
       ) : (
         <ChatWindow>
@@ -118,7 +120,7 @@ const ChatbotContainer = styled.div`
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
-  background-color: #121212; /* Very dark background */
+  background-color: #121212; 
   border-radius: 15px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
   font-family: 'Roboto', sans-serif;
@@ -129,13 +131,21 @@ const ChatbotContainer = styled.div`
 
 const ToggleContainer = styled.div`
   cursor: pointer;
-  padding: 10px;
-  text-align: center;
-  background-color: #1e1e1e; /* Darker shade */
-  border: 2px solid #FFD700; /* Golden border */
-  border-radius: 10px;
+  border: 2px solid #FFFFFF; /* Change border color to white */
+  border-radius: 50%; /* Make it circular */
+  width: 60px; /* Fixed width for circular shape */
+  height: 60px; /* Fixed height for circular shape */
+  display: flex; /* Align items horizontally */
+  align-items: center; /* Center align the items */
+  justify-content: center; /* Center the text within the container */
   transition: background-color 0.3s ease, border-color 0.3s ease;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+
+  /* Background image settings */
+  background-image: url(${bot}); /* Set the imported image as background */
+  background-size: cover; /* Cover the whole area */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent repetition */
 `;
 
 const ToggleButton = styled.div`
@@ -144,10 +154,11 @@ const ToggleButton = styled.div`
   text-transform: uppercase;
   cursor: pointer;
   background-color: transparent;
-  color: #FFD700; /* Golden text */
+  color: #FFFFFF; /* Keep the golden text for the button */
   border-radius: 10px;
   transition: background-color 0.3s ease, color 0.3s ease;
 `;
+
 
 const ChatWindow = styled.div`
   display: flex;
@@ -163,7 +174,7 @@ const CloseIcon = styled.div`
   right: 20px;
   cursor: pointer;
   font-size: 24px;
-  color: #FFD700; /* Golden color */
+  color: #FFFFFFF; 
   transition: color 0.3s ease;
   &:hover {
     color: #FFA500; /* Lighter golden on hover */
@@ -182,24 +193,32 @@ const ChatHistory = styled.div`
 const ChatMessage = styled.div`
   padding: 15px;
   margin: 10px 0;
-  border-radius: 20px;
-  max-width: 90%; /* Increased width to take up more space */
+  border-radius: 20px; 
+  max-width: 90%; 
   word-break: break-word;
-  background-color: ${({ from }) => (from === 'bot' ? '#FFD700' : '#4a1f1a')}; /* Golden for bot messages */
-  color: ${({ from }) => (from === 'bot' ? 'black' : 'white')}; /* Black for bot and white for user */
+  background: ${({ from }) => 
+    from === 'bot' 
+      ? 'linear-gradient(135deg, #001f3f, #0056b3)' 
+      : 'linear-gradient(135deg, #a0d4ff, #4ca1ff)'}; 
+  color: ${({ from }) => (from === 'bot' ? 'white' : '#333333')}; 
   align-self: ${({ from }) => (from === 'bot' ? 'flex-start' : 'flex-end')};
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
+  
   &:hover {
-    background-color: ${({ from }) => (from === 'bot' ? '#FFC300' : '#f4c300')}; /* Darker golden for hover */
+    background: ${({ from }) => 
+      from === 'bot' 
+        ? 'linear-gradient(135deg, #003366, #007bff)' 
+        : 'linear-gradient(135deg, #80c7ff, #0092ff)'}; 
     transform: scale(1.02);
   }
 `;
+
 
 const ChatInput = styled.div`
   display: flex;
   align-items: center;
   padding: 15px;
-  background-color: #1e1e1e; /* Darker background for input */
+  background-color: #00000; 
   border-radius: 0 0 15px 15px;
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
 `;
@@ -223,22 +242,25 @@ const InputField = styled.input`
 
 const SendButton = styled.button`
   padding: 15px 20px;
-  background-color: #FFD700; /* Golden button */
-  color: black; /* Black text */
+  background: linear-gradient(135deg, #001f3f, #0056b3); /* Dark blue gradient */
+  color: white; /* White text */
   border: none;
   border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
+  
   &:hover {
-    background-color: #FFC300; /* Darker golden on hover */
+    background: linear-gradient(135deg, #003366, #007bff); /* Slightly lighter blue on hover */
     transform: scale(1.05);
   }
+
   &:active {
-    background-color: #FFA500; /* Even darker on click */
+    background: linear-gradient(135deg, #002147, #0056b3); /* Even darker on click */
     transform: scale(0.98);
   }
 `;
+
 
 export default Chatbot;
