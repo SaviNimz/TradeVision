@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import LoginForm from '../components/LoginSignupPage/LoginForm';
-import SignupForm from '../components/LoginSignupPage/SignUpForm';
+import LoginForm from '../components/LoginSignupPage/LoginForm.jsx';
+import SignupForm from '../components/LoginSignupPage/SignupForm.jsx';
 import styled from 'styled-components';
 import bgimg from '../assets/loginpg.jpg';
 import { useNavigate } from 'react-router-dom';

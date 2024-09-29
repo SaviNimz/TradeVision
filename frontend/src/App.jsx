@@ -1,14 +1,15 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
-import Dashboard from './pages/dashboard';
-import CSVUploadPage from './pages/CSVUploadPage';
-import ProfilePage from './pages/profilePage';
-import FeedbackPage from './pages/FeedBackPage';
-import Navbar from './components/navbar';
-import Footer from './components/Footer';
-import LandingPage from './pages/LandingPage';
-import StockForecastPage from './pages/StockForecastPage';
-import LoginSignupPage from './pages/LoginSignupPage';
+import Dashboard from './pages/Dashboard.jsx';
+import CSVUploadPage from './pages/CSVUploadPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
+import FeedbackPage from './pages/FeedBackPage.jsx';
+import Navbar from './components/navbar.jsx';
+import Footer from './components/Footer.jsx';
+import LandingPage from './pages/LandingPage.jsx';
+import StockForecastPage from './pages/StockForecastPage.jsx';
+import LoginSignupPage from './pages/LoginSignupPage.jsx';
 import Cookies from 'js-cookie';
 
 function App() {
