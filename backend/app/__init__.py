@@ -1,9 +1,10 @@
 from flask import Flask
 from blueprints.UserHandler.UserHandler import User_handler
 from blueprints.ForecastHandler.CSVForecastHandler import CSV_Forecast_handler
-
 from blueprints.ForecastHandler.StockForecastHandler import Stock_Forecast_handler
 from blueprints.FeedbackHandler.FeedbackHandler import Feedback_handler
+from blueprints.ChatBotHandler.ChatBotHandler import chatbot_handler
+
 
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -13,7 +14,7 @@ app.register_blueprint(User_handler)
 app.register_blueprint(CSV_Forecast_handler)
 app.register_blueprint(Stock_Forecast_handler)
 app.register_blueprint(Feedback_handler)
-
+app.register_blueprint(chatbot_handler)
 
 bcrypt = Bcrypt(app)
 
