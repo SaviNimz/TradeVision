@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 import BackgroundImage from '../assets/image.png'; // Import the background image
 import Icon1 from '../assets/dependability.png'; // Example for the icon
 import Icon2 from '../assets/Safeandsecure.webp'; // Replace with actual image paths
-import Icon3 from '../assets/Regulated.png';
+import Icon3 from '../assets/Regulated.jpeg';
 import Icon4 from '../assets/247support.avif';
 
 const FeedBackPage = () => {
@@ -52,6 +52,7 @@ const FeedBackPage = () => {
 
   return (
     <PageContainer>
+      <ContentWrapperAll>
       <ContentWrapper>
         <FeatureContainer>
           {features.map((feature, index) => (
@@ -68,6 +69,7 @@ const FeedBackPage = () => {
         <FeedbackForm onSubmit={handleFeedbackSubmit} />
         <FeedbackList feedbacks={feedbacks} />
       </ContentWrapper>
+      </ContentWrapperAll>
       <ToastContainer /> {/* Add ToastContainer to render toasts */}
     </PageContainer>
   );
@@ -94,19 +96,38 @@ const PageContainer = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.5); /* Use a dark overlay to improve text readability */
+  background: rgba(0, 0, 0,0.5); /* Use a dark overlay to improve text readability */
   padding: 20px;
   border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  
   max-width: 800px;
+  gap: 20px;
   width: 100%;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(px);
   
   @media (max-width: 768px) {
     padding: 20px;
   }
 `;
 
+const ContentWrapperAll = styled.div`
+  
+display: flex;
+  flex-direction: row;
+  background: rgba(0, 0, 0, 0.5); /* Use a dark overlay to improve text readability */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  max-width: 1700px;
+  gap: 30px;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+`;
 const Header = styled.h1`
   text-align: center;
   margin-bottom: 30px;
@@ -127,7 +148,13 @@ const FeatureContainer = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
-  margin-bottom: 40px;
+  margin-bottom:20px;
+  animation: fadeIn 1s ease-in-out;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 `;
 
 const FeatureCard = styled.div`
@@ -155,6 +182,13 @@ const Icon = styled.img`
   width: 200px;
   height: 200px;
   margin-bottom: 10px;
+animation: fadeIn 2s ease-in-out;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
 `;
 
 const Title = styled.h3`
