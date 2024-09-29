@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "prefab-winter-392614",
+  "private_key_id": "adf6773ced797e3239bd4f3f3cf66a2bf86ddb9c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC2+YgDelgy8Y04\ncSGtHxBtlvNPtsU0DJa2ZJsZBWj9TffPApn5TfbWg3g7P6vpgFrVM2Xfx33O7drP\nKCPkvMSgqwTw7E+MDpgyhOsJOjyiFDZKVuZFuW2PThEFYFOSSLHOfMYDkPks8en6\nYUXQroavvMGoDMP0HFgLN1pXJOs051rsqz+ztKI5hnaREXyJI//HEl4SCAZxF7k1\nrdwuzn3osGSA1ndqGEaCx6nbDnlTZZQgWatWr2+ofYuXZ+mIvwHWkAXOqd2L3Neo\n1qDiYwu8vEGQPgwM4mETx+G+VbYq1ECWmdS8h05vQrtlsuKltYXxj8K0z5Z/5NKP\nIrQqp5hHAgMBAAECggEABS84uhnVg9KuNNsJ/NlkUGIruxFSosuihOuAu4cm4cxJ\n0C7UaNOUUBKzrZYX/UrQCA917lYENoCetfFif91NLaQJGjHP7hYqqppzbqZVnZcq\nd05vl1Uq3u8eZDw3p1Eqw7KkXszxZvGPKJbacPP+VqWgs1FynJrsxUXr9jZ9FaCP\nCYy2yJdKpOiF1GuxaWn7FXWF6rgIkO1hKRRJl03DoLki3lgSk21qER2s8vCYlWnA\nfude4fBflNoqDi/en5lTmnnfaVFr8P1CzddgaeC7LPAoy1NYDXZ74gw6tUyk+pS2\nraWtJ9N6wl04MaPl4D//E++n3Yx4VPhjDs830PTzZQKBgQD7bNZpZTn4014GuqKi\n2jTVBMVoXS1lSIrh+9phJRxCt9MmR1WPxS1ebb7dx7ydbDSf/1CFxgV9aEPk1zS2\nDi1eOwFov3alQKiQcj6xoyd6ciO2wlunxjPagTC0jo3fR4XgOvokmtuzo5W+UrX2\nXzkwySszppq/ek5rz1B71xCM9QKBgQC6TdhcOhyAPjV6VJxiAV3sWNCMvuLsVCEd\nAxwzpN0AIHvQ/t3+toLz3XdKl8ZfBdmCP/NHf1mZ6YfK/YsJdWIOjbp0FqEY+SwM\n4k4RN7T8J/wjPAgNW8T46JW9WMyaa5AR1a5rnURXv3KFF+CFeNSEtrmVxluMoZHk\n32JIWwVKywKBgAUTVmS8SWZPhgdmvx/Afe6K8R1BPEheJYeYWPk7EY37PgT4za5g\nUaElYAQEIzeeVpWgRtTcgYHdl/lHquW99YaAdG/T5aZCXuTDmaZmX8amBTiMReNm\nKefQUdZjRlPqkrZLGn+grKy8saos60V0+KeWeAvL4jXZVznv7nUBi3D9AoGAITy6\nGNoVM5vllol5zNJJm1zM+A8mFNt9fNuNMHl9JASnkkWl/Uc6XZ9pJNmm/lTg1Sfr\nkxnZNmg/XauWHn3enJIUbZmL7BSoEzRckR3LICFSDkcreJaisXVtIXayKep+rW/d\nyj0ocC8rkysLV0STRYoD2gClXJWGnbpsolP6wbkCgYBAE/t7yGGLsP8T1UJCn2s1\n6qbK2Pzdh3EGldHLaLoAZOJ3qXQgbVgT3bY2H5HLuai9oYeF9qubRMr0iJy5nRw6\nB7i1pVULKGwE4dByLmJlmAixiN/EiEbwiR7C2ClqLQUw1k+Er22pdezFmJZVmgXy\n9EJWXp3WfMAzozP1MWu7fQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "saviya@prefab-winter-392614.iam.gserviceaccount.com",
+  "client_id": "115984399554886280841",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/saviya%40prefab-winter-392614.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
