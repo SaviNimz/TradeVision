@@ -190,6 +190,30 @@ const ChatHistory = styled.div`
   flex: 1;
   border-radius: 0 0 15px 15px;
   box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.3);
+
+  /* Custom scrollbar styling */
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #0056b3, #001f3f); /* Fancy gradient */
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); /* Shadow inside the thumb */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #2a2a2a; /* Slightly lighter gray for track */
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #007bff, #003366); /* Lighter on hover */
+  }
+
+  &::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(135deg, #0056b3, #001f3f); /* Darker on active */
+  }
 `;
 
 const ChatMessage = styled.div`
