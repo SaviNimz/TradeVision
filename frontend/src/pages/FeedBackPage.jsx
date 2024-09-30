@@ -67,7 +67,7 @@ const FeedBackPage = () => {
       <ContentWrapper>
         <Header>We Value Your Feedback!</Header>
         <FeedbackForm onSubmit={handleFeedbackSubmit} />
-        <FeedbackList feedbacks={feedbacks} />
+        {/* <FeedbackList feedbacks={feedbacks} /> */}
       </ContentWrapper>
       </ContentWrapperAll>
       <ToastContainer /> {/* Add ToastContainer to render toasts */}
@@ -101,8 +101,8 @@ const PageContainer = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
   background: rgba(0, 0, 0,0.5); /* Use a dark overlay to improve text readability */
   padding: 20px;
   border-radius: 15px;
