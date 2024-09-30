@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import ImageCard from '../components/profilePage/ImageCard';
 import forecastIcon from '../assets/icon1.jpg';
 import RetrieveIcon from '../assets/icon2.jpeg';
 import profpic from '../assets/profpic.jpg';
 import { auth } from '../utils/firebase';
+import Chatbot from '../components/ChatBot'; 
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -15,6 +16,9 @@ const ProfilePage = () => {
     email: '',
     profilePicture: profpic,
   });
+
+  const [isBouncing, setIsBouncing] = useState(true); 
+  const [hasClicked, setHasClicked] = useState(false); // Track if it has been clicked
 
   useEffect(() => {
     const currentUser = auth.currentUser;
@@ -37,6 +41,13 @@ const ProfilePage = () => {
     alert('Retrieve Saved Forecasts clicked!');
   };
 
+  const handleChatbotClick = () => {
+    if (!hasClicked) {
+      setIsBouncing(false); // Stop the bounce after first click
+      setHasClicked(true);  // Set flag so it doesn't bounce again
+    }
+  };
+
   return (
     <Container>
       <ProfileStrip>
@@ -45,7 +56,6 @@ const ProfilePage = () => {
           <Name>{user.name}</Name>
           <Email>{user.email}</Email>
         </ProfileInfo>
-        {/* <ChangeButton>Change Account Details</ChangeButton> */}
       </ProfileStrip>
       
       <CardsSection>
@@ -60,6 +70,10 @@ const ProfilePage = () => {
           onClick={handleRetrieveSavedForecasts}
         />
       </CardsSection>
+      
+      <ChatbotWrapper isBouncing={isBouncing} onClick={handleChatbotClick}>
+        <Chatbot /> 
+      </ChatbotWrapper>
     </Container>
   );
 };
@@ -150,26 +164,6 @@ const Email = styled.p`
   color: #bbb;
 `;
 
-const ChangeButton = styled.button`
-  padding: 10px 25px;
-  background: linear-gradient(135deg, #28a745, #21b146);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.3s;
-
-  &:hover {
-    background: linear-gradient(135deg, #218838, #1e7e34);
-    box-shadow: 0 0 20px rgba(40, 167, 69, 0.8);
-  }
-
-  @media (max-width: 768px) {
-    margin-top: 15px;
-    padding: 8px 20px;
-  }
-`;
-
 const CardsSection = styled.div`
   display: flex;
   justify-content: center;
@@ -184,4 +178,29 @@ const CardsSection = styled.div`
     flex-direction: column; /* Stack only in mobile view */
     gap: 20px;
   }
+`;
+
+const bounce = keyframes`
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+`;
+
+const ChatbotWrapper = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  ${({ isBouncing }) =>
+    isBouncing &&
+    css`
+      animation: ${bounce} 2.5s infinite;
+    `}
+  cursor: pointer;
 `;
