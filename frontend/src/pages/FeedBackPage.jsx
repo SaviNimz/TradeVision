@@ -137,7 +137,7 @@ display: flex;
 `;
 const Header = styled.h1`
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
   font-size: 2.5em;
   color: #f9f9f9;
   font-family: 'Arial', sans-serif;
