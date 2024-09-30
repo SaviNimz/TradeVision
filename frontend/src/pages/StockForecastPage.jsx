@@ -155,12 +155,6 @@ const PageContainer = styled.div`
   min-height: 84vh;
   position: relative;
   filter: ${({ blur }) => (blur ? 'blur(5px)' : 'none')};
- animation: fadeIn 1s ease-in-out;
-  
-  @keyframes fadeIn {
-    from { opacity: 0.5; }
-    to { opacity: 1; }
-  }
   `;
 
 const StockInfoContainer = styled.div`

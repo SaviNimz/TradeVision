@@ -80,12 +80,6 @@ const Container = styled.div`
   @media (max-width: 768px) {
     padding: 15px;
   }
-     animation: fadeIn 1s ease-in-out;
-  
-  @keyframes fadeIn {
-    from { opacity: 0.5; }
-    to { opacity: 1; }
-  }
 `;
 
 const ProfileStrip = styled.div`
