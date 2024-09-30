@@ -91,6 +91,13 @@ const PageContainer = styled.div`
     flex-direction: column;
     padding: 20px;
   }
+
+   animation: fadeIn 1s ease-in-out;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 `;
 
 const ContentWrapper = styled.div`
