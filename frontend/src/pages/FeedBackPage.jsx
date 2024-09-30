@@ -95,7 +95,7 @@ const PageContainer = styled.div`
    animation: fadeIn 1s ease-in-out;
   
   @keyframes fadeIn {
-    from { opacity: 0; }
+    from { opacity: 0.5; }
     to { opacity: 1; }
   }
 `;
@@ -145,7 +145,7 @@ const Header = styled.h1`
   animation: fadeIn 1s ease-in-out;
   
   @keyframes fadeIn {
-    from { opacity: 0; }
+    from { opacity: 0.5; }
     to { opacity: 1; }
   }
 `;
@@ -159,7 +159,7 @@ const FeatureContainer = styled.div`
   animation: fadeIn 1s ease-in-out;
   
   @keyframes fadeIn {
-    from { opacity: 0; }
+    from { opacity: 0.5; }
     to { opacity: 1; }
   }
 `;
@@ -192,7 +192,7 @@ const Icon = styled.img`
 animation: fadeIn 2s ease-in-out;
   
   @keyframes fadeIn {
-    from { opacity: 0; }
+    from { opacity: 0.5; }
     to { opacity: 1; }
   }
   

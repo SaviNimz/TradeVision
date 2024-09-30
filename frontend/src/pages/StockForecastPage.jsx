@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { FaSearch, FaCheck, FaSpinner } from 'react-icons/fa'; // Import FaCheck and FaSpinner
 import SearchBar from '../components/Dashboard_Components/searchBar.jsx';
@@ -154,7 +155,13 @@ const PageContainer = styled.div`
   min-height: 84vh;
   position: relative;
   filter: ${({ blur }) => (blur ? 'blur(5px)' : 'none')};
-`;
+ animation: fadeIn 1s ease-in-out;
+  
+  @keyframes fadeIn {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+  }
+  `;
 
 const StockInfoContainer = styled.div`
   margin-top: 20px;

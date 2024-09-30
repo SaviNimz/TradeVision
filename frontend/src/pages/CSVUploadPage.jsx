@@ -116,6 +116,12 @@ const ContentWrapper = styled.div`
   @media (max-width: 768px) {
     padding: 10px; /* Adjust padding for smaller screens */
   }
+     animation: fadeIn 1s ease-in-out;
+  
+  @keyframes fadeIn {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+  }
 `;
 
 const HeaderSection = styled.div`
