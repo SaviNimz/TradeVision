@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
@@ -5,12 +6,13 @@ import logoImage from '../assets/logo.jpeg'; // Replace with the actual path to 
 
 const NavbarContainer = styled.nav`
   display: flex;
+   
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   background-color: #0a1e3a; /* Dark futuristic blue */
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-  position: relative;
+  position: sticky;
   z-index: 1;
 `;
 

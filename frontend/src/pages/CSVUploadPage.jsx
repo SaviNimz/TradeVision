@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useState } from 'react';
-import FileUploadCard from '../components/CSVforecast/UploadButton';
-import SelectComponent from '../components/CSVforecast/SelectComponent';
-import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart';
-import ForecastSummary from '../components/CSVforecast/ForecastSummary2'; 
+import FileUploadCard from '../components/CSVforecast/UploadButton.jsx';
+import SelectComponent from '../components/CSVforecast/SelectComponent.jsx';
+import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart.jsx';
+import ForecastSummary from '../components/CSVforecast/ForecastSummary2.jsx'; 
 import styled, { keyframes } from 'styled-components';
 import bgimg from '../assets/forecast page.jpg';
 import { FaCheck, FaSpinner } from 'react-icons/fa'; // Import FaCheck and FaSpinner
@@ -113,6 +115,12 @@ const ContentWrapper = styled.div`
 
   @media (max-width: 768px) {
     padding: 10px; /* Adjust padding for smaller screens */
+  }
+     animation: fadeIn 1s ease-in-out;
+  
+  @keyframes fadeIn {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
   }
 `;
 

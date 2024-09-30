@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from 'styled-components';
-import AdvancedChart from '../components/Dashboard_Components/MainChart';
-import TickerTape from '../components/Dashboard_Components/TickerTape';
-import GainersChart from '../components/Dashboard_Components/GainersChart';
-import NewsComponent from '../services/NewsService';
+import AdvancedChart from '../components/Dashboard_Components/mainChart.jsx';
+import TickerTape from '../components/Dashboard_Components/TickerTape.jsx';
+import GainersChart from '../components/Dashboard_Components/GainersChart.jsx';
+import NewsComponent from '../services/NewsService.jsx';
 
 const Dashboard = () => {
   return (
