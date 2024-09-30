@@ -1,12 +1,23 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { keyframes, css } from 'styled-components';
 import AdvancedChart from '../components/Dashboard_Components/mainChart.jsx';
 import TickerTape from '../components/Dashboard_Components/TickerTape.jsx';
 import GainersChart from '../components/Dashboard_Components/GainersChart.jsx';
 import NewsComponent from '../services/NewsService.jsx';
+import Chatbot from '../components/ChatBot';
 
 const Dashboard = () => {
+  const [isBouncing, setIsBouncing] = useState(true); // To control bounce animation
+  const [hasClicked, setHasClicked] = useState(false); // To track first click
+
+  const handleChatbotClick = () => {
+    if (!hasClicked) {
+      setIsBouncing(false); // Stop bouncing on first click
+      setHasClicked(true); // Ensure it doesn't bounce again
+    }
+  };
+
   return (
     <DashboardContainer>
       <TickerTape />
@@ -15,12 +26,15 @@ const Dashboard = () => {
         <GainersChart />
         <NewsComponent />
       </MainContent>
+
+      <ChatbotWrapper isBouncing={isBouncing} onClick={handleChatbotClick}>
+        <Chatbot />
+      </ChatbotWrapper>
     </DashboardContainer>
   );
 };
 
 export default Dashboard;
-
 
 const DashboardContainer = styled.div`
   background: linear-gradient(235deg, #000000 0%, #002f4c 40%, rgba(0, 0, 0, 0.9) 80%, #002080 100%); 
@@ -70,4 +84,30 @@ const Title = styled.h2`
         0 0 50px #e0e0e0;
     }
   }
+`;
+
+// Keyframes for bounce animation
+const bounce = keyframes`
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+`;
+
+const ChatbotWrapper = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  ${({ isBouncing }) =>
+    isBouncing &&
+    css`
+      animation: ${bounce} 2.5s infinite;
+    `}
+  cursor: pointer;
 `;
