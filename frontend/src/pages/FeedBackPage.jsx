@@ -2,17 +2,20 @@
 import React, { useState } from 'react';
 import FeedbackForm from '../components/FeedbackPage/FeedbackForm.jsx';
 import FeedbackList from '../components/FeedbackPage/FeedbackList.jsx';
-import styled from 'styled-components';
-import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
-import 'react-toastify/dist/ReactToastify.css'; // Import the styles
-import BackgroundImage from '../assets/image.png'; // Import the background image
-import Icon1 from '../assets/dependability.png'; // Example for the icon
-import Icon2 from '../assets/Safeandsecure.webp'; // Replace with actual image paths
+import styled, { css, keyframes } from 'styled-components'; // Import css and keyframes
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import BackgroundImage from '../assets/image.png';
+import Icon1 from '../assets/dependability.png';
+import Icon2 from '../assets/Safeandsecure.webp';
 import Icon3 from '../assets/Regulated.jpeg';
 import Icon4 from '../assets/247support.avif';
+import Chatbot from '../components/ChatBot'; // Import the Chatbot component
 
 const FeedBackPage = () => {
   const [feedbacks, setFeedbacks] = useState([]);
+  const [isBouncing, setIsBouncing] = useState(true); // Control bounce effect
+  const [hasClicked, setHasClicked] = useState(false); // Stop bounce after clicking
 
   const handleFeedbackSubmit = (feedback) => {
     setFeedbacks([feedback, ...feedbacks]);
@@ -25,6 +28,13 @@ const FeedBackPage = () => {
       draggable: true,
       progress: undefined,
     });
+  };
+
+  const handleChatbotClick = () => {
+    if (!hasClicked) {
+      setIsBouncing(false);
+      setHasClicked(true);
+    }
   };
 
   const features = [
@@ -53,37 +63,68 @@ const FeedBackPage = () => {
   return (
     <PageContainer>
       <ContentWrapperAll>
-      <ContentWrapper>
-        <FeatureContainer>
-          {features.map((feature, index) => (
-            <FeatureCard key={index}>
-              <Icon src={feature.icon} alt={feature.title} />
-              <Title>{feature.title}</Title>
-              <Description>{feature.description}</Description>
-            </FeatureCard>
-          ))}
-        </FeatureContainer>
-      </ContentWrapper>
-      <ContentWrapper>
-        <Header>We Value Your Feedback!</Header>
-        <FeedbackForm onSubmit={handleFeedbackSubmit} />
-        {/* <FeedbackList feedbacks={feedbacks} /> */}
-      </ContentWrapper>
+        <ContentWrapper>
+          <FeatureContainer>
+            {features.map((feature, index) => (
+              <FeatureCard key={index}>
+                <Icon src={feature.icon} alt={feature.title} />
+                <Title>{feature.title}</Title>
+                <Description>{feature.description}</Description>
+              </FeatureCard>
+            ))}
+          </FeatureContainer>
+        </ContentWrapper>
+        <ContentWrapper>
+          <Header>We Value Your Feedback!</Header>
+          <FeedbackForm onSubmit={handleFeedbackSubmit} />
+          {/* <FeedbackList feedbacks={feedbacks} /> */}
+        </ContentWrapper>
       </ContentWrapperAll>
-      <ToastContainer /> {/* Add ToastContainer to render toasts */}
+      <ToastContainer />
+
+      {/* Add Chatbot */}
+      <ChatbotWrapper isBouncing={isBouncing} onClick={handleChatbotClick}>
+        <Chatbot />
+      </ChatbotWrapper>
     </PageContainer>
   );
 };
 
 export default FeedBackPage;
 
+// Styled Components
+const bounce = keyframes`
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+`;
+
+const ChatbotWrapper = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  ${({ isBouncing }) =>
+    isBouncing &&
+    css`
+      animation: ${bounce} 2.5s infinite;
+    `}
+  cursor: pointer;
+`;
+
 const PageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px;
-  background: url(${BackgroundImage}) no-repeat center center fixed; /* Set background image */
-  background-size: cover; /* Ensure image covers the container */
+  background: url(${BackgroundImage}) no-repeat center center fixed;
+  background-size: cover;
   color: #ffffff;
   min-height: 100vh;
 
@@ -91,44 +132,29 @@ const PageContainer = styled.div`
     flex-direction: column;
     padding: 20px;
   }
-
 `;
 
 const ContentWrapper = styled.div`
-  // display: flex;
-  // flex-direction: column;
-  background: rgba(0, 0, 0,0.5); /* Use a dark overlay to improve text readability */
+  background: rgba(0, 0, 0, 0.5);
   padding: 20px;
   border-radius: 15px;
-  
   max-width: 800px;
   gap: 20px;
   width: 100%;
-  backdrop-filter: blur(px);
-  
-  @media (max-width: 768px) {
-    padding: 20px;
-  }
 `;
 
 const ContentWrapperAll = styled.div`
-  
-display: flex;
+  display: flex;
   flex-direction: row;
-  background: rgba(0, 0, 0, 0.5); /* Use a dark overlay to improve text readability */
+  background: rgba(0, 0, 0, 0.5);
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   max-width: 1700px;
   gap: 30px;
   width: 100%;
-  backdrop-filter: blur(10px);
-  
-  
-  @media (max-width: 768px) {
-    padding: 20px;
-  }
 `;
+
 const Header = styled.h1`
   text-align: center;
   margin-bottom: 60px;
@@ -136,12 +162,6 @@ const Header = styled.h1`
   color: #f9f9f9;
   font-family: 'Arial', sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  animation: fadeIn 1s ease-in-out;
-  
-  @keyframes fadeIn {
-    from { opacity: 0.5; }
-    to { opacity: 1; }
-  }
 `;
 
 const FeatureContainer = styled.div`
@@ -149,13 +169,7 @@ const FeatureContainer = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
-  margin-bottom:20px;
-  animation: fadeIn 1s ease-in-out;
-  
-  @keyframes fadeIn {
-    from { opacity: 0.5; }
-    to { opacity: 1; }
-  }
+  margin-bottom: 20px;
 `;
 
 const FeatureCard = styled.div`
@@ -171,25 +185,16 @@ const FeatureCard = styled.div`
   transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
 
   &:hover {
-   transform: scale(1.05);
-    
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Adds a more pronounced shadow */
-    background-color: #ffffff; /* Changes background color to white on hover */
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
   }
 `;
-
 
 const Icon = styled.img`
   width: 200px;
   height: 200px;
   margin-bottom: 10px;
-animation: fadeIn 2s ease-in-out;
-  
-  @keyframes fadeIn {
-    from { opacity: 0.5; }
-    to { opacity: 1; }
-  }
-  
 `;
 
 const Title = styled.h3`
