@@ -165,7 +165,7 @@ const ProfileSection = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 25px 20px;
-  background-color: rgba(10, 10, 30, 0.85);
+  
   border-radius: 12px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
   margin-bottom: 30px;
