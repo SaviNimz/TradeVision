@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
@@ -34,7 +35,7 @@ const ProfilePage = () => {
 
     // Animate prediction count
     let startCount = 0;
-    const totalPredictions = 42; // Example count
+    const totalPredictions = 12; // Example count
 
     const interval = setInterval(() => {
       if (startCount < totalPredictions) {
@@ -72,11 +73,20 @@ const ProfilePage = () => {
       </ProfileSection>
 
       {/* Animated Prediction Count */}
+      <PredictionSectionContainer>
       <PredictionSection>
         <PredictionTitle>Your Total Predictions</PredictionTitle>
         <PredictionCount>{predictionCount}</PredictionCount>
       </PredictionSection>
-
+      <PredictionSection>
+        <PredictionTitle>Your Total Predictions</PredictionTitle>
+        <PredictionCount>{predictionCount}</PredictionCount>
+      </PredictionSection>
+      <PredictionSection>
+        <PredictionTitle>Your Total Predictions</PredictionTitle>
+        <PredictionCount>{predictionCount}</PredictionCount>
+      </PredictionSection>
+      </PredictionSectionContainer>
       <NewCardsSection>
         <StyledCard onClick={handleGenerateForecasts}>
           <CardImage src={forecastIcon} alt="Forecast Icon" />
@@ -99,7 +109,8 @@ const ProfilePage = () => {
             <CardTitle>30-Day Trial</CardTitle>
             <CardPrice>Free</CardPrice>
             <CardDescription>Try all premium features for 30 days.</CardDescription>
-            <UpgradeButton>Start Trial</UpgradeButton>
+            <UpgradeButton>{user.profilePicture ? 'Continue Trial' : 'Start Trial'}</UpgradeButton>
+
           </PricingCard>
 
           <PricingCard>
@@ -118,39 +129,7 @@ const ProfilePage = () => {
         </PricingCards>
       </PricingSection>
 
-      <AccountSettingsSection>
-        <Title>My Account Settings</Title>
-
-        <Setting>
-          <Label>Theme</Label>
-          <RadioGroup>
-            <RadioButton>
-              <input type="radio" id="light" name="theme" value="Light" />
-              <label htmlFor="light">Light</label>
-            </RadioButton>
-            <RadioButton>
-              <input type="radio" id="dark" name="theme" value="Dark" />
-              <label htmlFor="dark">Dark</label>
-            </RadioButton>
-          </RadioGroup>
-        </Setting>
-
-        <Setting>
-          <Label>Email</Label>
-          <SettingOption>{user.email}</SettingOption>
-        </Setting>
-
-        <Setting>
-          <Label>Update Password</Label>
-          <Button>Change Password</Button>
-        </Setting>
-
-        <Setting>
-          <Label>Manage Subscription</Label>
-          <SettingOption>No active subscription</SettingOption>
-          <Button>Upgrade to Stock Analysis Pro</Button>
-        </Setting>
-      </AccountSettingsSection>
+   
 
       <SupportSection>
         <Title>Need Help?</Title>
@@ -174,7 +153,8 @@ const ProfilePage = () => {
         </SocialLinks>
       </SupportSection>
 
-      <ChatbotWrapper isBouncing={isBouncing} onClick={handleChatbotClick}>
+       {/* Add Chatbot */}
+       <ChatbotWrapper isBouncing={isBouncing} onClick={handleChatbotClick}>
         <Chatbot />
       </ChatbotWrapper>
     </Container>
@@ -184,6 +164,31 @@ const ProfilePage = () => {
 export default ProfilePage;
 
 // Styled Components
+const bounce = keyframes`
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+`;
+
+const ChatbotWrapper = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  ${({ isBouncing }) =>
+    isBouncing &&
+    css`
+      animation: ${bounce} 2.5s infinite;
+    `}
+  cursor: pointer;
+`;
+
 const Button = styled.button`
   background-color: #0d6efd;
   border: none;
@@ -232,16 +237,18 @@ const Label = styled.label`
 const ProfileSection = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: left;
   margin-bottom: 30px;
+  margin-top: 30px;
+  margin-left: 30px;
 `;
 
 const ProfilePicture = styled.img`
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  border: 4px solid #0d6efd;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 150px;
+  height: 150px;
+  border: 5px solid #0d6efd;
+  box-shadow: 0 4px 10px rgba(10, 10, 10, 10);
   transition: transform 0.3s ease;
   &:hover {
     transform: scale(1.05);
@@ -250,11 +257,12 @@ const ProfilePicture = styled.img`
 
 const ProfileInfo = styled.div`
   margin-left: 20px;
+  
 `;
 
 const Name = styled.h2`
   margin: 0;
-  font-size: 1.6rem;
+  font-size: 2.6rem;
 `;
 
 const Email = styled.p`
@@ -264,9 +272,20 @@ const Email = styled.p`
 `;
 
 // New Prediction Section with Animated Count
+const PredictionSectionContainer = styled.div`
+  display: flex;
+  position: relative;
+  justify-content: center;
+  gap: 100px; /* Adjust the value to your desired gap size */
+  margin-bottom: 2px;
+`;
+
+
 const PredictionSection = styled.div`
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 4px;
+  padding: 20px;
+  gap: 40px;
 `;
 
 const PredictionTitle = styled.h2`
@@ -419,18 +438,7 @@ const SocialLink = styled.a`
   }
 `;
 
-const ChatbotWrapper = styled.div`
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  cursor: pointer;
 
-  ${(props) =>
-    props.isBouncing &&
-    css`
-      animation: bounce 1.2s infinite;
-    `};
-`;
 
 const AccountSettingsSection = styled.div`
   padding: 20px;
@@ -447,16 +455,4 @@ const Title = styled.h3`
 
 const Setting = styled.div`
   margin-bottom: 20px;
-`;
-
-const bounce = keyframes`
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-10px);
-  }
-  60% {
-    transform: translateY(-5px);
-  }
 `;

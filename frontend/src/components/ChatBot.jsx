@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai'; // Import the close icon
-import bot from '../assets/bot.png'; // Import the bot image
+import bot from '../assets/1_YOViITfBkahHTwGGkKsQdg.png'; // Import the bot image
 
 
 const Chatbot = () => {
