@@ -251,13 +251,14 @@ const CardsSection = styled.div`
 const AccountSettingsSectionAll = styled.div`
   display: flex;
   flex-direction: row;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.0);
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   max-width: 1700px;
   gap: 20px;
   width: 98%;
+  blur: 10px;
 `;
 
 const AccountSettingsSection = styled.div`
