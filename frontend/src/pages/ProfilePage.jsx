@@ -35,7 +35,7 @@ const ProfilePage = () => {
 
     // Animate prediction count
     let startCount = 0;
-    const totalPredictions = 12; // Example count
+    const totalPredictions = 10; // Example count
 
     const interval = setInterval(() => {
       if (startCount < totalPredictions) {
@@ -89,15 +89,15 @@ const ProfilePage = () => {
   {/* Animated Prediction Count */}
   <PredictionSectionContainer>
       <PredictionSection>
-        <PredictionTitle>Your Total Predictions</PredictionTitle>
-        <PredictionCount>{predictionCount}</PredictionCount>
+        <PredictionTitle>Total Predictions</PredictionTitle>
+        <PredictionCount>{predictionCount+4}</PredictionCount>
       </PredictionSection>
       <PredictionSection>
-        <PredictionTitle>Your Total Predictions</PredictionTitle>
-        <PredictionCount>{predictionCount}</PredictionCount>
+        <PredictionTitle>Used Stocks</PredictionTitle>
+        <PredictionCount>{predictionCount+3}</PredictionCount>
       </PredictionSection>
       <PredictionSection>
-        <PredictionTitle>Your Total Predictions</PredictionTitle>
+        <PredictionTitle>Past Forecasts</PredictionTitle>
         <PredictionCount>{predictionCount}</PredictionCount>
       </PredictionSection>
       </PredictionSectionContainer>
