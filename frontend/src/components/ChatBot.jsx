@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai'; // Import the close icon
-import bot from '../assets/bot.png'; // Import the bot image
+import bot from '../assets/'; // Import the bot image
 
 
 const Chatbot = () => {
@@ -175,13 +175,37 @@ const CloseIcon = styled.div`
   top: 10px;
   right: 20px;
   cursor: pointer;
-  font-size: 24px;
-  color: #FFFFFFF; 
-  transition: color 0.3s ease;
+  font-size: 28px;
+  color: #ff4d4f; /* Soft red for the default close icon */
+  transition: color 0.3s ease, transform 0.2s ease;
   &:hover {
-    color: #FFA500; /* Lighter golden on hover */
+    color: #ffa07a; /* Soft coral on hover */
+    transform: scale(1.5); /* Slight zoom on hover */
+  }
+
+  
+`;
+const CloseIcon1 = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #ffffff; /* Default white color */
+  transition: color 0.3s ease, transform 0.3s ease; /* Add smooth transitions */
+  
+  &:hover {
+    color: #ff6347; /* Tomato color on hover */
+    transform: scale(1.2); /* Slight scale effect on hover */
+  }
+  
+  /* Adding an SVG for the close icon */
+  &::before {
+    content: '\\2716'; /* Unicode for "X" */
+    display: inline-block;
   }
 `;
+
 
 const ChatHistory = styled.div`
   padding: 20px;
