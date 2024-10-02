@@ -45,14 +45,14 @@ const Card = styled.div`
     right: 0;
     bottom: 0;
     background: inherit;
-    filter: blur(2px);
+    filter: blur(0px);
     z-index: 1;
   }
 
   & > span {
     position: relative;
     top: 0;
-    
+
     z-index:2;
     font-size: 16px; // Reduced font size for smaller screens
     font-weight: bold;
