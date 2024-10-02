@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai'; // Import the close icon
-import bot from '../assets/'; // Import the bot image
-
+import bot from '../assets/bot.png'; // Import the bot image
+import sendmessage from '../assets/arrow-triplet-5160360-4330152.webp'; // Import the sendmessage image
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([
@@ -107,7 +107,7 @@ const Chatbot = () => {
               onChange={handleInputChange}
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
             />
-            <SendButton onClick={handleSendMessage}>Send</SendButton>
+            <SendButton onClick={handleSendMessage}></SendButton>
           </ChatInput>
         </ChatWindow>
       )}
@@ -251,9 +251,12 @@ const ChatMessage = styled.div`
       ? 'linear-gradient(135deg, #001f3f, #0056b3)' 
       : 'linear-gradient(135deg, #a0d4ff, #4ca1ff)'}; 
   color: ${({ from }) => (from === 'bot' ? 'white' : '#333333')}; 
+  
+  float: ${({ from }) => (from === 'bot' ? 'left' : 'right')}; /* Floating bot to the left, user to the right */
+  clear: both; /* Ensures proper spacing between messages */
   align-self: ${({ from }) => (from === 'bot' ? 'flex-start' : 'flex-end')};
   transition: background 0.3s ease, transform 0.2s ease;
-  
+
   &:hover {
     background: ${({ from }) => 
       from === 'bot' 
@@ -262,6 +265,7 @@ const ChatMessage = styled.div`
     transform: scale(1.02);
   }
 `;
+
 
 
 const ChatInput = styled.div`
@@ -291,26 +295,24 @@ const InputField = styled.input`
 `;
 
 const SendButton = styled.button`
-  padding: 15px 20px;
-  background: linear-gradient(135deg, #001f3f, #0056b3); /* Dark blue gradient */
-  color: white; /* White text */
+  width: 50px;
+  height: 50px;
+  background-image: url(${sendmessage});no-repeat center center;
+  background-size: contain;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
   transition: background 0.3s ease, transform 0.2s ease;
-  
+
   &:hover {
-    background: linear-gradient(135deg, #003366, #007bff); /* Slightly lighter blue on hover */
     transform: scale(1.05);
   }
 
   &:active {
-    background: linear-gradient(135deg, #002147, #0056b3); /* Even darker on click */
     transform: scale(0.98);
   }
 `;
+
 
 
 export default Chatbot;
