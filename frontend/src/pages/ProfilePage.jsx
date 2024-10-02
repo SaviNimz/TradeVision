@@ -123,7 +123,7 @@ const ProfilePage = () => {
           <PricingCard3>
             <CardTitle>1-Year Upgrade</CardTitle>
             <CardPrice>$99.99/year</CardPrice>
-            <CardDescription>Get 2 months free with the yearly plan.</CardDescription>
+            <CardDescription>Unlock premium features for 1 year.</CardDescription>
             <UpgradeButton>Upgrade Now</UpgradeButton>
           </PricingCard3>
         </PricingCards>
@@ -371,7 +371,7 @@ const PricingCards = styled.div`
 const PricingCard1 = styled.div`
   flex: 1;
   max-width: 300px;
-background: linear-gradient(14deg, #ffffff 0%, #a1c4fd, #c2e9fb);
+background: linear-gradient(90deg, #a1c4fd 0%, #a1c4fd, #a1c4fd);
   background-size: 300% 300%; /* Ensure the gradient is large enough to move */
   border-radius: 10px;
   padding: 20px;
@@ -386,13 +386,13 @@ background: linear-gradient(14deg, #ffffff 0%, #a1c4fd, #c2e9fb);
 
   @keyframes shine {
     0% {
-      background-position: 0% ;
+      background-position: 10% ;
     }
     50% {
       background-position: 100% ;
     }
     100% {
-      background-position: 0% ;
+      background-position: 10% ;
     }
   }
 `;
@@ -400,7 +400,7 @@ background: linear-gradient(14deg, #ffffff 0%, #a1c4fd, #c2e9fb);
 const PricingCard2 = styled.div`
   flex: 1;
   max-width: 300px;
-background: linear-gradient(14deg, #f2f2f2 0%, #d9d9d9, #b8b8b8);
+background: linear-gradient(90deg, #f2f2f2 0%, #d9d9d9, #ffffff);
   background-size: 300% 300%; /* Ensure the gradient is large enough to move */
   border-radius: 10px;
   padding: 20px;
@@ -429,7 +429,7 @@ background: linear-gradient(14deg, #f2f2f2 0%, #d9d9d9, #b8b8b8);
 const PricingCard3 = styled.div`
   flex: 1;
   max-width: 300px;
-background: linear-gradient(14deg, #fff4e0 0%, #fbc531, #f39c12);
+background: linear-gradient(90deg, #fff4e0 0%, #ffd700, #daa520);
   background-size: 300% 300%; /* Ensure the gradient is large enough to move */
   border-radius: 10px;
   padding: 20px;
