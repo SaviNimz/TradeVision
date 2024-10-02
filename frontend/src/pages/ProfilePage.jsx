@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 import { FaWhatsapp, FaFacebookF, FaInstagram, FaDiscord, FaEnvelope } from 'react-icons/fa';
 import ImageCard from '../components/profilePage/ImageCard';
-import forecastIcon from '../assets/icon1.jpg';
-import RetrieveIcon from '../assets/icon2.jpeg';
+import forecastIcon from '../assets/growth.gif';
+import RetrieveIcon from '../assets/434030b44634b5fbf4563862b4e012f6.gif';
 import profpic from '../assets/profpic.jpg';
 import { auth } from '../utils/firebase';
 import Chatbot from '../components/ChatBot';
@@ -56,8 +56,8 @@ const ProfilePage = () => {
           <Email>{user.email}</Email>
         </ProfileInfo>
       </ProfileSection>
-
-      <CardsSection>
+<AccountSettingsSectionAll>
+<CardsSection>
         <ImageCard
           image={forecastIcon}
           text="Generate Forecasts"
@@ -69,6 +69,8 @@ const ProfilePage = () => {
           onClick={handleRetrieveSavedForecasts}
         />
       </CardsSection>
+</AccountSettingsSectionAll>
+     
 
       <AccountSettingsSectionAll>
         <AccountSettingsSection>
@@ -233,10 +235,11 @@ const Email = styled.p`
 const CardsSection = styled.div`
   display: flex;
   justify-content: center;
-  gap: 40px;
-  margin-top: 20px;
-  width: 100%;
+  gap: 20px;
+  margin-top: 5px;
+  width: 90%;
   max-width: 1200px;
+  max-height: 300px;
   margin-left: auto;
   margin-right: auto;
 
