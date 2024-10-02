@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 import { FaWhatsapp, FaFacebookF, FaInstagram, FaDiscord, FaEnvelope } from 'react-icons/fa';
-import forecastIcon from '../assets/data-analysis.gif';
+import forecastIcon from '../assets/full-analysis.gif';
 import RetrieveIcon from '../assets/full-analysis.gif';
 import profpic from '../assets/profpic.jpg';
 import { auth } from '../utils/firebase';
@@ -72,21 +72,7 @@ const ProfilePage = () => {
         </ProfileInfo>
       </ProfileSection>
 
-      {/* Animated Prediction Count */}
-      <PredictionSectionContainer>
-      <PredictionSection>
-        <PredictionTitle>Your Total Predictions</PredictionTitle>
-        <PredictionCount>{predictionCount}</PredictionCount>
-      </PredictionSection>
-      <PredictionSection>
-        <PredictionTitle>Your Total Predictions</PredictionTitle>
-        <PredictionCount>{predictionCount}</PredictionCount>
-      </PredictionSection>
-      <PredictionSection>
-        <PredictionTitle>Your Total Predictions</PredictionTitle>
-        <PredictionCount>{predictionCount}</PredictionCount>
-      </PredictionSection>
-      </PredictionSectionContainer>
+    
       <NewCardsSection>
         <StyledCard onClick={handleGenerateForecasts}>
           <CardImage src={forecastIcon} alt="Forecast Icon" />
@@ -100,32 +86,46 @@ const ProfilePage = () => {
           <CardDescription>View and analyze your previously saved forecasts.</CardDescription>
         </StyledCard>
       </NewCardsSection>
-
+  {/* Animated Prediction Count */}
+  <PredictionSectionContainer>
+      <PredictionSection>
+        <PredictionTitle>Your Total Predictions</PredictionTitle>
+        <PredictionCount>{predictionCount}</PredictionCount>
+      </PredictionSection>
+      <PredictionSection>
+        <PredictionTitle>Your Total Predictions</PredictionTitle>
+        <PredictionCount>{predictionCount}</PredictionCount>
+      </PredictionSection>
+      <PredictionSection>
+        <PredictionTitle>Your Total Predictions</PredictionTitle>
+        <PredictionCount>{predictionCount}</PredictionCount>
+      </PredictionSection>
+      </PredictionSectionContainer>
       {/* Pricing Cards Section */}
       <PricingSection>
         <PricingTitle>Upgrade Your Plan</PricingTitle>
         <PricingCards>
-          <PricingCard>
+          <PricingCard1>
             <CardTitle>30-Day Trial</CardTitle>
             <CardPrice>Free</CardPrice>
             <CardDescription>Try all premium features for 30 days.</CardDescription>
             <UpgradeButton>{user.profilePicture ? 'Continue Trial' : 'Start Trial'}</UpgradeButton>
 
-          </PricingCard>
+          </PricingCard1>
 
-          <PricingCard>
+          <PricingCard2>
             <CardTitle>1-Month Upgrade</CardTitle>
             <CardPrice>$9.99/month</CardPrice>
             <CardDescription>Unlock premium features for 1 month.</CardDescription>
             <UpgradeButton>Upgrade Now</UpgradeButton>
-          </PricingCard>
+          </PricingCard2>
 
-          <PricingCard>
+          <PricingCard3>
             <CardTitle>1-Year Upgrade</CardTitle>
             <CardPrice>$99.99/year</CardPrice>
             <CardDescription>Get 2 months free with the yearly plan.</CardDescription>
             <UpgradeButton>Upgrade Now</UpgradeButton>
-          </PricingCard>
+          </PricingCard3>
         </PricingCards>
       </PricingSection>
 
@@ -225,14 +225,14 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background: linear-gradient(135deg, #f3f4f6, #ebeff2);
+  background: linear-gradient(235deg, #000000 0%, #002f4c 10%, rgba(0, 0, 0, 0.9) 50%, #002080 100%); 
   min-height: 100vh;
   box-sizing: border-box;
-  color: #1a202c;
+  color: #ffffff;
 `;
 const Label = styled.label`
   font-size: 1.1rem;
-  color: #1a202c;
+  color: #ffffff;
 `;
 const ProfileSection = styled.div`
   display: flex;
@@ -241,6 +241,7 @@ const ProfileSection = styled.div`
   margin-bottom: 30px;
   margin-top: 30px;
   margin-left: 30px;
+  
 `;
 
 const ProfilePicture = styled.img`
@@ -289,14 +290,14 @@ const PredictionSection = styled.div`
 `;
 
 const PredictionTitle = styled.h2`
-  font-size: 1.4rem;
-  color: #1a202c;
+  font-size: 1.8rem;
+  color: #ffffff;
 `;
 
 const PredictionCount = styled.span`
   font-size: 3rem;
   font-weight: bold;
-  color: #0d6efd;
+  color: #d0e3ff;
 `;
 
 // NewCardsSection
@@ -304,7 +305,7 @@ const PredictionCount = styled.span`
 const NewCardsSection = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 4px;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -315,7 +316,7 @@ const NewCardsSection = styled.div`
 const StyledCard = styled.div`
   flex: 1;
   margin: 10px;
-  background: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(14deg, #ffffff 0%, #95c0fe 50%, #ffffff 100%);
   border-radius: 12px;
   padding: 20px;
   transition: all 0.3s ease;
@@ -329,18 +330,18 @@ const StyledCard = styled.div`
 `;
 
 const CardImage = styled.img`
-  width: 80px;
-  margin-bottom: 20px;
+  width: 100px;
+  margin-bottom: 0px;
 `;
 
 const CardTitle = styled.h3`
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-bottom: 10px;
-  color: #1a202c;
+  color: #000;
 `;
 
 const CardDescription = styled.p`
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #4a5568;
 `;
 
@@ -367,19 +368,94 @@ const PricingCards = styled.div`
   }
 `;
 
-const PricingCard = styled.div`
+const PricingCard1 = styled.div`
   flex: 1;
   max-width: 300px;
-  background: #fff;
+background: linear-gradient(14deg, #ffffff 0%, #a1c4fd, #c2e9fb);
+  background-size: 300% 300%; /* Ensure the gradient is large enough to move */
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  animation: shine 3s infinite ease-in-out; /* Updated duration for a visible effect */
+
   &:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
+
+  @keyframes shine {
+    0% {
+      background-position: 0% ;
+    }
+    50% {
+      background-position: 100% ;
+    }
+    100% {
+      background-position: 0% ;
+    }
+  }
 `;
+
+const PricingCard2 = styled.div`
+  flex: 1;
+  max-width: 300px;
+background: linear-gradient(14deg, #f2f2f2 0%, #d9d9d9, #b8b8b8);
+  background-size: 300% 300%; /* Ensure the gradient is large enough to move */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  animation: shine 3s infinite ease-in-out; /* Updated duration for a visible effect */
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  @keyframes shine {
+    0% {
+      background-position: 0% ;
+    }
+    50% {
+      background-position: 100% ;
+    }
+    100% {
+      background-position: 0% ;
+    }
+  }
+`;
+
+const PricingCard3 = styled.div`
+  flex: 1;
+  max-width: 300px;
+background: linear-gradient(14deg, #fff4e0 0%, #fbc531, #f39c12);
+  background-size: 300% 300%; /* Ensure the gradient is large enough to move */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  animation: shine 3s infinite ease-in-out; /* Updated duration for a visible effect */
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  @keyframes shine {
+    0% {
+      background-position: 0% ;
+    }
+    50% {
+      background-position: 100% ;
+    }
+    100% {
+      background-position: 0% ;
+    }
+  }
+`;
+
+
 
 const CardPrice = styled.p`
   font-size: 1.4rem;
@@ -408,7 +484,7 @@ const UpgradeButton = styled.button`
 const SupportSection = styled.div`
   margin-top: 40px;
   padding: 20px;
-  background: #ffffff;
+  background: #cfe3ff;
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 `;
