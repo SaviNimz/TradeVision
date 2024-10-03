@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import React, { useState } from 'react';
 import FileUploadCard from '../components/CSVforecast/UploadButton.jsx';
 import SelectComponent from '../components/CSVforecast/SelectComponent.jsx';
@@ -116,11 +114,6 @@ const ContentWrapper = styled.div`
   @media (max-width: 768px) {
     padding: 10px; /* Adjust padding for smaller screens */
   }
-     animation: fadeIn 1s ease-in-out;
-  
-  @keyframes fadeIn {
-    from { opacity: 0.5; }
-    to { opacity: 1; }
   }
 `;
 

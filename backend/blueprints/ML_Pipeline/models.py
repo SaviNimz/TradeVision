@@ -8,7 +8,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import math
-
+import random
 
 class ResNLS(nn.Module):
     def __init__(self, n_input=5, n_hidden=64):
@@ -53,7 +53,6 @@ class ResNLS(nn.Module):
         y_hat = self.linear(h_n.squeeze(0))  # shape: (batch_size, 1)
 
         return y_hat
-
 
 class Models:
     
@@ -227,38 +226,36 @@ class Models:
 
     def forecast(self, method, data, target_col):
         """Forecast using the selected method."""
+        def add_random_noise(series, num_points=5, noise_scale=0.05):
+            series_copy = series.copy()
+            random_indices = random.sample(range(len(series)), num_points)
+            for idx in random_indices:
+                noise = series[idx] * random.uniform(-noise_scale, noise_scale)
+                series_copy[idx] += noise
+            return series_copy
+        
         if method == 'ARIMA':
-            series = data[target_col]  # Use the target column provided
+            series = data[target_col]
+            series = add_random_noise(series)
             model_fit = self.train_arima(series)
-            forecast = model_fit.forecast(steps=5)  # Forecast next 5 steps
+            forecast = model_fit.forecast(steps=5)
             print(forecast)
             return forecast
 
         elif method == 'Prophet':
-            df = data[['Date', target_col]]
-            print(f"Data passed to Prophet:\n{df.head()}")
-            model = self.train_prophet(df)
-            future = model.make_future_dataframe(periods=5)
-            print(f"Future dataframe:\n{future.tail()}")
-            forecast = model.predict(future)
-            print(f"Forecast result:\n{forecast.tail()}")
-            return forecast['yhat'][-5:]
+            series = data[target_col]
+            series = add_random_noise(series)
+            model_fit = self.train_prophet(series)
+            forecast = model_fit.forecast(steps=5)
+            print(forecast)
+            return forecast
 
-        elif method == 'LSTM':
-            series = data[target_col]  # Use the target column provided
-            print(series)
-            model = self.train_lstm(series)
-            # Prepare input for prediction
-            last_n_lags = series[-5:].values.reshape(1, -1, 1)  # Last 5 values for prediction
-            forecast = model.predict(last_n_lags)
-            return self.preprocessor.inverse_transform(forecast)
-        
         elif method == 'ResNLS':
-
-            train_data = data[:math.ceil(len(data) * 0.9)]  # Train on 90% of data
-            test_data = data[len(train_data) - 5:]  # Test on the remaining data
-            model = self.train_resnls(train_data, test_data)
-            predictions = self.forecast_resnls(model, test_data, self.preprocessor.scaler)
-            return predictions
+            series = data[target_col]
+            series = add_random_noise(series)
+            model_fit = self.train_resnls(series)
+            forecast = model_fit.forecast(steps=5)
+            print(forecast)
+            return forecast
         
         return None
