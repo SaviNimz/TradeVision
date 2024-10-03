@@ -167,8 +167,12 @@ const ChatWindow = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 600px;
+  overflow: hidden; /* Hide overflow content when closed */
+  transition: height 0.5s ease; /* Smooth transition for height */
   position: relative;
+
 `;
+
 
 const CloseIcon = styled.div`
   position: absolute;
@@ -185,26 +189,7 @@ const CloseIcon = styled.div`
 
   
 `;
-const CloseIcon1 = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  cursor: pointer;
-  font-size: 24px;
-  color: #ffffff; /* Default white color */
-  transition: color 0.3s ease, transform 0.3s ease; /* Add smooth transitions */
-  
-  &:hover {
-    color: #ff6347; /* Tomato color on hover */
-    transform: scale(1.2); /* Slight scale effect on hover */
-  }
-  
-  /* Adding an SVG for the close icon */
-  &::before {
-    content: '\\2716'; /* Unicode for "X" */
-    display: inline-block;
-  }
-`;
+
 
 
 const ChatHistory = styled.div`
