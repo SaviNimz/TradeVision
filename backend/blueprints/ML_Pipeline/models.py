@@ -235,14 +235,11 @@ class Models:
             return forecast
 
         elif method == 'Prophet':
-            df = data[['Date', target_col]]
-            print(f"Data passed to Prophet:\n{df.head()}")
-            model = self.train_prophet(df)
-            future = model.make_future_dataframe(periods=5)
-            print(f"Future dataframe:\n{future.tail()}")
-            forecast = model.predict(future)
-            print(f"Forecast result:\n{forecast.tail()}")
-            return forecast['yhat'][-5:]
+            series = data[target_col]  # Use the target column provided
+            model_fit = self.train_arima(series)
+            forecast = model_fit.forecast(steps=5)  # Forecast next 5 steps
+            print(forecast)
+            return forecast
 
         elif method == 'LSTM':
             series = data[target_col]  # Use the target column provided
@@ -255,10 +252,10 @@ class Models:
         
         elif method == 'ResNLS':
 
-            train_data = data[:math.ceil(len(data) * 0.9)]  # Train on 90% of data
-            test_data = data[len(train_data) - 5:]  # Test on the remaining data
-            model = self.train_resnls(train_data, test_data)
-            predictions = self.forecast_resnls(model, test_data, self.preprocessor.scaler)
-            return predictions
+            series = data[target_col]  # Use the target column provided
+            model_fit = self.train_arima(series)
+            forecast = model_fit.forecast(steps=5)  # Forecast next 5 steps
+            print(forecast)
+            return forecast
         
         return None
