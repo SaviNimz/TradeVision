@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import CSVUploadPage from './pages/CSVUploadPage';
-import ProfilePage from './pages/profilePage';
+import ProfilePage from './pages/ProfilePage';
 import FeedbackPage from './pages/FeedBackPage';
 import Navbar from './components/navbar';
 import Footer from './components/Footer';
