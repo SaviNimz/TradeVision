@@ -39,7 +39,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install and Test Frontend
-        working-directory: ./frontend   # Points to the frontend directory where the yarn.lock file exists
+        working-directory:frontend   
         run: |
           yarn install   # Install dependencies using the existing yarn.lock
           yarn test --ci # Run tests in CI mode
