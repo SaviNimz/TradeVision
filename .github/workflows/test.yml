@@ -1,7 +1,6 @@
 name: Frontend Test
 
 on:
-  # Triggers the workflow on push or pull request to the main branch
   push:
     branches:
       - main
@@ -24,7 +23,15 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20.11.0'  # Specify Node.js version 20.11.0
+        node-version: '20.11.0'
+
+    - name: Cache Node.js modules
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('frontend/package-lock.json', 'frontend/yarn.lock') }}
+        restore-keys: |
+          node-modules-
 
     - name: Install dependencies
       run: yarn install
