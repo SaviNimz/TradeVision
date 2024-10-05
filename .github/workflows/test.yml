@@ -1,0 +1,33 @@
+name: Run Tests on PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Node.js environment
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+
+    # Step 3: Run frontend tests
+    - name: Install and Test Frontend
+      working-directory: ./frontend   # Update this path if your frontend is in a different directory
+      run: |
+        yarn install
+        yarn test --ci
