@@ -38,7 +38,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      # Step 4: Install and Test Frontend
       - name: Install and Test Frontend
         working-directory: ./frontend   # Points to the frontend directory where the yarn.lock file exists
         run: |
