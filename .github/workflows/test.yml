@@ -11,23 +11,23 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [20.x]  # Node.js 20.x version to match your local environment
 
     steps:
-    # Step 1: Checkout the repository
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # Step 2: Set up Node.js environment
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: yarn
 
-    # Step 3: Run frontend tests
-    - name: Install and Test Frontend
-      working-directory: ./frontend   # Update this path if your frontend is in a different directory
-      run: |
-        yarn install
-        yarn test --ci
+      # Step 3: Install and Test Frontend
+      - name: Install and Test Frontend
+        working-directory: ./frontend   # Points to the frontend directory where the yarn.lock file exists
+        run: |
+          yarn install   # Install dependencies using the existing yarn.lock
+          yarn test --ci # Run tests in CI mode
