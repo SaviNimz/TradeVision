@@ -15,7 +15,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: frontend  # Specify frontend directory
+        working-directory: frontend  
 
     steps:
     - name: Checkout code
@@ -24,7 +24,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20.11.0'  # Specify Node.js version 20.11.0
+        node-version: '20.11.0'  # Specify Node.js version 
 
     - name: Install dependencies
       run: yarn install
