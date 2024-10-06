@@ -104,10 +104,6 @@ const StockForecastPage = () => {
           </ForecastContainer>
         )}
 
-         {/* Add Chatbot */}
-       <ChatbotWrapper isBouncing={isBouncing} onClick={handleChatbotClick}>
-        <Chatbot />
-      </ChatbotWrapper>
       </PageContainer>
     </>
   );
