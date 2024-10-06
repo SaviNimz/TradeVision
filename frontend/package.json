@@ -20,6 +20,7 @@
     "file-saver": "^2.0.5",
     "firebase": "^10.13.0",
     "firebaseui": "^6.1.0",
+    "frontend": "file:",
     "js-cookie": "^3.0.5",
     "json2csv": "4",
     "lodash": "^4.17.21",
