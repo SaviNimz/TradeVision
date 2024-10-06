@@ -5,7 +5,7 @@ import FeedbackList from '../components/FeedbackPage/FeedbackList.jsx';
 import styled, { css, keyframes } from 'styled-components'; // Import css and keyframes
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import BackgroundImage from '../assets/image.png';
+import BackgroundImage from '../assets/bg_feedback.jpg';
 import Icon1 from '../assets/dependability.png';
 import Icon2 from '../assets/Safeandsecure.webp';
 import Icon3 from '../assets/Regulated.jpeg';
