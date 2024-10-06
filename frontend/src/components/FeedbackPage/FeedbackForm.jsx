@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios'; 
-import { toast } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
 
 const FeedbackForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
@@ -24,17 +22,12 @@ const FeedbackForm = ({ onSubmit }) => {
         setEmail('');
         setFeedback('');
 
-        // Display success toast with faster disappearing time (e.g., 2000ms or 2 seconds)
-        toast.success('Feedback submitted successfully!', { autoClose: 2000 });
-
         if (onSubmit) {
           onSubmit(response.data); 
         }
       })
       .catch((error) => {
         setError(error.response ? error.response.data.message : 'An error occurred');
-        // Display error toast with faster disappearing time
-        toast.error('Failed to submit feedback!', { autoClose: 2000 });
       });
   };
 
