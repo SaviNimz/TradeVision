@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react'; // Import useEffect
 import { FaSearch, FaCheck, FaSpinner } from 'react-icons/fa'; // Import FaCheck and FaSpinner
 import SearchBar from '../components/Dashboard_Components/searchBar.jsx';
 import Header from '../components/StockForecastingPage/Header.jsx';
 import SymbolInfo from '../components/StockForecastingPage/Symbolinfo.jsx';
 import Chart from '../components/StockForecastingPage/Chart.jsx';
-import styled, { css,keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import ForecastNowButton from '../components/StockForecastingPage/ForecastNowButton.jsx';
 import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart.jsx'; // Import the new ForecastedPricesChart component
 import ForecastSummary from '../components/StockForecastingPage/ForecastSummary.jsx';
 import Chatbot from '../components/ChatBot';
+import backgroundimage from '../assets/02-34-11-741_512.gif'; // Import the sendmessage image
 
 const StockForecastPage = () => {
   const [selectedStock, setSelectedStock] = useState(null);
@@ -18,7 +20,7 @@ const StockForecastPage = () => {
   const [forecastGenerated, setForecastGenerated] = useState(false);
   const [isBouncing, setIsBouncing] = useState(true);
   const [hasClicked, setHasClicked] = useState(false);
-  
+
   // Handle stock selection from the search bar
   const handleSelect = (stock) => setSelectedStock(stock);
   const handleChatbotClick = () => {
@@ -27,8 +29,9 @@ const StockForecastPage = () => {
       setHasClicked(true);
     }
   };
+
   const handleForecastClick = async () => {
-    setLoading(true); 
+    setLoading(true);
     setForecastGenerated(false);
     const n_future = 10;
     const symbol = selectedStock['symbol'];
@@ -49,13 +52,21 @@ const StockForecastPage = () => {
       const data = await response.json();
       setPredictedPrices(data.predicted_prices);
       setForecastGenerated(true);
-
     } catch (error) {
       console.error('Error fetching forecast data:', error);
     } finally {
       setLoading(false);
     }
   };
+
+  // Set page title dynamically based on the stock selected
+  useEffect(() => {
+    if (selectedStock) {
+      document.title = `Forecast for ${selectedStock.symbol} - Stock Prediction`; // Change the page title with the stock symbol
+    } else {
+      document.title = 'Stock Forecasting App'; // Default title when no stock is selected
+    }
+  }, [selectedStock]);
 
   return (
     <>
@@ -103,13 +114,14 @@ const StockForecastPage = () => {
             <ForecastSummary predictedPrices={predictedPrices} />
           </ForecastContainer>
         )}
-
       </PageContainer>
     </>
   );
 };
 
 export default StockForecastPage;
+
+
 
 // Styled components
 
@@ -137,7 +149,16 @@ const ChatbotWrapper = styled.div`
     `}
   cursor: pointer;
 `;
-
+const fadeInUp = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const pulse = keyframes`
   0% {
@@ -176,10 +197,13 @@ const AnimatedIcon = styled.div`
 `;
 
 const Message = styled.div`
-  margin-top: 10px;
+  margin-top: 1px;
   font-size: 1rem;
   color: #ffffff;
   text-align: center;
+
+  /* Add animation */
+  animation: ${fadeInUp} 1s ease-in-out;
 `;
 
 const PageContainer = styled.div`
@@ -189,6 +213,8 @@ const PageContainer = styled.div`
   min-height: 84vh;
   position: relative;
   filter: ${({ blur }) => (blur ? 'blur(5px)' : 'none')};
+    background-image: url(${backgroundimage}); /* Set the imported image as background */
+
   `;
 
 const StockInfoContainer = styled.div`
