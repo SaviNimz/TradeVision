@@ -10,7 +10,6 @@ import pandas as pd
 import os
 import torch
 
-
 from blueprints.ML_Pipeline.ResNLS.model_definition import ResNLS
 
 
@@ -99,4 +98,5 @@ def forecast():
             results[method] = {"error": str(e)}  # Capture any errors in the forecasting process
 
     return jsonify(results)
+
 

@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\Sem 5\Semester project\codebase\TradeVision\backend\env"
+VIRTUAL_ENV="F:\TradeVision\TradeVision\backend\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

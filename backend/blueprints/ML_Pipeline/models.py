@@ -10,49 +10,52 @@ import torch.optim as optim
 import math
 import random
 
-class ResNLS(nn.Module):
-    def __init__(self, n_input=5, n_hidden=64):
-        super(ResNLS, self).__init__()
-        self.n_input = n_input
-        self.n_hidden = n_hidden
+from .ResNLS.model_definition import ResNLS
 
-        # Initialize weights of the attention mechanism
-        self.weight = nn.Parameter(torch.zeros(1))
 
-        # Initialize CNN structure
-        self.cnn = nn.Sequential(
-            nn.Conv1d(in_channels=1, out_channels=self.n_hidden, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(inplace=True),
-            nn.BatchNorm1d(self.n_hidden, eps=1e-5),
-            nn.Dropout(0.1),
+# class ResNLS(nn.Module):
+#     def __init__(self, n_input=5, n_hidden=64):
+#         super(ResNLS, self).__init__()
+#         self.n_input = n_input
+#         self.n_hidden = n_hidden
 
-            nn.Conv1d(in_channels=self.n_hidden, out_channels=self.n_hidden, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(inplace=True),
-            nn.BatchNorm1d(self.n_hidden, eps=1e-5),
+#         # Initialize weights of the attention mechanism
+#         self.weight = nn.Parameter(torch.zeros(1))
 
-            nn.Flatten(),
-            nn.Linear(self.n_input * self.n_hidden, self.n_input)
-        )
+#         # Initialize CNN structure
+#         self.cnn = nn.Sequential(
+#             nn.Conv1d(in_channels=1, out_channels=self.n_hidden, kernel_size=3, stride=1, padding=1),
+#             nn.ReLU(inplace=True),
+#             nn.BatchNorm1d(self.n_hidden, eps=1e-5),
+#             nn.Dropout(0.1),
 
-        # Initialize LSTM structure
-        self.lstm = nn.LSTM(input_size=self.n_input, hidden_size=self.n_hidden, batch_first=True, bidirectional=False)
-        self.linear = nn.Linear(self.n_hidden, 1)
+#             nn.Conv1d(in_channels=self.n_hidden, out_channels=self.n_hidden, kernel_size=3, stride=1, padding=1),
+#             nn.ReLU(inplace=True),
+#             nn.BatchNorm1d(self.n_hidden, eps=1e-5),
 
-    def forward(self, x):
-        # x shape: (batch_size, 1, n_input)
-        cnn_output = self.cnn(x)  # shape: (batch_size, n_input)
-        cnn_output = cnn_output.view(-1, 1, self.n_input)  # shape: (batch_size, 1, n_input)
+#             nn.Flatten(),
+#             nn.Linear(self.n_input * self.n_hidden, self.n_input)
+#         )
 
-        # Residual connection
-        residuals = x + self.weight * cnn_output  # shape: (batch_size, 1, n_input)
+#         # Initialize LSTM structure
+#         self.lstm = nn.LSTM(input_size=self.n_input, hidden_size=self.n_hidden, batch_first=True, bidirectional=False)
+#         self.linear = nn.Linear(self.n_hidden, 1)
 
-        # LSTM expects input shape: (batch_size, seq_length, input_size)
-        lstm_out, (h_n, _) = self.lstm(residuals)  # h_n shape: (1, batch_size, n_hidden)
+#     def forward(self, x):
+#         # x shape: (batch_size, 1, n_input)
+#         cnn_output = self.cnn(x)  # shape: (batch_size, n_input)
+#         cnn_output = cnn_output.view(-1, 1, self.n_input)  # shape: (batch_size, 1, n_input)
 
-        # Pass the last hidden state through the linear layer
-        y_hat = self.linear(h_n.squeeze(0))  # shape: (batch_size, 1)
+#         # Residual connection
+#         residuals = x + self.weight * cnn_output  # shape: (batch_size, 1, n_input)
 
-        return y_hat
+#         # LSTM expects input shape: (batch_size, seq_length, input_size)
+#         lstm_out, (h_n, _) = self.lstm(residuals)  # h_n shape: (1, batch_size, n_hidden)
+
+#         # Pass the last hidden state through the linear layer
+#         y_hat = self.linear(h_n.squeeze(0))  # shape: (batch_size, 1)
+
+#         return y_hat
 
 class Models:
     
