@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai'; // Import the close icon
 import bot from '../assets/1_YOViITfBkahHTwGGkKsQdg.png'; // Import the bot image
 import sendmessage from '../assets/message-send.svg'; // Import the sendmessage image
+import chatbackground from '../assets/02-34-11-741_512.gif'; // Import the sendmessage image
 
 
 const Chatbot = () => {
@@ -123,12 +124,13 @@ const ChatbotContainer = styled.div`
   max-width: 500px;
   margin: 0 auto;
   background-color: #121212; 
-  border-radius: 15px;
+  border-radius: 50px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
   font-family: 'Roboto', sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  
 `;
 
 const ToggleContainer = styled.div`
@@ -167,11 +169,14 @@ const ToggleButton = styled.div`
 const ChatWindow = styled.div`
   display: flex;
   flex-direction: column;
+  border-radius: 25px;
   justify-content: space-between;
   height: 600px;
   overflow: hidden; /* Hide overflow content when closed */
   transition: height 0.5s ease; /* Smooth transition for height */
   position: relative;
+  background-image: url(${chatbackground}); /* Set the imported image as background */
+
 
 `;
 
