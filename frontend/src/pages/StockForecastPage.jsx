@@ -5,21 +5,28 @@ import SearchBar from '../components/Dashboard_Components/searchBar.jsx';
 import Header from '../components/StockForecastingPage/Header.jsx';
 import SymbolInfo from '../components/StockForecastingPage/Symbolinfo.jsx';
 import Chart from '../components/StockForecastingPage/Chart.jsx';
-import styled, { keyframes } from 'styled-components';
+import styled, { css,keyframes } from 'styled-components';
 import ForecastNowButton from '../components/StockForecastingPage/ForecastNowButton.jsx';
 import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart.jsx'; // Import the new ForecastedPricesChart component
 import ForecastSummary from '../components/StockForecastingPage/ForecastSummary.jsx';
-
+import Chatbot from '../components/ChatBot';
 
 const StockForecastPage = () => {
   const [selectedStock, setSelectedStock] = useState(null);
   const [predictedPrices, setPredictedPrices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [forecastGenerated, setForecastGenerated] = useState(false);
-
+  const [isBouncing, setIsBouncing] = useState(true);
+  const [hasClicked, setHasClicked] = useState(false);
+  
   // Handle stock selection from the search bar
   const handleSelect = (stock) => setSelectedStock(stock);
-
+  const handleChatbotClick = () => {
+    if (!hasClicked) {
+      setIsBouncing(false);
+      setHasClicked(true);
+    }
+  };
   const handleForecastClick = async () => {
     setLoading(true); 
     setForecastGenerated(false);
@@ -96,6 +103,11 @@ const StockForecastPage = () => {
             <ForecastSummary predictedPrices={predictedPrices} />
           </ForecastContainer>
         )}
+
+         {/* Add Chatbot */}
+       <ChatbotWrapper isBouncing={isBouncing} onClick={handleChatbotClick}>
+        <Chatbot />
+      </ChatbotWrapper>
       </PageContainer>
     </>
   );
@@ -104,6 +116,32 @@ const StockForecastPage = () => {
 export default StockForecastPage;
 
 // Styled components
+
+const bounce = keyframes`
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+`;
+
+const ChatbotWrapper = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  ${({ isBouncing }) =>
+    isBouncing &&
+    css`
+      animation: ${bounce} 2.5s infinite;
+    `}
+  cursor: pointer;
+`;
+
 
 const pulse = keyframes`
   0% {

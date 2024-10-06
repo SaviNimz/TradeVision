@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -14,28 +16,27 @@ export default ImageCard;
 
 // Styled component for the image card
 const Card = styled.div`
-  position: relative; // Position relative for the pseudo-element
-  width: 100%; // Use full width on small screens
-  max-width: 600px; // Max width for larger screens
-  height: 400px; // Increased height for better visibility
-  background-image: url(${(props) => props.image}); // Background image from props
+  position: relative;
+  width: 90%; // Reduced width for small screens
+  max-width: 400px; // Reduced max width for larger screens
+  height: 200px; // Reduced height for better visibility
+  background-image: url(${(props) => props.image}); 
   background-size: cover;
   background-position: center;
   border-radius: 10px;
-  margin: 10px; 
+  margin: 10px;
   cursor: pointer;
-  color: white; 
+  color: white;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; // Hide overflow for the pseudo-element
+  overflow: hidden;
 
   &:hover {
-    opacity: 0.8; // Change opacity on hover
+    opacity: 0.8;
   }
 
-  // Pseudo-element for the blurred background
   &::before {
     content: '';
     position: absolute;
@@ -43,26 +44,27 @@ const Card = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: inherit; // Inherit the background image
-    filter: blur(2px); // Apply blur effect
-    z-index: 1; // Place it below the text
+    background: inherit;
+    filter: blur(0px);
+    z-index: 1;
   }
 
-  // Text styling to make it larger and more visible
   & > span {
     position: relative;
-    z-index: 2; // Place text above the blurred background
-    font-size: 20px; // Decreased font size for smaller screens
-    font-weight: bold; // Make the font weight bolder
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); // Add text shadow for better contrast
+    top: 0;
+
+    z-index:2;
+    font-size: 16px; // Reduced font size for smaller screens
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     padding: 10px;
   }
 
   @media (min-width: 768px) {
-    width: 45%; // Use 45% width for larger screens
-    height: 350px; // Increased height for larger screens
+    width: 40%; // Reduced width for larger screens
+    height: 250px; // Reduced height for larger screens
     & > span {
-      font-size: 32px; // Increased font size for larger screens
+      font-size: 24px; // Adjusted font size for larger screens
     }
   }
 `;
