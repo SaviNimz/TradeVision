@@ -125,8 +125,3 @@ class TimeSeriesPreprocessor:
 
         return x_train, y_train, x_test, y_test
 
-    def inverse_transform(self, series):
-        """Inverse transform the series after scaling (for LSTM)."""
-        if self.scaler:
-            series = self.scaler.inverse_transform(series.reshape(-1, 1))
-        return series
