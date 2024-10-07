@@ -1,17 +1,15 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react'; // Import useEffect
+import React, { useState } from 'react';
 import { FaSearch, FaCheck, FaSpinner } from 'react-icons/fa'; // Import FaCheck and FaSpinner
 import SearchBar from '../components/Dashboard_Components/searchBar.jsx';
 import Header from '../components/StockForecastingPage/Header.jsx';
 import SymbolInfo from '../components/StockForecastingPage/Symbolinfo.jsx';
 import Chart from '../components/StockForecastingPage/Chart.jsx';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css,keyframes } from 'styled-components';
 import ForecastNowButton from '../components/StockForecastingPage/ForecastNowButton.jsx';
 import ForecastedPricesChart from '../components/StockForecastingPage/ForecastedPricesChart.jsx'; // Import the new ForecastedPricesChart component
 import ForecastSummary from '../components/StockForecastingPage/ForecastSummary.jsx';
 import Chatbot from '../components/ChatBot';
-import backgroundimage from '../assets/02-34-11-741_512.gif'; // Import the sendmessage image
 
 const StockForecastPage = () => {
   const [selectedStock, setSelectedStock] = useState(null);
@@ -20,7 +18,7 @@ const StockForecastPage = () => {
   const [forecastGenerated, setForecastGenerated] = useState(false);
   const [isBouncing, setIsBouncing] = useState(true);
   const [hasClicked, setHasClicked] = useState(false);
-
+  
   // Handle stock selection from the search bar
   const handleSelect = (stock) => setSelectedStock(stock);
   const handleChatbotClick = () => {
@@ -29,9 +27,8 @@ const StockForecastPage = () => {
       setHasClicked(true);
     }
   };
-
   const handleForecastClick = async () => {
-    setLoading(true);
+    setLoading(true); 
     setForecastGenerated(false);
     const n_future = 10;
     const symbol = selectedStock['symbol'];
@@ -52,21 +49,13 @@ const StockForecastPage = () => {
       const data = await response.json();
       setPredictedPrices(data.predicted_prices);
       setForecastGenerated(true);
+
     } catch (error) {
       console.error('Error fetching forecast data:', error);
     } finally {
       setLoading(false);
     }
   };
-
-  // Set page title dynamically based on the stock selected
-  useEffect(() => {
-    if (selectedStock) {
-      document.title = `Forecast for ${selectedStock.symbol} - Stock Prediction`; // Change the page title with the stock symbol
-    } else {
-      document.title = 'Stock Forecasting App'; // Default title when no stock is selected
-    }
-  }, [selectedStock]);
 
   return (
     <>
@@ -104,16 +93,21 @@ const StockForecastPage = () => {
             <Chart symbol={selectedStock.symbol} />
           </StockInfoContainer>
         )}
+<ForecastNowButtonContainer>
+{selectedStock && <ForecastNowButton onClick={handleForecastClick} />}
 
-        {selectedStock && <ForecastNowButton onClick={handleForecastClick} />}
+</ForecastNowButtonContainer>
+       
 
         {/* Flex container for side-by-side components */}
         {predictedPrices.length > 0 && (
           <ForecastContainer>
             <ForecastedPricesChart predictedPrices={predictedPrices} />
             <ForecastSummary predictedPrices={predictedPrices} />
+            
           </ForecastContainer>
         )}
+
       </PageContainer>
     </>
   );
@@ -121,10 +115,15 @@ const StockForecastPage = () => {
 
 export default StockForecastPage;
 
-
-
 // Styled components
-
+const ForecastNowButtonContainer = styled.div`
+  position: fixed; /* Use fixed positioning */
+  bottom: 20px; /* Distance from the bottom */
+  right: 20px; /* Distance from the right */
+  display: flex;
+  justify-content: center;
+  z-index: 9999; /* Ensure it appears above other content */
+`;
 const bounce = keyframes`
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
@@ -149,16 +148,7 @@ const ChatbotWrapper = styled.div`
     `}
   cursor: pointer;
 `;
-const fadeInUp = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
+
 
 const pulse = keyframes`
   0% {
@@ -188,6 +178,7 @@ const AnimatedIcon = styled.div`
   align-items: center;
   width: 100px;
   height: 100px;
+  
 
   svg {
     font-size: 3rem;
@@ -197,13 +188,10 @@ const AnimatedIcon = styled.div`
 `;
 
 const Message = styled.div`
-  margin-top: 1px;
+  margin-top: 10px;
   font-size: 1rem;
   color: #ffffff;
   text-align: center;
-
-  /* Add animation */
-  animation: ${fadeInUp} 1s ease-in-out;
 `;
 
 const PageContainer = styled.div`
@@ -213,8 +201,6 @@ const PageContainer = styled.div`
   min-height: 84vh;
   position: relative;
   filter: ${({ blur }) => (blur ? 'blur(5px)' : 'none')};
-    background-image: url(${backgroundimage}); /* Set the imported image as background */
-
   `;
 
 const StockInfoContainer = styled.div`
@@ -223,12 +209,20 @@ const StockInfoContainer = styled.div`
 
 const ForecastContainer = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  gap: 20px;
+  gap: 50px;
   margin-top: 20px;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
+  /* Make sure the left side takes 2/3 of the width and the right side 1/3 */
+  & > .left {
+    flex-basis: 66.66%; /* 2/3 of the width */
+    background-color: #f0f0f0; /* Optional: set background for visibility */
+  }
+
+  & > .right {
+    flex-basis: 33.33%; /* 1/3 of the width */
+    background-color: #d0d0d0; /* Optional: set background for visibility */
   }
 `;
 
