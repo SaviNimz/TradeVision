@@ -1,5 +1,5 @@
 from prophet import Prophet
-from Model import Model
+from ..Model import Model
 import pandas as pd
 import numpy as np
 

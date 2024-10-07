@@ -1,8 +1,8 @@
 from .model_definition import create_LSTM_model
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
-from Utils import preprocesser
-from Model import Model
+from ..Utils import preprocesser
+from ..Model import Model
 
 
 class LSTMModel(Model):

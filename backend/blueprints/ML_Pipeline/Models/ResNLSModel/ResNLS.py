@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from Utils import preprocesser
+from ..Utils import preprocesser
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -8,7 +8,7 @@ import math
 from sklearn.preprocessing import MinMaxScaler
 
 from .model_definition import ResNLSModel
-from Model import Model
+from ..Model import Model
 
 
 class ResNLS(Model):

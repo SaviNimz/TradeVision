@@ -1,5 +1,5 @@
 from statsmodels.tsa.arima.model import ARIMA
-from Model import Model
+from ..Model import Model
 class ArimaModel(Model):
     def __init__(self,p=5,d=1,q=0):
         super().__init__()
