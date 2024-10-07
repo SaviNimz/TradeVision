@@ -2,21 +2,14 @@ from flask import blueprints
 from flask import request, jsonify
 from werkzeug.utils import secure_filename
 from blueprints.ML_Pipeline.csv_validator import CSVValidator
-from blueprints.ML_Pipeline.models import Models
-from sklearn.preprocessing import MinMaxScaler
-import yfinance as yf
-import numpy as np
+from blueprints.ML_Pipeline.Models import Models
+
 import pandas as pd
 import os
-import torch
-
-from blueprints.ML_Pipeline.ResNLS.model_definition import ResNLS
 
 
 CSV_Forecast_handler = blueprints.Blueprint('csv_forecast_handler', __name__)
 
-
-models = Models()
 
 UPLOAD_FOLDER = 'UPLOAD_FOLDER'
 if not os.path.exists(UPLOAD_FOLDER):
@@ -84,7 +77,7 @@ def forecast():
 
     for method in methods:
         try:
-            forecast_result = models.forecast(method, df, column)
+            forecast_result = Models.forecast(method, df, column)
             print(forecast_result)
             # Convert forecast_result to a JSON serializable format
             if isinstance(forecast_result, pd.Series):
