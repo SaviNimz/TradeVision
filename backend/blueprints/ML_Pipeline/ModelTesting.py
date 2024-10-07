@@ -1,6 +1,5 @@
-from ResNLSModel.ResNLS import ResNLS
 import pandas as pd
-import Models
+from Models import Models
 
 df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline\\Models\\AAPL.csv')
 
@@ -52,5 +51,13 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 # print(results)
 
 
-results = Models.forecast_csv('ResNLS',df)
-print(results)
+results_res = Models.forecast_csv('ResNLS',df)
+print(results_res)
+
+results_ar = Models.forecast_csv('ARIMA',df)
+print(results_ar)
+
+results_ls = Models.forecast_csv('LSTM',df)
+print(results_ls)
+
+

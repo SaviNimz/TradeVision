@@ -2,14 +2,13 @@ from flask import blueprints
 from flask import request, jsonify
 from werkzeug.utils import secure_filename
 from blueprints.ML_Pipeline.csv_validator import CSVValidator
-from blueprints.ML_Pipeline.Models import Models
 
 import pandas as pd
 import os
+from ..ML_Pipeline.Models import Models
 
 
 CSV_Forecast_handler = blueprints.Blueprint('csv_forecast_handler', __name__)
-
 
 UPLOAD_FOLDER = 'UPLOAD_FOLDER'
 if not os.path.exists(UPLOAD_FOLDER):
@@ -67,6 +66,7 @@ def forecast():
     column = column.capitalize() if column else column
 
     methods = data.get('methods')
+
     csv_data = data.get('csvData')  # Access the CSV data
 
     # Convert CSV data into a DataFrame
@@ -77,7 +77,7 @@ def forecast():
 
     for method in methods:
         try:
-            forecast_result = Models.forecast(method, df, column)
+            forecast_result = Models.forecast_csv(method, df, column)
             print(forecast_result)
             # Convert forecast_result to a JSON serializable format
             if isinstance(forecast_result, pd.Series):
