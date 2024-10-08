@@ -75,6 +75,6 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 # results = model.forecast(df)
 # print(results)
 
-model=Models.get_ProphetModel()
+model=Models.get_ArimaModel()
 results = model.forecast(df)
 print(results)
