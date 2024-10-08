@@ -1,6 +1,8 @@
+
+
 import pandas as pd
 from Models import Models
-
+from ..ForecastHandler import CSVForecastManager
 df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline\\Models\\AAPL.csv')
 
 
@@ -80,7 +82,9 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 # print(results)
 
 
-print(Models.forecast('ARIMA',df))
-print(Models.forecast('LSTM',df))
-print(Models.forecast('Prophet',df))
-print(Models.forecast('ResNLS',df))
+# print(Models.forecast('ARIMA',df))
+# print(Models.forecast('LSTM',df))
+# print(Models.forecast('Prophet',df))
+# print(Models.forecast('ResNLS',df))
+
+print(CSVForecastManager.forecast_scv('ARIMA',df))
