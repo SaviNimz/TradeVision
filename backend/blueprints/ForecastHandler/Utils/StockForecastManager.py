@@ -1,9 +1,11 @@
 import os
 import json
 from datetime import datetime, timedelta
+from .StockDataFetcher import StockDataFetcher
+from ...ML_Pipeline.Models import Models
 
-class StockPredictionManager:
-    def __init__(self, prediction_dir='backend\\blueprints\\ForecastHandler\\ForecastResults'):
+class StockForecastManager:
+    def __init__(self, prediction_dir='blueprints\\ForecastHandler\\ForecastResults'):
         self.prediction_dir = prediction_dir
         
         # Create the directory if it doesn't exist
@@ -39,7 +41,7 @@ class StockPredictionManager:
                 return json.load(f)
         return None
 
-    def predict_stock(self, symbol, df, target_col, forecast_steps=5):
+    def forecast(self, symbol,model_weights_path,target_col='Close',n_back=5,forecast_steps=5):
         """Main function to handle prediction workflow."""
         # Load existing prediction if available
         existing_prediction = self.load_prediction(symbol)
@@ -53,8 +55,22 @@ class StockPredictionManager:
         
         # If no valid prediction exists, run the model to predict
         print(f"Running new prediction for {symbol}...")
-        model = ResNLS()  # Ensure ResNLS model is defined/imported
-        predictions = model.forecast_csv(df, target_col, forecast_steps)
+
+        today = datetime.now()
+        
+        n_days_before = today - timedelta(days=10)  
+    
+
+        fetcher = StockDataFetcher(symbol)
+        df = fetcher.fetch_daily_data(n_days_before.date(),today.date())
+
+        scaler_min=df[target_col].min()
+        scaler_max=df[target_col].max()
+
+        # check how to use scaler current implement is not sure
+
+        model = Models.get_ResNLS(n_input=n_back)
+        predictions = model.forecast(df,target_col,forecast_steps,model_weights_path,scaler_min,scaler_max)
 
         # Save the new predictions
         self.save_prediction(symbol, predictions.tolist(), forecast_steps)
