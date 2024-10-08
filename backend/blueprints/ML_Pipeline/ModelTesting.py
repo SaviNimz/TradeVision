@@ -60,10 +60,17 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 # results_ls = Models.forecast_csv('LSTM',df)
 # print(results_ls)
 
-scaler_max=df['Close'].max()
-scaler_min=df['Close'].min()
+
+
+# scaler_max=df['Close'].max()
+# scaler_min=df['Close'].min()
+
+# model=Models.get_ResNLS()
+# results = model.forecast(df, model_weights_path=r'F:\TradeVision\TradeVision\backend\Models\AAPL_model.pth', 
+#                          scaler_min=scaler_min, scaler_max=scaler_max)
+# print(results)
+
 
 model=Models.get_ResNLS()
-results = model.forecast(df, model_weights_path=r'F:\TradeVision\TradeVision\backend\Models\AAPL_model.pth', 
-                         scaler_min=scaler_min, scaler_max=scaler_max)
+results = model.forecast(df)
 print(results)

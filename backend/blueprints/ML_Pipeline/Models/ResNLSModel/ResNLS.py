@@ -161,41 +161,37 @@ class ResNLS(Model):
 
 
 
-
-
-    def forecast(self, df, target_col='Close', forecast_steps=5, model_weights_path=None,scaler_min=None,scaler_max=None):
+    def forecast(self, df, target_col='Close', forecast_steps=5, model_weights_path=None, scaler_min=None, scaler_max=None):
+        # Initialize the device once, so it's available for both conditions
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
         # Check if model weights are provided
         if model_weights_path:
             print(f"Loading model weights from {model_weights_path}...")
             
             # Initialize model and load the weights
-            model = ResNLSModel()
-            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-            model = model.to(device)
+            model = ResNLSModel().to(device)
             model.load_state_dict(torch.load(model_weights_path))
 
-
+            # Recreate the scaler with min and max values
             scaler = MinMaxScaler()
-
             scaler.data_min_ = np.array([scaler_min])
             scaler.data_max_ = np.array([scaler_max])
             scaler.scale_ = 1 / (scaler.data_max_ - scaler.data_min_)
             scaler.min_ = -scaler.data_min_ * scaler.scale_
 
-            self.scaler=scaler
+            self.scaler = scaler
 
         else:
             print("No model weights provided, training the model...")
             # Train the model if no weights are provided
             model = self.train(df, target_col)
 
-
         print("Starting forecasting...")
         
         # Prepare the data for forecasting
         data = df[target_col]
-        seq = self.scaler.transform(np.array(data[-self.n_input:]).reshape(-1,1)).reshape(1, -1)
+        seq = self.scaler.transform(np.array(data[-self.n_input:]).reshape(-1, 1)).reshape(1, -1)
 
         try:
             input_seq = torch.tensor(seq, dtype=torch.float).to(device)
@@ -222,6 +218,3 @@ class ResNLS(Model):
         except Exception as e:
             print(f"Error during ResNLS forecasting: {e}")
             raise e
-
-
-        
