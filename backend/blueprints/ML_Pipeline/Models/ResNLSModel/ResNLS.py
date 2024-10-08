@@ -120,47 +120,6 @@ class ResNLS(Model):
             print(f"Error during ResNLS training: {e}")
             raise e
 
-    def forecast_csv(self,df,target_col='Close', forecast_steps=5):
-        """Multi-step forecast with ResNLS model and print statements."""
-
-        model = self.train(df,target_col)
-        print("Starting ResNLS forecasting...")
-
-        data = df[target_col]
-
-        seq = self.scaler.transform(np.array(data[-self.n_input:]).reshape(-1,1)).reshape(1,-1)
-
-        try:
-            device = next(model.parameters()).device
-            input_seq = torch.tensor(seq, dtype=torch.float).to(device)  # Last n_input data points
-            
-            model.eval()
-            predictions = []
-            with torch.no_grad():
-                for _ in range(forecast_steps):
-                    # Forward pass through the model
-                    prediction = model(input_seq.unsqueeze(0))  # Add batch dimension
-                    predictions.append(prediction.item())
-
-
-                    # Update input_seq with the prediction, simulating autoregressive forecasting
-                    input_seq = torch.cat((input_seq[:,1:], prediction),dim=1)
-
-            # Reverse the scaling to get actual values
-            predictions = np.array(predictions).reshape(-1, 1)
-            predictions = self.scaler.inverse_transform(predictions)
-            print("Forecasting completed successfully.")
-            return predictions.flatten()
-
-        except Exception as e:
-            print(f"Error during ResNLS forecasting: {e}")
-            raise e
-    
-    def forcast_stock(self,config):
-        pass
-
-
-
     def forecast(self, df, target_col='Close', forecast_steps=5, model_weights_path=None, scaler_min=None, scaler_max=None):
         # Initialize the device once, so it's available for both conditions
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

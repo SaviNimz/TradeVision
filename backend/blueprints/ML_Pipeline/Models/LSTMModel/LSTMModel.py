@@ -80,5 +80,3 @@ class LSTMModel(Model):
         print("Forecasting completed successfully.")
         return results_transformed.tolist()
     
-    def forecast_stock(self, config):
-        pass

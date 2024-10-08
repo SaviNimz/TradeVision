@@ -46,5 +46,4 @@ class ArimaModel(Model):
         print("Forecasting completed successfully.")
         return forecast.tolist()
 
-    def forecast_stock(self, config):
-        pass
+

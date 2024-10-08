@@ -64,5 +64,3 @@ class ProphetModel(Model):
 
         return future_predictions['yhat'].to_list()
 
-    def forecast_stock(self, config):
-        pass
