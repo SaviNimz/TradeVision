@@ -21,20 +21,17 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 # print(results)
 
 
-# symbol='AAPL'
-# n_future =5
+symbol='AAPL'
+n_future =5
 
-# # weight_path = ModelsWeightsManager.get_model_weight_path(symbol)
-
-# weight_path='F:\\TradeVision\\TradeVision\\backend\\Models\\AAPL_model.pth'
-
-# results = ForecastManager.forecast_stock(symbol=symbol,model_weights_path=weight_path,forecast_steps=n_future)
-
-# print(results)
+weight_path = ModelsWeightsManager.get_model_weight_path(symbol)
 
 
+results = ForecastManager.forecast_stock(symbol=symbol,model_weights_path=weight_path,forecast_steps=n_future)
 
-print(ModelsWeightsManager.get_model_weight_path('AAPL'))
+print(results)
+
+
 
 
 
