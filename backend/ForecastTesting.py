@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime,timedelta
 from blueprints.ForecastHandler.Utils.StockDataFetcher import StockDataFetcher
 
+from blueprints.ForecastHandler.Utils import ForecastManager
 from blueprints.ForecastHandler.Utils.StockForecastManager import StockForecastManager
 
 df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline\\Models\\AAPL.csv')
@@ -14,8 +15,7 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 
 model_weight_path='F:\\TradeVision\\TradeVision\\backend\\Models\\AAPL_model.pth'
 
-stockManager = StockForecastManager()
-results= stockManager.forecast(symbol='AAPL',model_weights_path=model_weight_path)
+results= ForecastManager.forecast_stock(symbol='AAPL',model_weights_path=model_weight_path)
 print(results)
 
 
