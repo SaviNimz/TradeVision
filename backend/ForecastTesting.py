@@ -21,7 +21,7 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 # print(results)
 
 
-symbol='AAPL'
+symbol='GOOGL'
 n_future =5
 
 weight_path = ModelsWeightsManager.get_model_weight_path(symbol)

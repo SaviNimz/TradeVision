@@ -129,7 +129,7 @@ class ResNLS(Model):
 
             # Initialize model and load the weights
             model = ResNLSModel().to(device)
-            model.load_state_dict(torch.load(model_weights_path))
+            model.load_state_dict(torch.load(model_weights_path, map_location=torch.device('cpu')))
 
             # Recreate the scaler with min and max values
             scaler = MinMaxScaler()
