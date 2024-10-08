@@ -16,7 +16,7 @@ def get_ResNLS(n_input=5, n_hidden=64):
     return ResNLS(n_input, n_hidden)
 
 
-def forecast_csv(method, df, target_col='Close', forecast_steps=5):
+def forecast(method, df, target_col='Close', n_future=5, model_weights_path=None):
     """Forecast values based on the selected method."""
     if method == 'ARIMA':
         model = get_ArimaModel()
@@ -29,5 +29,5 @@ def forecast_csv(method, df, target_col='Close', forecast_steps=5):
     else:
         raise ValueError("Invalid method specified. Choose from 'ARIMA', 'Prophet', 'LSTM', or 'ResNLS'.")
 
-    forecasted_results = model.forecast_csv(df, target_col, forecast_steps)
+    forecasted_results = model.forecast(df, target_col, n_future, model_weights_path)
     return forecasted_results

@@ -75,6 +75,12 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 # results = model.forecast(df)
 # print(results)
 
-model=Models.get_LSTMModel()
-results = model.forecast(df)
-print(results)
+# model=Models.get_LSTMModel()
+# results = model.forecast(df)
+# print(results)
+
+
+print(Models.forecast('ARIMA',df))
+print(Models.forecast('LSTM',df))
+print(Models.forecast('Prophet',df))
+print(Models.forecast('ResNLS',df))
