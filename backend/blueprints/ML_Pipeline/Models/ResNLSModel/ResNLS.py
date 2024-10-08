@@ -43,15 +43,11 @@ class ResNLS(Model):
             # Data preparation
             print("Preparing data for ResNLS...")
             x_train, y_train, x_test, y_test = self.preprocess_data(df,target_col)
-            print(f"Data shape - X_train: {x_train.shape}, Y_train: {y_train.shape}, X_test: {x_test.shape}, Y_test: {y_test.shape}")
 
             # Ensure tensors are on the correct device (CUDA or CPU)
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             val_input = torch.tensor(x_test, dtype=torch.float).to(device)
             val_target = torch.tensor(y_test, dtype=torch.float).to(device)
-
-            # Check shapes before passing to model
-            print(f"Validation Input Shape: {val_input.shape}, Validation Target Shape: {val_target.shape}")
 
             # Initialize the model
             print("Initializing ResNLS model...")
@@ -61,7 +57,6 @@ class ResNLS(Model):
 
             # Calculate number of batches
             batch_num = math.ceil(x_train.shape[0] / self.batch_size)
-            print(f"Number of batches: {batch_num}")
 
             # Training loop
             for epoch in range(self.epochs):
@@ -129,7 +124,7 @@ class ResNLS(Model):
 
             # Initialize model and load the weights
             model = ResNLSModel().to(device)
-            model.load_state_dict(torch.load(model_weights_path, map_location=torch.device('cpu')),strict=False)
+            model.load_state_dict(torch.load(model_weights_path, map_location=torch.device('cpu')),)
 
             # Recreate the scaler with min and max values
             scaler = MinMaxScaler()

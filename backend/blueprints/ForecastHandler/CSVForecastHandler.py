@@ -76,8 +76,7 @@ def forecast():
     for method in methods:
         try:
             print('starting forecasting......')
-            forecast_result = ForecastManager.forecast_scv(method, df, column)
-            print(f'forecasted results : {forecast_result}')
+            forecast_result = ForecastManager.forecast_csv(method, df, column)
             # Convert forecast_result to a JSON serializable format
             if isinstance(forecast_result, pd.Series):
                 results[method] = forecast_result.to_dict()  # Convert Series to a dictionary

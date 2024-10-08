@@ -17,6 +17,4 @@ def predict():
 
     results = ForecastManager.forecast_stock(symbol=symbol,model_weights_path=weight_path,forecast_steps=n_future)
 
-    print(f'\n\n\n\n\n{results}\n\n\n\n')
-
     return jsonify({'predicted_prices': results})
