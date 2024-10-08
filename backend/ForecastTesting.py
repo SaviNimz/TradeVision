@@ -1,4 +1,4 @@
-from blueprints.ForecastHandler import CSVForecastManager
+from blueprints.ForecastHandler.Utils import CSVForecastManager
 import pandas as pd
 
 df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline\\Models\\AAPL.csv')
