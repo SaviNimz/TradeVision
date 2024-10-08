@@ -8,7 +8,6 @@ class ArimaModel(Model):
         self.p = p
         self.d = d
         self.q = q
-        self.model = None
 
     def preprocess_data(self, df, target_col):
         """Preprocess data to return the target column for ARIMA model."""

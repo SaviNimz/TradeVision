@@ -6,7 +6,6 @@ import numpy as np
 class ProphetModel(Model):
     def __init__(self):
         super().__init__()
-        self.model = None
         self.forcasted_df = None
 
     def preprocess_data(self, df, target_col):
