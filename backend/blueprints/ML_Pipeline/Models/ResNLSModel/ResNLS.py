@@ -156,7 +156,7 @@ class ResNLS(Model):
             print(f"Error during ResNLS forecasting: {e}")
             raise e
     
-    def forcast_stock(self,weights_path,data,forcast_steps=5):
+    def forcast_stock(self,config):
         pass
 
         

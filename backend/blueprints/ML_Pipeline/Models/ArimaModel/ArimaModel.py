@@ -25,6 +25,6 @@ class ArimaModel(Model):
         forecast = model.forecast(steps=forecast_steps)
         return forecast.to_list()
     
-    def forecast_stock(self,data,forecast_steps):
+    def forecast_stock(self,config):
         pass
  

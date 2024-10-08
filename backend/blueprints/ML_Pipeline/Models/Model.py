@@ -11,5 +11,5 @@ class Model:
     def forecast_csv(self,df,target_col,forecast_steps):
         raise NotImplementedError("Subclasses must implement forecast_csv method.")
     
-    def forecast_stock(self,data,forecast_steps):
+    def forecast_stock(self,config):
         raise NotImplementedError("Subclasses must implement forecast_stock method.")

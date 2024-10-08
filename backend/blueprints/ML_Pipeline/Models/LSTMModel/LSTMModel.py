@@ -66,7 +66,7 @@ class LSTMModel(Model):
         return  results_tras.tolist()
     
     
-    def forecast_stock():
+    def forecast_stock(self,config):
         pass
 
 
