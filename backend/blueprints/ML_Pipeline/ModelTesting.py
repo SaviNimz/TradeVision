@@ -51,13 +51,19 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 # print(results)
 
 
-results_res = Models.forecast_csv('ResNLS',df)
-print(results_res)
+# results_res = Models.forecast_csv('ResNLS',df)
+# print(results_res)
 
-results_ar = Models.forecast_csv('ARIMA',df)
-print(results_ar)
+# results_ar = Models.forecast_csv('ARIMA',df)
+# print(results_ar)
 
-results_ls = Models.forecast_csv('LSTM',df)
-print(results_ls)
+# results_ls = Models.forecast_csv('LSTM',df)
+# print(results_ls)
 
+scaler_max=df['Close'].max()
+scaler_min=df['Close'].min()
 
+model=Models.get_ResNLS()
+results = model.forecast(df, model_weights_path=r'F:\TradeVision\TradeVision\backend\Models\AAPL_model.pth', 
+                         scaler_min=scaler_min, scaler_max=scaler_max)
+print(results)

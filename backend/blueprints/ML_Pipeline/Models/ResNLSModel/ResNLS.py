@@ -159,4 +159,69 @@ class ResNLS(Model):
     def forcast_stock(self,config):
         pass
 
+
+
+
+
+    def forecast(self, df, target_col='Close', forecast_steps=5, model_weights_path=None,scaler_min=None,scaler_max=None):
+
+        # Check if model weights are provided
+        if model_weights_path:
+            print(f"Loading model weights from {model_weights_path}...")
+            
+            # Initialize model and load the weights
+            model = ResNLSModel()
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            model = model.to(device)
+            model.load_state_dict(torch.load(model_weights_path))
+
+
+            scaler = MinMaxScaler()
+
+            scaler.data_min_ = np.array([scaler_min])
+            scaler.data_max_ = np.array([scaler_max])
+            scaler.scale_ = 1 / (scaler.data_max_ - scaler.data_min_)
+            scaler.min_ = -scaler.data_min_ * scaler.scale_
+
+            self.scaler=scaler
+
+        else:
+            print("No model weights provided, training the model...")
+            # Train the model if no weights are provided
+            model = self.train(df, target_col)
+
+
+        print("Starting forecasting...")
+        
+        # Prepare the data for forecasting
+        data = df[target_col]
+        seq = self.scaler.transform(np.array(data[-self.n_input:]).reshape(-1,1)).reshape(1, -1)
+
+        try:
+            input_seq = torch.tensor(seq, dtype=torch.float).to(device)
+
+            model.eval()
+            predictions = []
+            
+            with torch.no_grad():
+                for _ in range(forecast_steps):
+                    # Forward pass through the model
+                    prediction = model(input_seq.unsqueeze(0))  # Add batch dimension
+                    predictions.append(prediction.item())
+                    
+                    # Update input_seq with the prediction, simulating autoregressive forecasting
+                    input_seq = torch.cat((input_seq[:, 1:], prediction), dim=1)
+
+            # Reverse the scaling to get actual values
+            predictions = np.array(predictions).reshape(-1, 1)
+            predictions = self.scaler.inverse_transform(predictions)
+            
+            print("Forecasting completed successfully.")
+            return predictions.flatten()
+
+        except Exception as e:
+            print(f"Error during ResNLS forecasting: {e}")
+            raise e
+
+
         
