@@ -5,6 +5,8 @@ from blueprints.ForecastHandler.Utils.StockDataFetcher import StockDataFetcher
 
 from blueprints.ForecastHandler.Utils import ForecastManager
 from blueprints.ForecastHandler.Utils.StockForecastManager import StockForecastManager
+from Models import ModelsWeightsManager
+
 
 df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline\\Models\\AAPL.csv')
 
@@ -13,10 +15,24 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 
 
 
-model_weight_path='backend\\Models\\AAPL_model.pth'
+# model_weight_path='backend\\Models\\AAPL_model.pth'
 
-results= ForecastManager.forecast_stock(symbol='AAPL',model_weights_path=model_weight_path)
+# results= ForecastManager.forecast_stock(symbol='AAPL',model_weights_path=model_weight_path)
+# print(results)
+
+
+symbol='AAPL'
+n_future =5
+
+weight_path = ModelsWeightsManager.get_model_weight_path(symbol)
+
+results = ForecastManager.forecast_stock(symbol=symbol,model_weights_path=weight_path,forecast_steps=n_future)
+
 print(results)
+
+
+
+
 
 
 
