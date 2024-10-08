@@ -5,8 +5,7 @@ from blueprints.ML_Pipeline.csv_validator import CSVValidator
 
 import pandas as pd
 import os
-from ..ML_Pipeline.Models import Models
-
+from .Utils import ForecastManager
 
 CSV_Forecast_handler = blueprints.Blueprint('csv_forecast_handler', __name__)
 
@@ -69,16 +68,19 @@ def forecast():
 
     csv_data = data.get('csvData')  # Access the CSV data
 
+
+    print(f'\n\n\n\n\n\n {methods} {column} \n\n\n\n\n\n')
+
     # Convert CSV data into a DataFrame
     df = pd.DataFrame(csv_data)
     
-    print(column)
     results = {}
 
     for method in methods:
         try:
-            forecast_result = Models.forecast_csv(method, df, column)
-            print(forecast_result)
+            print('starting forecasting......')
+            forecast_result = ForecastManager.forecast_scv(method, df, column)
+            print(f'forecasted results : {forecast_result}')
             # Convert forecast_result to a JSON serializable format
             if isinstance(forecast_result, pd.Series):
                 results[method] = forecast_result.to_dict()  # Convert Series to a dictionary
