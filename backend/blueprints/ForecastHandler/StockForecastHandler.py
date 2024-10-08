@@ -2,7 +2,7 @@ from flask import blueprints
 from flask import request, jsonify
 
 from .Utils import ForecastManager
-from Models import ModelsWeightsManager
+from ..ML_Pipeline.ModelWeights import ModelsWeightsManager
 
 Stock_Forecast_handler = blueprints.Blueprint('stock_forecast_handler', __name__)
 
