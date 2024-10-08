@@ -13,7 +13,7 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 
 
 
-model_weight_path='F:\\TradeVision\\TradeVision\\backend\\Models\\AAPL_model.pth'
+model_weight_path='backend\\Models\\AAPL_model.pth'
 
 results= ForecastManager.forecast_stock(symbol='AAPL',model_weights_path=model_weight_path)
 print(results)
