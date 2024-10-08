@@ -12,7 +12,7 @@ from ..Model import Model
 
 class ResNLS(Model):
     
-    def __init__(self,n_input=5, n_hidden=64):
+    def __init__(self,n_input=3, n_hidden=64):
         super().__init__()
         self.n_input=n_input
         self.n_hidden=n_hidden
@@ -129,7 +129,7 @@ class ResNLS(Model):
 
             # Initialize model and load the weights
             model = ResNLSModel().to(device)
-            model.load_state_dict(torch.load(model_weights_path, map_location=torch.device('cpu')))
+            model.load_state_dict(torch.load(model_weights_path, map_location=torch.device('cpu')),strict=False)
 
             # Recreate the scaler with min and max values
             scaler = MinMaxScaler()

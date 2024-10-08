@@ -41,7 +41,7 @@ class StockForecastManager:
                 return json.load(f)
         return None
 
-    def forecast(self, symbol,model_weights_path,target_col='Close',n_back=5,forecast_steps=5):
+    def forecast(self, symbol,model_weights_path,target_col='Close',n_back=3,forecast_steps=5):
         """Main function to handle prediction workflow."""
         # Load existing prediction if available
         existing_prediction = self.load_prediction(symbol)

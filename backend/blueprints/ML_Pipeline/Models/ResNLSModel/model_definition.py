@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 class ResNLSModel(nn.Module):
-    def __init__(self, n_input=5, n_hidden=64):
+    def __init__(self, n_input=3, n_hidden=64):
         super(ResNLSModel, self).__init__()
 
         self.n_input = n_input

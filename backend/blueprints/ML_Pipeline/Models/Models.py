@@ -12,7 +12,7 @@ def get_LSTMModel(n_input=3):
 def get_ProphetModel():
     return ProphetModel()
 
-def get_ResNLS(n_input=5, n_hidden=64):
+def get_ResNLS(n_input=3, n_hidden=64):
     return ResNLS(n_input, n_hidden)
 
 
