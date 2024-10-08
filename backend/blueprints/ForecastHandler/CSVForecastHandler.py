@@ -68,9 +68,6 @@ def forecast():
 
     csv_data = data.get('csvData')  # Access the CSV data
 
-
-    print(f'\n\n\n\n\n\n {methods} {column} \n\n\n\n\n\n')
-
     # Convert CSV data into a DataFrame
     df = pd.DataFrame(csv_data)
     
