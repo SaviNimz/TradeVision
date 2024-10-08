@@ -6,10 +6,10 @@ import numpy as np
 class ProphetModel(Model):
     def __init__(self):
         super().__init__()
-        self.forcasted_df =None
-        pass
+        self.model = None
+        self.forcasted_df = None
 
-    def preprocess_data(self,df,target_col):
+    def preprocess_data(self, df, target_col):
         if df['Date'].isnull().any():
             print("Error: Invalid date values found.")
             return None
@@ -22,14 +22,11 @@ class ProphetModel(Model):
             print("Warning: Non-positive values found in 'y' column. Applying log transformation.")
             df['y'] = np.log(df['y'] + 1)  # Adding 1 to avoid log(0)
 
-        return df 
+        return df
 
-    def train(self, df,target_col):
+    def train(self, df, target_col):
         """Train Prophet model."""
-        
-        data = self.preprocess_data(df,target_col)
-
-        # Fit the model
+        data = self.preprocess_data(df, target_col)
         model = Prophet()
         try:
             model.fit(data)
@@ -37,16 +34,36 @@ class ProphetModel(Model):
             print(f"Error fitting Prophet model: {e}")
             raise e
         
-        self.model=model
+        self.model = model
         return model
-    
-    def forecast_csv(self,df,target_col='Close',n_future=5):
-        model=self.train(df,target_col)
+
+    def forecast(self, df, target_col='Close', n_future=5, model_weights_path=None):
+        """Generic forecast method for Prophet model."""
+        
+        if model_weights_path:
+            print(f"Loading model weights from {model_weights_path}...")
+            # However, Prophet models cannot load pre-trained weights, so you always need to train the model.
+            pass
+
+        # Train the model if it's not pre-trained or saved
+        if self.model is None:
+            print("Training Prophet model...")
+            model = self.train(df, target_col)
+        else:
+            model = self.model
+
+        # Future dataframe creation and forecasting
+        print(f"Starting forecast for {n_future} future steps...")
         future = model.make_future_dataframe(periods=n_future)
         forecast = model.predict(future)
-        self.forcasted_df=forecast
 
-        return forecast.yhat[-n_future:].tolist()
-    
-    def forecast_stock(self,config):
+        self.forcasted_df = forecast
+
+        # Return only the future predictions
+        future_predictions = forecast[['ds', 'yhat']].tail(n_future)
+        print("Forecasting completed successfully.")
+
+        return future_predictions['yhat'].to_list()
+
+    def forecast_stock(self, config):
         pass

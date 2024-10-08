@@ -71,6 +71,10 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 # print(results)
 
 
-model=Models.get_ResNLS()
+# model=Models.get_ResNLS()
+# results = model.forecast(df)
+# print(results)
+
+model=Models.get_ProphetModel()
 results = model.forecast(df)
 print(results)
