@@ -8,8 +8,5 @@ class Model:
     def train(self,df,target_col):
         raise NotImplementedError("Subclasses must implement train method.")
     
-    def forecast_csv(self,df,target_col,forecast_steps):
+    def forecast(self, df, target_col, n_future, model_weights_path):
         raise NotImplementedError("Subclasses must implement forecast_csv method.")
-    
-    def forecast_stock(self,config):
-        raise NotImplementedError("Subclasses must implement forecast_stock method.")
