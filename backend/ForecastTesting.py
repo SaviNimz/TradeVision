@@ -8,10 +8,15 @@ from blueprints.ForecastHandler.Utils.StockForecastManager import StockForecastM
 from Models import ModelsWeightsManager
 
 
-df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline\\Models\\AAPL.csv')
+
+# df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline\\Models\\AAPL.csv')
 
 
 # print(CSVForecastManager.forecast_scv('ResNLS',df,n_future=3))
+
+
+
+
 
 
 
@@ -21,15 +26,22 @@ df = pd.read_csv('F:\\TradeVision\\TradeVision\\backend\\blueprints\\ML_Pipeline
 # print(results)
 
 
-symbol='MSFT'
-n_future =5
-
-weight_path = ModelsWeightsManager.get_model_weight_path(symbol)
 
 
-results = ForecastManager.forecast_stock(symbol=symbol,model_weights_path=weight_path,forecast_steps=n_future)
 
-print(results)
+
+
+# symbol='AMZN'
+# n_future =5
+
+# weight_path = ModelsWeightsManager.get_model_weight_path(symbol)
+
+
+# results = ForecastManager.forecast_stock(symbol=symbol,model_weights_path=weight_path,forecast_steps=n_future)
+
+# print(results)
+
+
 
 
 
@@ -44,4 +56,7 @@ print(results)
     
 # fetcher = StockDataFetcher(symbol)
 # df = fetcher.fetch_daily_data(n_days_before.date(),today.date())
+
+
+
 
