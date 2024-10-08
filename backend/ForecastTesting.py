@@ -22,7 +22,6 @@ print(results)
 
 
 
-
 # symbol='APPL'
 
 # today = datetime.now()
