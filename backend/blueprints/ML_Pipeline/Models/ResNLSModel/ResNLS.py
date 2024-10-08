@@ -10,7 +10,6 @@ from sklearn.preprocessing import MinMaxScaler
 from .model_definition import ResNLSModel
 from ..Model import Model
 
-
 class ResNLS(Model):
     
     def __init__(self,n_input=5, n_hidden=64):
@@ -127,7 +126,7 @@ class ResNLS(Model):
         # Check if model weights are provided
         if model_weights_path:
             print(f"Loading model weights from {model_weights_path}...")
-            
+
             # Initialize model and load the weights
             model = ResNLSModel().to(device)
             model.load_state_dict(torch.load(model_weights_path))
