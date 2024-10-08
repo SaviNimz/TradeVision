@@ -3,12 +3,15 @@ import json
 from datetime import datetime, timedelta
 
 class StockPredictionManager:
-    def __init__(self, prediction_dir='predictions'):
+    def __init__(self, prediction_dir='backend\\blueprints\\ForecastHandler\\ForecastResults'):
         self.prediction_dir = prediction_dir
-        if not os.path.exists(prediction_dir):
-            os.makedirs(prediction_dir)
+        
+        # Create the directory if it doesn't exist
+        if not os.path.exists(self.prediction_dir):
+            os.makedirs(self.prediction_dir)
 
     def get_prediction_file(self, symbol):
+        """Construct the full path for the prediction file based on stock symbol."""
         return os.path.join(self.prediction_dir, f"{symbol}.json")
 
     def is_outdated(self, last_prediction_date, max_age_days=1):
@@ -16,7 +19,7 @@ class StockPredictionManager:
         return datetime.now() > last_prediction_date + timedelta(days=max_age_days)
 
     def save_prediction(self, symbol, predictions, days_predicted):
-        """Save prediction to JSON file."""
+        """Save prediction to a JSON file."""
         prediction_file = self.get_prediction_file(symbol)
         data = {
             "symbol": symbol,
@@ -50,7 +53,7 @@ class StockPredictionManager:
         
         # If no valid prediction exists, run the model to predict
         print(f"Running new prediction for {symbol}...")
-        model = ResNLS()  # Create an instance of the ResNLS model
+        model = ResNLS()  # Ensure ResNLS model is defined/imported
         predictions = model.forecast_csv(df, target_col, forecast_steps)
 
         # Save the new predictions
