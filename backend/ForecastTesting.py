@@ -31,15 +31,15 @@ from Models import ModelsWeightsManager
 
 
 
-# symbol='AMZN'
-# n_future =5
+symbol='AAPL'
+n_future =5
 
-# weight_path = ModelsWeightsManager.get_model_weight_path(symbol)
+weight_path = ModelsWeightsManager.get_model_weight_path(symbol)
 
 
-# results = ForecastManager.forecast_stock(symbol=symbol,model_weights_path=weight_path,forecast_steps=n_future)
+results = ForecastManager.forecast_stock(symbol=symbol,model_weights_path=weight_path,forecast_steps=n_future)
 
-# print(results)
+print(results)
 
 
 

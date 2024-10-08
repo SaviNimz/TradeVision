@@ -74,4 +74,4 @@ class StockForecastManager:
 
         # Save the new predictions
         self.save_prediction(symbol, predictions.tolist(), forecast_steps)
-        return predictions
+        return predictions.tolist()
