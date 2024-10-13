@@ -1,12 +1,12 @@
 import torch
 import torch.nn as nn
 
-class ResNLS(nn.Module):
-    def __init__(self):
-        super(ResNLS, self).__init__()
+class ResNLSModel(nn.Module):
+    def __init__(self, n_input=3, n_hidden=64):
+        super(ResNLSModel, self).__init__()
 
-        self.n_input = 5
-        self.n_hidden = 64
+        self.n_input = n_input
+        self.n_hidden = n_hidden
 
         # Initialize weights of the attention mechanism
         self.weight = nn.Parameter(torch.zeros(1))
@@ -36,7 +36,7 @@ class ResNLS(nn.Module):
 
         residuals = x + self.weight * cnn_output
 
-        _, (h_n, _) = self.lstm(x)
+        _, (h_n, _) = self.lstm(residuals)
         y_hat = self.linear(h_n[0, :, :])
 
         return y_hat

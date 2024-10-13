@@ -2,22 +2,12 @@ from flask import blueprints
 from flask import request, jsonify
 from werkzeug.utils import secure_filename
 from blueprints.ML_Pipeline.csv_validator import CSVValidator
-from blueprints.ML_Pipeline.models import Models
-from sklearn.preprocessing import MinMaxScaler
-import yfinance as yf
-import numpy as np
+
 import pandas as pd
 import os
-import torch
-
-
-from blueprints.ML_Pipeline.ResNLS.model_definition import ResNLS
-
+from .Utils import ForecastManager
 
 CSV_Forecast_handler = blueprints.Blueprint('csv_forecast_handler', __name__)
-
-
-models = Models()
 
 UPLOAD_FOLDER = 'UPLOAD_FOLDER'
 if not os.path.exists(UPLOAD_FOLDER):
@@ -75,18 +65,18 @@ def forecast():
     column = column.capitalize() if column else column
 
     methods = data.get('methods')
+
     csv_data = data.get('csvData')  # Access the CSV data
 
     # Convert CSV data into a DataFrame
     df = pd.DataFrame(csv_data)
     
-    print(column)
     results = {}
 
     for method in methods:
         try:
-            forecast_result = models.forecast(method, df, column)
-            print(forecast_result)
+            print('starting forecasting......')
+            forecast_result = ForecastManager.forecast_csv(method, df, column)
             # Convert forecast_result to a JSON serializable format
             if isinstance(forecast_result, pd.Series):
                 results[method] = forecast_result.to_dict()  # Convert Series to a dictionary
@@ -99,4 +89,5 @@ def forecast():
             results[method] = {"error": str(e)}  # Capture any errors in the forecasting process
 
     return jsonify(results)
+
 
