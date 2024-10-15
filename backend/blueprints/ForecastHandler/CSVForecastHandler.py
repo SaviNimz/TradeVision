@@ -88,6 +88,8 @@ def forecast():
         except Exception as e:
             results[method] = {"error": str(e)}  # Capture any errors in the forecasting process
 
+        print(f'\n\n\n\n{results}\n\n\n\n\n')
+
     return jsonify(results)
 
 
