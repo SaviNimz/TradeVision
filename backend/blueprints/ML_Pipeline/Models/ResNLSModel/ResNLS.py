@@ -124,7 +124,7 @@ class ResNLS(Model):
 
             # Initialize model and load the weights
             model = ResNLSModel().to(device)
-            model.load_state_dict(torch.load(model_weights_path, map_location=torch.device('cpu')),)
+            model.load_state_dict(torch.load(model_weights_path, map_location=torch.device('cpu')),strict=False )
 
             # Recreate the scaler with min and max values
             scaler = MinMaxScaler()
@@ -166,7 +166,7 @@ class ResNLS(Model):
             predictions = self.scaler.inverse_transform(predictions)
             
             print("Forecasting completed successfully.")
-            return predictions.flatten()
+            return predictions.flatten().tolist()
 
         except Exception as e:
             print(f"Error during ResNLS forecasting: {e}")

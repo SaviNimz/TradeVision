@@ -41,7 +41,7 @@ class StockForecastManager:
                 return json.load(f)
         return None
 
-    def forecast(self, symbol,model_weights_path,target_col='Close',n_back=3,forecast_steps=5):
+    def forecast(self, symbol, model_weights_path, target_col='Close', n_back=3, forecast_steps=5):
         """Main function to handle prediction workflow."""
         # Load existing prediction if available
         existing_prediction = self.load_prediction(symbol)
@@ -57,21 +57,20 @@ class StockForecastManager:
         print(f"Running new prediction for {symbol}...")
 
         today = datetime.now()
-        
         n_days_before = today - timedelta(days=10)  
-    
 
         fetcher = StockDataFetcher(symbol)
-        df = fetcher.fetch_daily_data(n_days_before.date(),today.date())
+        df = fetcher.fetch_daily_data(n_days_before.date(), today.date())
 
-        scaler_min=df[target_col].min()
-        scaler_max=df[target_col].max()
+        scaler_min = df[target_col].min()
+        scaler_max = df[target_col].max()
 
         # check how to use scaler current implement is not sure
 
         model = Models.get_ResNLS(n_input=n_back)
-        predictions = model.forecast(df,target_col,forecast_steps,model_weights_path,scaler_min,scaler_max)
+        predictions = model.forecast(df, target_col, forecast_steps, model_weights_path, scaler_min, scaler_max)
 
-        # Save the new predictions
-        self.save_prediction(symbol, predictions.tolist(), forecast_steps)
-        return predictions.tolist()
+        # Save the new predictions (predictions is already a list)
+        self.save_prediction(symbol, predictions, forecast_steps)
+
+        return predictions
