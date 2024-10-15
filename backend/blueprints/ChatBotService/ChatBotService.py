@@ -11,7 +11,7 @@ from google.oauth2 import service_account
 from google.auth.transport.requests import Request
 import google.auth
 
-service_account_path = 'F:/Trade Vision/TradeVision/backend/blueprints/ChatBotService/key.json'
+service_account_path = 'F:/TradeVision/TradeVision/backend/blueprints/ChatBotService/key.json'
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
 
 credentials = service_account.Credentials.from_service_account_file(service_account_path)

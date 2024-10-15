@@ -73,5 +73,5 @@ class StockForecastManager:
         predictions = model.forecast(df,target_col,forecast_steps,model_weights_path,scaler_min,scaler_max)
 
         # Save the new predictions
-        self.save_prediction(symbol, predictions.tolist(), forecast_steps)
-        return predictions.tolist()
+        self.save_prediction(symbol, predictions, forecast_steps)
+        return predictions
