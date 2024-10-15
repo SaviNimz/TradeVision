@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { FaChartLine, FaRegChartBar, FaRegEye } from 'react-icons/fa';
-import Papa from 'papaparse';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { FaChartLine, FaRegChartBar, FaRegEye } from "react-icons/fa";
+import Papa from "papaparse";
 
 const SelectComponent = ({ csvData, onForecast }) => {
-  const [column, setColumn] = useState('');
+  const [column, setColumn] = useState("");
   const [selectedMethods, setSelectedMethods] = useState([]);
-  const [toastMessage, setToastMessage] = useState('');
+  const [toastMessage, setToastMessage] = useState("");
   const [csvResult, setCsvResult] = useState(null); // Store the CSV result here
 
   const handleColumnChange = (event) => {
     setColumn(event.target.value);
-    setToastMessage('');
+    setToastMessage("");
   };
 
   const handleMethodChange = (method) => {
@@ -20,34 +20,59 @@ const SelectComponent = ({ csvData, onForecast }) => {
         ? prevMethods.filter((m) => m !== method)
         : [...prevMethods, method]
     );
-    setToastMessage('');
+    setToastMessage("");
   };
 
   const handleForecast = async () => {
     if (!column || selectedMethods.length === 0) {
-      setToastMessage('You need to select a Column and Model to Continue');
+      setToastMessage("You need to select a Column and Model to Continue");
       return;
     }
 
-    // Fix this later 
-    const methodsToSend = ['ARIMA'];
+    // Fix this later
+    const methodsToSend = selectedMethods;
 
     const payload = { column, methods: methodsToSend, csvData };
 
     try {
-      const response = await fetch('http://localhost:5000/api/forecast', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:5000/api/forecast", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error('Network response was not ok');
+      if (!response.ok) throw new Error("Network response was not ok");
 
-      const result = await response.json();
-      const flattenedData = Object.entries(result.ARIMA).map(([key, value]) => ({
-        index: key,
-        forecast: value,
-      }));
+      const result = await response.json(); // Call once and store the result
+
+      let flattenedData = []; // Initialize an empty array to hold all flattened data
+
+      if (result.ARIMA) {
+        flattenedData = flattenedData.concat(
+          Object.entries(result.ARIMA).map(([key, value]) => ({
+            index: key,
+            forecast: value,
+          }))
+        );
+      }
+
+      if (result.Prophet) {
+        flattenedData = flattenedData.concat(
+          Object.entries(result.Prophet).map(([key, value]) => ({
+            index: key,
+            forecast: value,
+          }))
+        );
+      }
+
+      if (result.ResNLS) {
+        flattenedData = flattenedData.concat(
+          Object.entries(result.ResNLS).map(([key, value]) => ({
+            index: key,
+            forecast: value,
+          }))
+        );
+      }
 
       if (onForecast) onForecast(flattenedData);
 
@@ -73,10 +98,10 @@ const SelectComponent = ({ csvData, onForecast }) => {
       </Select>
       <Question>Select forecasting model(s)</Question>
       <OptionsContainer>
-        {['ARIMA', 'Prophet', 'ResNLS'].map((methodOption) => (
+        {["ARIMA", "Prophet", "ResNLS"].map((methodOption) => (
           <Option
             key={methodOption}
-            className={selectedMethods.includes(methodOption) ? 'selected' : ''}
+            className={selectedMethods.includes(methodOption) ? "selected" : ""}
             onClick={() => handleMethodChange(methodOption)}
           >
             <input
@@ -86,9 +111,9 @@ const SelectComponent = ({ csvData, onForecast }) => {
               onChange={() => handleMethodChange(methodOption)}
             />
             <Icon>
-              {methodOption === 'ARIMA' && <FaChartLine />}
-              {methodOption === 'Prophet' && <FaRegChartBar />}
-              {methodOption === 'ResNLS' && <FaRegEye />}
+              {methodOption === "ARIMA" && <FaChartLine />}
+              {methodOption === "Prophet" && <FaRegChartBar />}
+              {methodOption === "ResNLS" && <FaRegEye />}
             </Icon>
             <span>{methodOption}</span>
           </Option>
