@@ -166,7 +166,7 @@ class ResNLS(Model):
             predictions = self.scaler.inverse_transform(predictions)
             
             print("Forecasting completed successfully.")
-            return predictions.flatten()
+            return predictions.flatten().tolist()
 
         except Exception as e:
             print(f"Error during ResNLS forecasting: {e}")
