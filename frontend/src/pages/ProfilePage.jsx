@@ -354,7 +354,7 @@ const PricingSection = styled.div`
 
 const PricingTitle = styled.h2`
   font-size: 1.6rem;
-  color: #1a202c;
+  color: #ffffff;
 `;
 
 const PricingCards = styled.div`
