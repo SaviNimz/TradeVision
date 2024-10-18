@@ -122,7 +122,7 @@ const ChatbotContainer = styled.div`
   max-width: 500px;
   margin: 0 auto;
   background-color: #121212; 
-  border-radius: 15px;
+  border-radius: 50px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
   font-family: 'Roboto', sans-serif;
   display: flex;
