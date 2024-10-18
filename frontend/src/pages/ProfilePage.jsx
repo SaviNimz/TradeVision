@@ -75,13 +75,13 @@ const ProfilePage = () => {
     
       <NewCardsSection>
         <StyledCard onClick={handleGenerateForecasts}>
-          <CardImage src={forecastIcon} alt="Forecast Icon" />
+          {/* <CardImage src={forecastIcon} alt="Forecast Icon" /> */}
           <CardTitle>Generate Stock Forecasts</CardTitle>
           <CardDescription>Upload your CSV and get detailed stock forecasts.</CardDescription>
         </StyledCard>
 
         <StyledCard onClick={handleRetrieveSavedForecasts}>
-          <CardImage src={RetrieveIcon} alt="Retrieve Icon" />
+          {/* <CardImage src={RetrieveIcon} alt="Retrieve Icon" /> */}
           <CardTitle>Retrieve Past Forecasts</CardTitle>
           <CardDescription>View and analyze your previously saved forecasts.</CardDescription>
         </StyledCard>
