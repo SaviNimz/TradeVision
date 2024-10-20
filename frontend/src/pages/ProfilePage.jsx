@@ -85,9 +85,13 @@ const ProfilePage = () => {
           <CardDescription>View and analyze your previously saved forecasts.</CardDescription>
         </StyledCard>
       </NewCardsSection>
-
+      <PredictionSectionTitle>
+        Prediction and Forecast Overview
+        </PredictionSectionTitle>
       <PredictionSectionContainer>
+       
         <PredictionSection>
+          
           <PredictionTitle>Total Predictions</PredictionTitle>
           <PredictionCount>{predictionCount + 4}</PredictionCount>
         </PredictionSection>
@@ -288,8 +292,8 @@ const CardDescription = styled.p`
 const PredictionSectionContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-bottom: 30px;
+  gap: 200px;
+  margin-bottom: 50px;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -299,14 +303,14 @@ const PredictionSectionContainer = styled.div`
 
 const PredictionSection = styled.div`
   
-  padding: 30px;
+  padding: 5px;
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const PredictionTitle = styled.h4`
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   font-size: 1.3rem;
   color: #ffffff;
 `;
@@ -326,6 +330,11 @@ const PricingTitle = styled.h2`
   text-align: center;
   font-size: 2.2rem;
   margin-bottom: 20px;
+`;
+const PredictionSectionTitle = styled.h2`
+  text-align: center;
+  font-size: 2.2rem;
+  margin-top: 50px;
 `;
 
 const PricingCards = styled.div`
