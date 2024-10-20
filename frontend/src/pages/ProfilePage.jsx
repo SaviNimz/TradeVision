@@ -9,6 +9,7 @@ import profpic from '../assets/profpic.jpg';
 import { auth } from '../utils/firebase';
 import Chatbot from '../components/ChatBot';
 
+
 const ProfilePage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
@@ -18,7 +19,7 @@ const ProfilePage = () => {
   });
   const [isBouncing, setIsBouncing] = useState(true);
   const [hasClicked, setHasClicked] = useState(false);
-  
+
   // State for predictions
   const [predictionCount, setPredictionCount] = useState(0);
 
@@ -64,6 +65,7 @@ const ProfilePage = () => {
 
   return (
     <Container>
+      
       <ProfileSection>
         <ProfilePicture src={user.profilePicture} alt="Profile" />
         <ProfileInfo>
@@ -72,36 +74,33 @@ const ProfilePage = () => {
         </ProfileInfo>
       </ProfileSection>
 
-    
       <NewCardsSection>
         <StyledCard onClick={handleGenerateForecasts}>
-          {/* <CardImage src={forecastIcon} alt="Forecast Icon" /> */}
           <CardTitle>Generate Stock Forecasts</CardTitle>
           <CardDescription>Upload your CSV and get detailed stock forecasts.</CardDescription>
         </StyledCard>
 
         <StyledCard onClick={handleRetrieveSavedForecasts}>
-          {/* <CardImage src={RetrieveIcon} alt="Retrieve Icon" /> */}
           <CardTitle>Retrieve Past Forecasts</CardTitle>
           <CardDescription>View and analyze your previously saved forecasts.</CardDescription>
         </StyledCard>
       </NewCardsSection>
-  {/* Animated Prediction Count */}
-  <PredictionSectionContainer>
-      <PredictionSection>
-        <PredictionTitle>Total Predictions</PredictionTitle>
-        <PredictionCount>{predictionCount+4}</PredictionCount>
-      </PredictionSection>
-      <PredictionSection>
-        <PredictionTitle>Used Stocks</PredictionTitle>
-        <PredictionCount>{predictionCount+3}</PredictionCount>
-      </PredictionSection>
-      <PredictionSection>
-        <PredictionTitle>Past Forecasts</PredictionTitle>
-        <PredictionCount>{predictionCount}</PredictionCount>
-      </PredictionSection>
+
+      <PredictionSectionContainer>
+        <PredictionSection>
+          <PredictionTitle>Total Predictions</PredictionTitle>
+          <PredictionCount>{predictionCount + 4}</PredictionCount>
+        </PredictionSection>
+        <PredictionSection>
+          <PredictionTitle>Used Stocks</PredictionTitle>
+          <PredictionCount>{predictionCount + 3}</PredictionCount>
+        </PredictionSection>
+        <PredictionSection>
+          <PredictionTitle>Past Forecasts</PredictionTitle>
+          <PredictionCount>{predictionCount}</PredictionCount>
+        </PredictionSection>
       </PredictionSectionContainer>
-      {/* Pricing Cards Section */}
+
       <PricingSection>
         <PricingTitle>Upgrade Your Plan</PricingTitle>
         <PricingCards>
@@ -110,7 +109,6 @@ const ProfilePage = () => {
             <CardPrice>Free</CardPrice>
             <CardDescription>Try all premium features for 30 days.</CardDescription>
             <UpgradeButton>{user.profilePicture ? 'Continue Trial' : 'Start Trial'}</UpgradeButton>
-
           </PricingCard1>
 
           <PricingCard2>
@@ -128,8 +126,6 @@ const ProfilePage = () => {
           </PricingCard3>
         </PricingCards>
       </PricingSection>
-
-   
 
       <SupportSection>
         <Title>Need Help?</Title>
@@ -153,8 +149,7 @@ const ProfilePage = () => {
         </SocialLinks>
       </SupportSection>
 
-       {/* Add Chatbot */}
-       <ChatbotWrapper isBouncing={isBouncing} onClick={handleChatbotClick}>
+      <ChatbotWrapper isBouncing={isBouncing} onClick={handleChatbotClick}>
         <Chatbot />
       </ChatbotWrapper>
     </Container>
@@ -203,54 +198,34 @@ const Button = styled.button`
     background-color: #0a58ca;
   }
 `;
-const SettingOption = styled.div`
-  margin-top: 10px;
-  font-size: 1rem;
-  color: #4a5568;
-`;
-const RadioGroup = styled.div`
-  display: flex;
-  gap: 20px;
-`;
 
-const RadioButton = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  label {
-    font-size: 1rem;
-  }
-`;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background: linear-gradient(235deg, #000000 0%, #002f4c 10%, rgba(0, 0, 0, 0.9) 50%, #002080 100%); 
+  background: linear-gradient(235deg, #000000 0%, #002f4c 10%, rgba(0, 0, 0, 0.9) 50%, #002080 100%);
   min-height: 100vh;
-  box-sizing: border-box;
   color: #ffffff;
 `;
-const Label = styled.label`
-  font-size: 1.1rem;
-  color: #ffffff;
+const ProfileSectionall = styled.div`
+
+
 `;
+
 const ProfileSection = styled.div`
   display: flex;
   align-items: center;
-  justify-content: left;
   margin-bottom: 30px;
   margin-top: 30px;
-  margin-left: 30px;
-  
 `;
 
 const ProfilePicture = styled.img`
   border-radius: 50%;
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   border: 5px solid #0d6efd;
-  box-shadow: 0 4px 10px rgba(10, 10, 10, 10);
   transition: transform 0.3s ease;
+
   &:hover {
     transform: scale(1.05);
   }
@@ -258,7 +233,6 @@ const ProfilePicture = styled.img`
 
 const ProfileInfo = styled.div`
   margin-left: 20px;
-  
 `;
 
 const Name = styled.h2`
@@ -272,40 +246,10 @@ const Email = styled.p`
   font-size: 1rem;
 `;
 
-// New Prediction Section with Animated Count
-const PredictionSectionContainer = styled.div`
-  display: flex;
-  position: relative;
-  justify-content: center;
-  gap: 100px; /* Adjust the value to your desired gap size */
-  margin-bottom: 2px;
-`;
-
-
-const PredictionSection = styled.div`
-  text-align: center;
-  margin-bottom: 4px;
-  padding: 20px;
-  gap: 40px;
-`;
-
-const PredictionTitle = styled.h2`
-  font-size: 1.8rem;
-  color: #ffffff;
-`;
-
-const PredictionCount = styled.span`
-  font-size: 3rem;
-  font-weight: bold;
-  color: #d0e3ff;
-`;
-
-// NewCardsSection
-
 const NewCardsSection = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 4px;
+  margin-bottom: 20px;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -316,22 +260,18 @@ const NewCardsSection = styled.div`
 const StyledCard = styled.div`
   flex: 1;
   margin: 10px;
-  background: linear-gradient(14deg, #ffffff 0%, #95c0fe 50%, #ffffff 100%);
-  border-radius: 12px;
+  background: linear-gradient(14deg, #d1d5db 0%, #95c0fe 50%, #d1d5db 100%);
+  border-radius: 30px;
   padding: 20px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
   &:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
-`;
-
-const CardImage = styled.img`
-  width: 100px;
-  margin-bottom: 0px;
 `;
 
 const CardTitle = styled.h3`
@@ -345,16 +285,47 @@ const CardDescription = styled.p`
   color: #4a5568;
 `;
 
-// Pricing Section
+const PredictionSectionContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+`;
+
+const PredictionSection = styled.div`
+  
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+`;
+
+const PredictionTitle = styled.h4`
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  color: #ffffff;
+`;
+
+const PredictionCount = styled.p`
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+  color: #d1d5db;
+`;
 
 const PricingSection = styled.div`
-  text-align: center;
   margin-bottom: 40px;
 `;
 
 const PricingTitle = styled.h2`
-  font-size: 1.6rem;
-  color: #ffffff;
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
 `;
 
 const PricingCards = styled.div`
@@ -364,171 +335,84 @@ const PricingCards = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
+    align-items: center;
     gap: 20px;
   }
 `;
 
 const PricingCard1 = styled.div`
-  flex: 1;
-  max-width: 300px;
-background: linear-gradient(90deg, #a1c4fd 0%, #a1c4fd, #a1c4fd);
-  background-size: 300% 300%; /* Ensure the gradient is large enough to move */
-  border-radius: 10px;
-  padding: 20px;
+  background: linear-gradient(235deg, #fff, #eeeeff, #ffffff);
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  animation: shine 3s infinite ease-in-out; /* Updated duration for a visible effect */
 
   &:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
-
-  @keyframes shine {
-    0% {
-      background-position: 10% ;
-    }
-    50% {
-      background-position: 100% ;
-    }
-    100% {
-      background-position: 10% ;
-    }
-  }
 `;
 
-const PricingCard2 = styled.div`
-  flex: 1;
-  max-width: 300px;
-background: linear-gradient(90deg, #f2f2f2 0%, #d9d9d9, #ffffff);
-  background-size: 300% 300%; /* Ensure the gradient is large enough to move */
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  animation: shine 3s infinite ease-in-out; /* Updated duration for a visible effect */
-
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-
-  @keyframes shine {
-    0% {
-      background-position: 0% ;
-    }
-    50% {
-      background-position: 100% ;
-    }
-    100% {
-      background-position: 0% ;
-    }
-  }
+const PricingCard2 = styled(PricingCard1)`
+  background: linear-gradient(235deg, #0d6efd, #003080, #0d6efd);
+  color: #ffffff;
 `;
 
-const PricingCard3 = styled.div`
-  flex: 1;
-  max-width: 300px;
-background: linear-gradient(90deg, #fff4e0 0%, #ffd700, #daa520);
-  background-size: 300% 300%; /* Ensure the gradient is large enough to move */
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  animation: shine 3s infinite ease-in-out; /* Updated duration for a visible effect */
-
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-
-  @keyframes shine {
-    0% {
-      background-position: 0% ;
-    }
-    50% {
-      background-position: 100% ;
-    }
-    100% {
-      background-position: 0% ;
-    }
-  }
+const PricingCard3 = styled(PricingCard1)`
+  background: linear-gradient(235deg, #ff9800, #ffc107, #ff9800);
+  color: #ffffff;
 `;
-
-
 
 const CardPrice = styled.p`
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: bold;
-  color: #0d6efd;
+  margin: 10px 0;
 `;
 
-const UpgradeButton = styled.button`
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #0d6efd;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: #0a58ca;
-  }
+const UpgradeButton = styled(Button)`
+  margin-top: 10px;
 `;
-
-// Support Section
 
 const SupportSection = styled.div`
-  margin-top: 40px;
-  padding: 20px;
-  background: #cfe3ff;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 40px;
+`;
+
+const Title = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 10px;
 `;
 
 const SupportText = styled.p`
-  font-size: 1rem;
-  color: #4a5568;
+  font-size: 1.2rem;
   margin-bottom: 20px;
 `;
 
 const SocialLinks = styled.div`
   display: flex;
+  justify-content: center;
   gap: 20px;
+  flex-wrap: wrap;
 `;
 
 const SocialLink = styled.a`
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1rem;
-  color: #1a202c;
+  background: #ffffff;
+  color: #0d6efd;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1.2rem;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
-    color: #0d6efd;
+    background-color: #0d6efd;
+    color: #ffffff;
   }
-`;
 
-
-
-const AccountSettingsSection = styled.div`
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-`;
-
-const Title = styled.h3`
-  margin-bottom: 20px;
-  font-size: 1.4rem;
-  color: #1a202c;
-`;
-
-const Setting = styled.div`
-  margin-bottom: 20px;
+  & > svg {
+    margin-right: 10px;
+  }
 `;
