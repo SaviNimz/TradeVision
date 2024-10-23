@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { toast, ToastContainer } from 'react-toastify';
@@ -5,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaFileCsv } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
 import ErrorMessage from './ErrorMessage';
-
+import { FaArrowUp } from 'react-icons/fa';
 const FileUploadCard = ({ onUploadSuccess }) => {
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState('');
@@ -81,33 +83,91 @@ const FileUploadCard = ({ onUploadSuccess }) => {
         setErrorModalOpen(false);
     };
 
-    return (
-        <Card>
-            <Title>Upload CSV File</Title>
-            {!file && (
-                <Input type="file" accept=".csv" onChange={handleFileChange} />
-            )}
-            {file && (
-                <FileInfoContainer>
-                    <FileIcon />
-                    <FileInfo>{file.name}</FileInfo>
-                    <CloseIcon onClick={handleRemoveFile} />
-                </FileInfoContainer>
-            )}
-            <UploadButton onClick={handleUploadClick}>Upload</UploadButton>
-            {message && <Message>{message}</Message>}
-            <ToastContainer />
-            {errorModalOpen && (
-                <ErrorMessage message={errorMessage} onClose={handleCloseModal} />
-            )}
-        </Card>
-    );
+  
+return (
+    <Card>
+      <Title>Upload CSV File</Title>
+      <Wrapper>
+        <FileUpload>
+          <Input
+            type="file"
+            accept=".csv"
+            onChange={handleFileChange}
+          />
+          <FaArrowUp className="fa-arrow-up" /> {/* Up arrow icon */}
+        </FileUpload>
+      </Wrapper>
+  
+      {file && (
+        <FileInfoContainer>
+          <FileIcon />
+          <FileInfo>{file.name}</FileInfo>
+          <CloseIcon onClick={handleRemoveFile} />
+        </FileInfoContainer>
+      )}
+      <UploadButton onClick={handleUploadClick}>Forecast</UploadButton>
+      {message && <Message>{message}</Message>}
+      <ToastContainer />
+      {errorModalOpen && (
+        <ErrorMessage message={errorMessage} onClose={handleCloseModal} />
+      )}
+    </Card>
+  );
 };
 
 export default FileUploadCard;
 
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const FileUpload = styled.div`
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid ;
+  overflow: hidden;
+  background-image: linear-gradient(to bottom, #2590EB 50%, #FFFFFF 50%);
+  background-size: 100% 200%;
+  transition: all 1s;
+  color: #f0f0f0;
+  font-size: 50px; /* Reduced the font size for the arrow */
+
+  input[type='file'] {
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .fa-arrow-up {
+    font-size: 3rem; /* Font size for the up arrow */
+    color: white; 
+  }
+
+  &:hover {
+    background-position: 0 -100%;
+    color: #2590EB;
+
+    .fa-arrow-up {
+      color: #2590EB; /* Change arrow color on hover */
+    }
+  }
+`;
+
 const Card = styled.div`
-    width: 400px;
+    width: 850px;
     padding: 35px;
     border: 1px solid #444;
     border-radius: 12px;
