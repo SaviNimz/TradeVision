@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import FileUploadCard from '../components/CSVforecast/UploadButton.jsx';
 import SelectComponent from '../components/CSVforecast/SelectComponent.jsx';
@@ -78,10 +79,11 @@ const PageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 84vh;
-  padding: 20px;
+  padding: 10px;
   background-color: #0f2027;
   color: white;
   overflow: hidden;
+  
 `;
 
 const BackgroundOverlay = styled.div`
@@ -103,7 +105,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1000px;
+  max-width: 10000px;
   width: 100%; /* Ensure full width */
   padding: 20px;
   gap: 20px;

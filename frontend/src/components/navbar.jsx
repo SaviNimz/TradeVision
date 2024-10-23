@@ -6,15 +6,31 @@ import logoImage from '../assets/logo.jpeg'; // Replace with the actual path to 
 
 const NavbarContainer = styled.nav`
   display: flex;
-   
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   background-color: #0a1e3a; /* Dark futuristic blue */
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
   position: sticky;
-  z-index: 1;
+  top: 0; /* Ensure the navbar stays at the top */
+  z-index: 3; /* Ensure the navbar stays above other content */
+ 
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    padding: 10px;
+  }
+
+  /* Transition for smooth color change */
+  transition: background-color 0.3s ease-in-out;
+
+  /* Optional: Change navbar background when scrolling */
+  &.scrolled {
+    background-color: #07162a; /* Darker shade when scrolling */
+  }
 `;
+
 
 const Logo = styled.div`
   display: flex;
@@ -52,6 +68,7 @@ const NavList = styled.ul`
 `;
 
 const NavItem = styled.li`
+
   list-style: none;
   width: 100%; /* Full width for clickable area */
 
@@ -62,22 +79,34 @@ const NavItem = styled.li`
 `;
 
 const NavLinkStyled = styled(NavLink)`
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #b0c7e8;
-  padding: 10px 20px; /* Increased padding for better touch area */
-  border-radius: 5px;
-  display: block; /* Block display for full-width links */
-  transition: background-color 0.2s ease;
+text-decoration: none;
+        color: #8f8f8f;
+        font-size: 1.2rem;
+        font-weight: 400;
+        transition: all 0.5s ease-in-out;
+        position: relative;
+        
 
-  &:hover {
-    background-color: rgba(176, 199, 232, 0.3); /* Slightly darker on hover */
-  }
+        &::before {
+          content: attr(data-item);
+          transition: 0.5s;
+          color: #8254ff;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          width: 0;
+          overflow: hidden;
+        }
+
+  
+
+
 
   &.active {
     color: #ffffff;
-    background-color: #1a3b5d;
+    text-color: #1a3b5d;
   }
 `;
 
