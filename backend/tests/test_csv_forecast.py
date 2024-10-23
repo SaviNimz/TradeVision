@@ -1,11 +1,8 @@
 import pytest
 import json
-import os
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
-from blueprints.ML_Pipeline.csv_validator import CSVValidator
-from blueprints.ML_Pipeline.models import Models
 from blueprints.ForecastHandler.CSVForecastHandler import CSV_Forecast_handler 
 import io
 
@@ -159,6 +156,3 @@ def test_forecast_close_low(test_client):
     for method in methods:
         assert method in json_data  # Ensure each method is in the results
         assert isinstance(json_data[method], dict)  # Check that the result is a dictionary
-
-
-
