@@ -6,6 +6,7 @@ import TickerTape from '../components/Dashboard_Components/TickerTape.jsx';
 import GainersChart from '../components/Dashboard_Components/GainersChart.jsx';
 import NewsComponent from '../services/NewsService.jsx';
 import Chatbot from '../components/ChatBot';
+import backgroundimage from '../assets/02-34-11-741_512.gif'; // Import the sendmessage image
 
 const Dashboard = () => {
   const [isBouncing, setIsBouncing] = useState(true); // To control bounce animation
@@ -42,6 +43,7 @@ const DashboardContainer = styled.div`
   min-height: 100vh; /* Full height */
   padding: 20px;
   color: #fff; /* Ensure text is readable */
+  background-image: url(${backgroundimage}); /* Set the imported image as background */
 `;
 
 const MainContent = styled.main`

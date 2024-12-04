@@ -93,14 +93,18 @@ const StockForecastPage = () => {
             <Chart symbol={selectedStock.symbol} />
           </StockInfoContainer>
         )}
+<ForecastNowButtonContainer>
+{selectedStock && <ForecastNowButton onClick={handleForecastClick} />}
 
-        {selectedStock && <ForecastNowButton onClick={handleForecastClick} />}
+</ForecastNowButtonContainer>
+       
 
         {/* Flex container for side-by-side components */}
         {predictedPrices.length > 0 && (
           <ForecastContainer>
             <ForecastedPricesChart predictedPrices={predictedPrices} />
             <ForecastSummary predictedPrices={predictedPrices} />
+            
           </ForecastContainer>
         )}
 
@@ -112,7 +116,14 @@ const StockForecastPage = () => {
 export default StockForecastPage;
 
 // Styled components
-
+const ForecastNowButtonContainer = styled.div`
+  position: fixed; /* Use fixed positioning */
+  bottom: 20px; /* Distance from the bottom */
+  right: 20px; /* Distance from the right */
+  display: flex;
+  justify-content: center;
+  z-index: 9999; /* Ensure it appears above other content */
+`;
 const bounce = keyframes`
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
@@ -167,6 +178,7 @@ const AnimatedIcon = styled.div`
   align-items: center;
   width: 100px;
   height: 100px;
+  
 
   svg {
     font-size: 3rem;
@@ -197,12 +209,20 @@ const StockInfoContainer = styled.div`
 
 const ForecastContainer = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  gap: 20px;
+  gap: 50px;
   margin-top: 20px;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
+  /* Make sure the left side takes 2/3 of the width and the right side 1/3 */
+  & > .left {
+    flex-basis: 66.66%; /* 2/3 of the width */
+    background-color: #f0f0f0; /* Optional: set background for visibility */
+  }
+
+  & > .right {
+    flex-basis: 33.33%; /* 1/3 of the width */
+    background-color: #d0d0d0; /* Optional: set background for visibility */
   }
 `;
 

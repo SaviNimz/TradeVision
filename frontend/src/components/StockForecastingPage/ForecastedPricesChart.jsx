@@ -59,6 +59,7 @@ const ChartContainer = styled.div`
   max-width: 700px; /* Limit the width on larger screens */
   margin: 0 auto;
   padding: 10px;
+  margine-left: 20px;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   color: white;

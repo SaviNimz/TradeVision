@@ -23,6 +23,7 @@ const ForecastSummary = ({ predictedPrices }) => {
 
     return (
         <SummaryContainer>
+            <SummaryBoxAll>
             <SummaryBox>
                 <h2>Highest Price</h2>
                 <p>Price: ${highest}</p>
@@ -31,7 +32,7 @@ const ForecastSummary = ({ predictedPrices }) => {
                 <h2>Lowest Price</h2>
                 <p>Price: ${lowest}</p>
             </SummaryBox>
-
+            </SummaryBoxAll>
             {/* CSV Download Button */}
             <CSVDownloadButton>
                 <FaDownload /> {/* CSV Icon */}
@@ -39,6 +40,7 @@ const ForecastSummary = ({ predictedPrices }) => {
                     Download as CSV
                 </CSVLink>
             </CSVDownloadButton>
+            
         </SummaryContainer>
     );
 };
@@ -47,107 +49,124 @@ export default ForecastSummary;
 
 // Styled Components
 
+const SummaryBoxAll = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  background: #004080;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
 const SummaryContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-right: 220px;
-    gap: 20px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #ffffff;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ffffff;
 
-    @media (max-width: 768px) {
-        margin-right: 0;
-        padding: 10px;
-    }
+  @media (max-width: 768px) {
+    margin-right: 0;
+    padding: 10px;
+  }
 
-    @media (max-width: 480px) {
-        padding: 5px;
-    }
+  @media (max-width: 480px) {
+    padding: 5px;
+  }
 `;
 
 const SummaryBox = styled.div`
-    background: rgba(0, 0, 0, 0.5);
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+width: 100%;
+height: 90%;
+  h2 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+  }
+
+  p {
+    margin: 5px 0;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px;
 
     h2 {
-        margin-bottom: 10px;
-        font-size: 1.2rem;
+      font-size: 1rem;
     }
 
     p {
-        margin: 5px 0;
-        font-size: 1rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 8px;
+
+    h2 {
+      font-size: 0.9rem;
     }
 
-    @media (max-width: 768px) {
-        padding: 10px;
-
-        h2 {
-            font-size: 1rem;
-        }
-
-        p {
-            font-size: 0.9rem;
-        }
+    p {
+      font-size: 0.8rem;
     }
-
-    @media (max-width: 480px) {
-        padding: 8px;
-
-        h2 {
-            font-size: 0.9rem;
-        }
-
-        p {
-            font-size: 0.8rem;
-        }
-    }
+  }
 `;
 
 const CSVDownloadButton = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-    font-size: 1.2rem;
-    background: #004080;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  background: #004080;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  svg {
+    font-size: 1.5rem;
+  }
+
+  a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  &:hover {
+    background: #0050a0;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    padding: 8px 16px;
 
     svg {
-        font-size: 1.5rem;
+      font-size: 1.2rem;
     }
+  }
 
-    a {
-        color: #ffffff;
-        text-decoration: none;
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+
+    svg {
+      font-size: 1rem;
     }
-
-    &:hover {
-        background: #0050a0;
-    }
-
-    @media (max-width: 768px) {
-        font-size: 1rem;
-        padding: 8px 16px;
-
-        svg {
-            font-size: 1.2rem;
-        }
-    }
-
-    @media (max-width: 480px) {
-        font-size: 0.9rem;
-        padding: 6px 12px;
-
-        svg {
-            font-size: 1rem;
-        }
-    }
+  }
 `;
+
+export { SummaryBoxAll, SummaryContainer, SummaryBox, CSVDownloadButton };
